@@ -1,5 +1,5 @@
 public class PHIEUNHANHANG{
-  private string ma_phn;// ma phieu nhan hang
-  private string ma_nv, ma_ncc, ngay;
-  priaate int tong_tien;//
+  private String ma_phn;// ma phieu nhan hang
+  private String ma_nv, ma_ncc, ngay;
+  private int tong_tien;//
 }
