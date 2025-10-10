@@ -1,23 +1,23 @@
 public class NHANVIEN {
-    private String maNV ,ho,ten;
-    private int luongThang;
+    private String ma_nv ,ho,ten;
+    private int luong_thang;
     public NHANVIEN(){
-        maNV=" ";
+        ma_nv=" ";
         ho=" ";
         ten=" ";
-        luongThang=0;
+        luong_thang=0;
     }
-    public NHANVIEN(String maNV,String ho,String ten,int luongThang){
-        this.maNV=maNV;
+    public NHANVIEN(String ma_nv,String ho,String ten,int luong_thang){
+        this.ma_nv=ma_nv;
         this.ho=ho;
         this.ten=ten;
-        this.luongThang=luongThang;
+        this.luong_thang=luong_thang;
     }
     public NHANVIEN(NHANVIEN a){
-        maNV=a.maNV;
+        ma_nv=a.ma_nv;
         ho=a.ho;
         ten=a.ten;
-        luongThang=a.luongThang;
+        luong_thang=a.luong_thang;
     }
 
     public String getHo() {
@@ -25,7 +25,7 @@ public class NHANVIEN {
     }
 
     public String getMaNV() {
-        return maNV;
+        return ma_nv;
     }
 
     public String getTen() {
@@ -33,6 +33,6 @@ public class NHANVIEN {
     }
 
     public int getLuongThang() {
-        return luongThang;
+        return luong_thang;
     }
 }

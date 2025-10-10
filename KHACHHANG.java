@@ -1,25 +1,25 @@
 public class KHACHHANG {
-    private String maKH, ho, ten, diaChi, soDT;
+    private String ma_kh, ho, ten, dia_chi, so_dt;
     public KHACHHANG(){
-        maKH="";
+        ma_kh="";
         ho="";
         ten="";
-        diaChi="";
-        soDT="";
+        dia_chi="";
+        so_dt="";
     }
-    public KHACHHANG(String maKH,String ho,String ten, String diaChi,String soDT){
-        this.maKH=maKH;
+    public KHACHHANG(String ma_kh,String ho,String ten, String dia_chi,String so_dt){
+        this.ma_kh=ma_kh;
         this.ho=ho;
         this.ten=ten;
-        this.diaChi=diaChi;
-        this.soDT=soDT;
+        this.dia_chi=dia_chi;
+        this.so_dt=so_dt;
     }
     public KHACHHANG(KHACHHANG a){
-        maKH= a.maKH;
+        ma_kh= a.ma_kh;
         ho=a.ho;
         ten=a.ten;
-        diaChi=a.diaChi;
-        soDT=a.soDT;
+        dia_chi=a.dia_chi;
+        so_dt=a.so_dt;
     }
 
     public String getHo() {
@@ -31,14 +31,14 @@ public class KHACHHANG {
     }
 
     public String getDiaChi() {
-        return diaChi;
+        return dia_chi;
     }
 
     public String getMaKH() {
-        return maKH;
+        return ma_kh;
     }
 
     public String getSoDT() {
-        return soDT;
+        return so_dt;
     }
 }
