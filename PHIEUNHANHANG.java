@@ -20,9 +20,9 @@ public class PHIEUNHANHANG{
     ngay = x.ngay;
     tong_tien = x.tong_tien;
   }
-  @Override public void nhap(){
+  public void nhap(){
   }
-  @Override public void xuat(){
+  public void xuat(){
   }
   
   public String getMaPNH(){
