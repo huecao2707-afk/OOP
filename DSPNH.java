@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class DSPHIEUNHANHANG{
+public class DSPNH{
   private int n; //so luong phieu nhan hang
   private PHIEUNHANHANG ds_pnh [] = new PHIEUNHANHANG[1];// mang ds phieu nhan hang
-  public DSPHIEUNHANHANG(){}
-  public DSPHIEUNHANHANG(int n, PHIEUNHANHANG [] ds_pnh){
+  public DSPNH(){}
+  public DSPNH(int n, PHIEUNHANHANG [] ds_pnh){
     this.n = n;
     this.ds_pnh = ds_pnh;
   }

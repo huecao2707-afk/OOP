@@ -1,15 +1,15 @@
-public class DOCHOI extends VANPHONGPHAM{
+public class DoChoi extends VANPHONGPHAM{
     private String the_loai;
     private String lua_tuoi;
 
-    public DOCHOI(){
+    public DoChoi(){
     }
-    public DOCHOI(String ma_sp,String ten_sp, String don_vi_tinh,int don_gia,int so_luong, String the_loai,String lua_tuoi){
+    public DoChoi(String ma_sp,String ten_sp, String don_vi_tinh,int don_gia,int so_luong, String the_loai,String lua_tuoi){
         super(don_gia, so_luong, ma_sp, ten_sp, don_vi_tinh);
         this.the_loai = the_loai;
         this.lua_tuoi = lua_tuoi;
     }
-    public DOCHOI(DOCHOI other){
+    public DoChoi(DoChoi other){
         super((VANPHONGPHAM)other);
         this.lua_tuoi = other.lua_tuoi;
         this.the_loai = other.the_loai;
