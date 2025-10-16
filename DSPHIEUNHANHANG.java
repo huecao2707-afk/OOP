@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class DSPHIEUNHANHANG{
   private int n; //so luong phieu nhan hang
   private PHIEUNHANHANG ds_pnh [] = new PHIEUNHANHANG[1];// mang ds phieu nhan hang
