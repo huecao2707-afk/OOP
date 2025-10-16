@@ -1,4 +1,4 @@
-public class DoChoi extends VANPHONGPHAM{
+public class DoChoi extends VanPhongPham{
     private String the_loai;
     private String lua_tuoi;
 
@@ -10,7 +10,7 @@ public class DoChoi extends VANPHONGPHAM{
         this.lua_tuoi = lua_tuoi;
     }
     public DoChoi(DoChoi other){
-        super((VANPHONGPHAM)other);
+        super((VanPhongPham)other);
         this.lua_tuoi = other.lua_tuoi;
         this.the_loai = other.the_loai;
     }

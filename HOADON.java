@@ -1,15 +1,15 @@
-public class HOADON {
+public class HoaDon {
     private String ma_hoa_don;
     private int tong_tien;
-    public HOADON(){
+    public HoaDon(){
         ma_hoa_don = "";
         tong_tien = 0;
     }
-    public HOADON(String ma_hoa_don, int tong_tien){
+    public HoaDon(String ma_hoa_don, int tong_tien){
         this.ma_hoa_don = ma_hoa_don;
         this.tong_tien = tong_tien;
     }
-    public HOADON(HOADON x){
+    public HoaDon(HoaDon x){
         x.ma_hoa_don = ma_hoa_don;
         x.tong_tien = tong_tien;
     }

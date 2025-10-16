@@ -1,22 +1,22 @@
 public class DSNCC {
         int n;
-        public NHACUNGCAP[] dsncc = new NHACUNGCAP[1];
+        public NhaCungCap[] dsncc = new NhaCungCap[1];
         public DSNCC(){
             n = 0;
-            dsncc = new NHACUNGCAP[0];
+            dsncc = new NhaCungCap[0];
         }
         public DSNCC(int n){
             this.n = n;
-            dsncc = new NHACUNGCAP[n];
+            dsncc = new NhaCungCap[n];
             for(int i = 0; i < dsncc.length; i++){
-                dsncc[i] = new NHACUNGCAP();
+                dsncc[i] = new NhaCungCap();
             }
         }
         public DSNCC(DSNCC other){
             this.n = other.n;
-            this.dsncc = new NHACUNGCAP[n];
+            this.dsncc = new NhaCungCap[n];
             for (int i = 0; i < dsncc.length; i++){
-                this.dsncc[i] = new NHACUNGCAP(other.dsncc[i]);
+                this.dsncc[i] = new NhaCungCap(other.dsncc[i]);
             }
         }
 

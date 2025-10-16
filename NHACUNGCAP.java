@@ -1,19 +1,19 @@
-public class NHACUNGCAP {
+public class NhaCungCap {
     private String ten_ncc, dia_chi, ma_ncc;
 
-    public NHACUNGCAP() {
+    public NhaCungCap() {
         ma_ncc = "";
         ten_ncc = "";
         dia_chi = "";
     }
 
-    public NHACUNGCAP(String ma_ncc, String ten_ncc, String dia_chi) {
+    public NhaCungCap(String ma_ncc, String ten_ncc, String dia_chi) {
         this.ma_ncc = ma_ncc;
         this.ten_ncc = ten_ncc;
         this.dia_chi = dia_chi;
     }
 
-    public NHACUNGCAP(NHACUNGCAP a) {
+    public NhaCungCap(NhaCungCap a) {
         ma_ncc = a.ma_ncc;
         ten_ncc = a.ten_ncc;
         dia_chi = a.dia_chi;

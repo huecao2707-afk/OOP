@@ -1,20 +1,20 @@
-public class KHACHHANG {
+public class KhachHang {
     private String ma_kh, ho, ten, dia_chi, so_dt;
-    public KHACHHANG(){
+    public KhachHang(){
         ma_kh="";
         ho="";
         ten="";
         dia_chi="";
         so_dt="";
     }
-    public KHACHHANG(String ma_kh,String ho,String ten, String dia_chi,String so_dt){
+    public KhachHang(String ma_kh,String ho,String ten, String dia_chi,String so_dt){
         this.ma_kh=ma_kh;
         this.ho=ho;
         this.ten=ten;
         this.dia_chi=dia_chi;
         this.so_dt=so_dt;
     }
-    public KHACHHANG(KHACHHANG a){
+    public KhachHang(KhachHang a){
         ma_kh= a.ma_kh;
         ho=a.ho;
         ten=a.ten;

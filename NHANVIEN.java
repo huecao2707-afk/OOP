@@ -1,19 +1,19 @@
-public class NHANVIEN {
+public class NhanVien {
     private String ma_nv ,ho,ten;
     private int luong_thang;
-    public NHANVIEN(){
+    public NhanVien(){
         ma_nv=" ";
         ho=" ";
         ten=" ";
         luong_thang=0;
     }
-    public NHANVIEN(String ma_nv,String ho,String ten,int luong_thang){
+    public NhanVien(String ma_nv,String ho,String ten,int luong_thang){
         this.ma_nv=ma_nv;
         this.ho=ho;
         this.ten=ten;
         this.luong_thang=luong_thang;
     }
-    public NHANVIEN(NHANVIEN a){
+    public NhanVien(NhanVien a){
         ma_nv=a.ma_nv;
         ho=a.ho;
         ten=a.ten;
