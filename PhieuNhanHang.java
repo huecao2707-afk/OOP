@@ -21,6 +21,16 @@ public class PhieuNhanHang{
     tong_tien = x.tong_tien;
   }
   public void nhap(){
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Nhap ma phieu nhan hang: ");
+    ma_pnh = sc.nextLine();
+    System.out.println("Nhap ma nhan vien: ");
+    ma_nv = sc.nextLine();
+    System.out.println("Nhap ma nha cung cap: ");
+    ma_ncc = sc.nextLine();
+    System.out.println("Nhap ngay: ");
+    ngay = sc.nextLine();
+    
   }
   public void xuat(){
   }
