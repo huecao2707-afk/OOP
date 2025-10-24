@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class DoChoi extends VanPhongPham{
     private String the_loai;
     private String lua_tuoi;
@@ -29,5 +30,18 @@ public class DoChoi extends VanPhongPham{
 
     public void setThe_loai(String the_loai) {
         this.the_loai = the_loai;
+    }
+    @Override public void nhap(){
+        super.nhap();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("The loai: ");
+        the_loai = sc.nextLine();
+        System.out.print("Lua tuoi: ");
+        lua_tuoi = sc.nextLine();
+    }
+    @Override public void xuat(){
+        super.xuat();
+        System.out.println("The loại: "+ the_loai);
+        System.out.println("Lua tuoi su dung: "+ lua_tuoi);
     }
 }
