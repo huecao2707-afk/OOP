@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class NhaCungCap {
     private String ten_ncc, dia_chi, ma_ncc;
 
@@ -29,5 +30,17 @@ public class NhaCungCap {
 
     public String getDiaChi() {
         return dia_chi;
+    }
+    public void nhap(){
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Ma NCC: ");
+        ma_ncc=sc.nextLine();
+        System.out.print("Ten NCC: ");
+        ten_ncc=sc.nextLine();
+        System.out.print("Dia chi: ");
+        dia_chi=sc.nextLine();
+    }
+    public void xuat(){
+        System.out.printf("%-10s %-20s %-30s\n",ma_ncc,ten_ncc,dia_chi);
     }
 }
