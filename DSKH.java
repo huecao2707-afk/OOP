@@ -1,23 +1,27 @@
+import java.util.Scanner;
 public class DSKH {
-        int n;
-        public KhachHang[] dskh = new KhachHang[1];
+        private int n;
+        private KhachHang[] dskh = new KhachHang[1];
         public DSKH(){
-            n = 0;
-            dskh = new KhachHang[0];
         }
-        public DSKH(int n){
+        public DSKH(int n, KhachHang []dskh){
             this.n = n;
+            this.dskh = dskh;
+        }
+        public void nhap(){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Nhap so luong khach hang n =  ");
+            n = sc.nextInt();
             dskh = new KhachHang[n];
-            for(int i = 0; i < dskh.length; i++){
+            for(int i = 0; i < n; i++){
                 dskh[i] = new KhachHang();
+                dskh[i].nhap();
             }
         }
-        public DSKH(DSKH other){
-            this.n = other.n;
-            this.dskh = new KhachHang[n];
-            for (int i = 0; i < dskh.length; i++){
-                this.dskh[i] = new KhachHang(other.dskh[i]);
+        public void xuat(){
+            System.out.println("-------------DANH SACH KHACH HANG-------------");
+            for(int i = 0; i < n; i++){
+                dskh[i].xuat();
             }
         }
-
 }
