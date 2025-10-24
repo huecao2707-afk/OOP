@@ -28,4 +28,9 @@ public class VanPhong extends VanPhongPham{
         System.out.printf("%-15s %-15s %-15d %-15d %-15s %-30s \n",
                 getMaSP(), getTenSP(), getSoLuong(), getDonGia(), getDonViTinh(), getPhanLoaiChucNang() );
     }
+    // public static void main(String[] args) {
+    //     VanPhong vp = new VanPhong();
+    //     vp.nhap();
+    //     vp.xuat();
+    // }
 }

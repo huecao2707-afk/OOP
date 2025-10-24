@@ -1,13 +1,25 @@
+import java.util.Scanner;
 public class DSNV {
+<<<<<<< HEAD
         int n;
         public NhanVien[] ds_nv = new NhanVien[1];
+=======
+        private int n;
+        public NhanVien[] dsnv = new NhanVien[1];
+>>>>>>> 04989e9b90a73194d809521c79870a1a0dfe2c21
         public DSNV(){
             n = 0;
             ds_nv = new NhanVien[0];
         }
+<<<<<<< HEAD
         public DSNV(int n, NhanVien[] ds_nv){
             this.n = n;
             this.ds_nv = ds_nv;
+=======
+        public DSNV(int n, NhanVien[] dsnv){
+            this.n = n;
+            this.dsnv = dsnv;
+>>>>>>> 04989e9b90a73194d809521c79870a1a0dfe2c21
         }
         public DSNV(DSNV other){
             this.n = other.n;
@@ -16,6 +28,32 @@ public class DSNV {
                 this.ds_nv[i] = new NhanVien(other.ds_nv[i]);
             }
         }
+        public void nhap(){
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Nhap so luong nhan vien n = ");
+            n = sc.nextInt();
+            dsnv = new NhanVien[n];
+            for (int i = 0; i < n; i++){
+                System.out.println("Nhap thong tin nhan vien thu " + (i + 1) + ":");
+                dsnv[i] = new NhanVien();
+                dsnv[i].nhap();
+            }
+        }
+        public void tieude(){
+            System.out.println("-------------DANH SACH NHAN VIEN-------------");
+            System.out.printf("%-10s %-15s %-10s %-10s\n","Ma NV","Ho","Ten","Luong thang");
+        }
+        public void xuat(){
+            tieude();
+            for (int i = 0; i < n; i++){
+                dsnv[i].xuat();
+        
+            }
+        }
 
-
+        public static void main(String[] args) {
+            DSNV ds = new DSNV();
+            ds.nhap();
+            ds.xuat();
+        }
 }
