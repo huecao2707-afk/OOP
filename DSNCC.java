@@ -1,28 +1,15 @@
 import java.util.Scanner;
 public class DSNCC {
-<<<<<<< HEAD
-        int n;
         public NhaCungCap[] ds_ncc = new NhaCungCap[1];
-=======
         private int n;
         public NhaCungCap[] dsncc = new NhaCungCap[1];
->>>>>>> 04989e9b90a73194d809521c79870a1a0dfe2c21
         public DSNCC(){
             n = 0;
             ds_ncc = new NhaCungCap[0];
         }
-<<<<<<< HEAD
-        public DSNCC(int n, NhaCungCap[] ds_ncc){
-            this.n = n;
-            ds_ncc = new NhaCungCap[n];
-            for(int i = 0; i < ds_ncc.length; i++){
-                ds_ncc[i] = new NhaCungCap();
-            }
-=======
         public DSNCC(NhaCungCap[] dsncc, int n){
             this.n = n;
             this.dsncc = dsncc;
->>>>>>> 04989e9b90a73194d809521c79870a1a0dfe2c21
         }
         public DSNCC(DSNCC other){
             this.n = other.n;

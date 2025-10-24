@@ -15,13 +15,6 @@ public class DSKH {
                 this.ds_kh[i] = new KhachHang(other.ds_kh[i]);
             }
         }
-        public DSKH(DSKH other) {
-            this.n = other.n;
-            this.dskh = new KhachHang[this.n];
-            for (int i = 0; i < this.n; i++) {
-                this.dskh[i] = new KhachHang(other.dskh[i]);
-            }
-        }
         public void nhap(){
             Scanner sc = new Scanner(System.in);
             System.out.println("Nhap so luong khach hang n =  ");
