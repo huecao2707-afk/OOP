@@ -32,16 +32,18 @@ public class QuanLyBanHang {
             sc.nextLine(); // tránh trôi dòng
             switch (choice) {
                 case 1:
-                    ds_vpp.nhap();
+//                    ds_vpp.nhap();
                     ds_vpp.xuat();
                     break;
- /*               case 2:
-                    dssv.xuatdssv();
+                case 2:
+//                    ds_nv.nhap();
+                    ds_nv.xuat();
                     break;
                 case 3:
-                    dssv.themSinhVien();
+//                    ds_kh.nhap();
+                    ds_kh.xuat();
                     break;
-                case 4:
+   /*             case 4:
                     dssv.xoaSinhVien();
                     break;
                 case 5:

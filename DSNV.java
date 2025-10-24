@@ -31,7 +31,7 @@ public class DSNV {
         }
         public void tieude(){
             System.out.println("-------------DANH SACH NHAN VIEN-------------");
-            System.out.printf("%-10s %-15s %-10s %-10s\n","Ma NV","Ho","Ten","Luong thang");
+            System.out.printf("%-15s %-25s %-10s\n","Mã Nhân Viên","Họ và Tên","Lương Tháng");
         }
         public void xuat(){
             tieude();

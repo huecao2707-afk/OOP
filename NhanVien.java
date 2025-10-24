@@ -51,7 +51,7 @@ public class NhanVien {
     }
     public void nhap(){
         Scanner sc=new Scanner(System.in);
-        System.out.print("Ma NV: ");
+        System.out.print("Ma Nv: ");
         ma_nv=sc.nextLine();
         System.out.print("Ho: ");
         ho=sc.nextLine();
@@ -62,7 +62,7 @@ public class NhanVien {
         sc.nextLine();
     }
     public void xuat(){
-        System.out.printf("%-10s %-15s %-10s %-10d\n",ma_nv,ho,ten,luong_thang);
+        System.out.printf("%-15s %-25s %-10s\n",ma_nv,(ho + " " + ten),luong_thang);
     }
 
 }

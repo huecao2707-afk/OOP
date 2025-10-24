@@ -42,18 +42,23 @@ public class KhachHang {
     public String getSoDT() {
         return so_dt;
     }
+
     public void setDiaChi(String dia_chi) {
         this.dia_chi = dia_chi;
     }
+
     public void setHo(String ho) {
         this.ho = ho;
     }
+
     public void setMaKH(String ma_kh) {
         this.ma_kh = ma_kh;
     }
+
     public void setSoDT(String so_dt) {
         this.so_dt = so_dt;
     }
+
     public void setTen(String ten) {
         this.ten = ten;
     }
@@ -71,11 +76,8 @@ public class KhachHang {
         so_dt = sc.nextLine();
     }
     public void xuat(){
-        System.out.println("Ma khach hang: " + ma_kh);
-        System.out.println("Ho: " + ho);
-        System.out.println("Ten: " + ten);
-        System.out.println("Dia chi: " + dia_chi);
-        System.out.println("SDT: " + so_dt);
+        System.out.printf("%-15s %-25s %-15s %-60s \n",ma_kh,(ho + " " + ten),so_dt, dia_chi);
+
     }
 }
 

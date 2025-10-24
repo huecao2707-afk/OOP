@@ -12,7 +12,11 @@ public class DSVPP {
         this.n = other.n;
         this.ds_vpp = new VanPhongPham[n];
         for (int i = 0; i < ds_vpp.length; i++){
-            this.ds_vpp[i] = new VanPhongPham(other.ds_vpp[i]);
+            if (other.ds_vpp[i] instanceof DoChoi) {
+                this.ds_vpp[i] = new DoChoi((DoChoi) other.ds_vpp[i]);
+            } else if (other.ds_vpp[i] instanceof VanPhong) {
+                this.ds_vpp[i] = new VanPhong((VanPhong) other.ds_vpp[i]);
+            }
         }
     }
     public void nhap() {
@@ -53,6 +57,7 @@ public class DSVPP {
     }
 
     public void  xuat(){
+        System.out.println("-------------DANH SÁCH SẢN PHẨM-------------");
         System.out.printf("%-15s %-15s %-15s %-15s %-15s %-30s %-30s %-30s \n",
                 "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Đơn Vị Tính" , "Phân Loại Theo Chức Năng" , "Phân Loại Theo Độ Tuổi", "Thể Loại");
         System.out.println("----------------------------------------------------------------------------------------------------------------");

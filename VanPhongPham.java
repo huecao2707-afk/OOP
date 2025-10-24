@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class VanPhongPham {
+public abstract class VanPhongPham {
     private int don_gia,so_luong;
     private String ma_sp, ten_sp,don_vi_tinh;
     public VanPhongPham(){

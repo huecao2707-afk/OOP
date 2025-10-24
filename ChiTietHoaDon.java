@@ -22,21 +22,21 @@ public class ChiTietHoaDon{
         this.don_gia=a.don_gia;
         this.thanhtien=a.thanhtien;
     }
-    public void nhap(){
-        Scanner sc=new Scanner(System.in);
-        ma_hoa_don=new HoaDon();
-        ma_hoa_don.nhap();
-        System.out.println("Nhap ma san pham: ");
-        ma_sp=new VanPhongPham();
-        ma_sp.nhap();
-        System.out.println("Nhap so luong: ");
-        so_luong=new VanPhongPham();
-        so_luong.nhap();
-        System.out.println("Nhap don gia: ");
-        don_gia=new VanPhongPham();
-        don_gia.nhap();
-        thanhtien=so_luong.getSoLuong()*don_gia.getDonGia();
-    }
+//    public void nhap(){
+//        Scanner sc=new Scanner(System.in);
+//        ma_hoa_don=new HoaDon();
+//        ma_hoa_don.nhap();
+//        System.out.println("Nhap ma san pham: ");
+//        ma_sp=new VanPhongPham();
+//        ma_sp.nhap();
+//        System.out.println("Nhap so luong: ");
+//        so_luong=new VanPhongPham();
+//        so_luong.nhap();
+//        System.out.println("Nhap don gia: ");
+//        don_gia=new VanPhongPham();
+//        don_gia.nhap();
+//        thanhtien=so_luong.getSoLuong()*don_gia.getDonGia();
+//    }
     public void xuat(){
         System.out.println("Ma hoa don: ");
         ma_hoa_don.xuat();
@@ -51,10 +51,10 @@ public class ChiTietHoaDon{
     public int getThanhTien(){
         return thanhtien;
     }
-    public static void main(String[] args){
-        ChiTietHoaDon cthd=new ChiTietHoaDon();
-        cthd.nhap();
-        cthd.xuat();
-    }
+//    public static void main(String[] args){
+//        ChiTietHoaDon cthd=new ChiTietHoaDon();
+//        cthd.nhap();
+//        cthd.xuat();
+//    }
 
 }

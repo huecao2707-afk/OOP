@@ -25,12 +25,9 @@ public class DSKH {
                 ds_kh[i].nhap();
             }
         }
-        public void tieude(){
-            System.out.println("-------------DANH SACH KHACH HANG-------------");
-            System.out.printf("%-10s %-20s %-15s %-15s %-15s\n","Ma KH","Ho ten","Gioi tinh","Dia chi","So dien thoai");
-        }
         public void xuat(){
-            tieude();
+            System.out.println("-------------DANH SACH KHACH HANG-------------");
+            System.out.printf("%-15s %-25s %-15s %-60s \n","Mã Khách Hàng","Họ và Tên","Số Điện Thoại","Địa Chỉ");
             for(int i = 0; i < n; i++){
                 ds_kh[i].xuat();
             }
