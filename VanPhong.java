@@ -28,4 +28,9 @@ public class VanPhong extends VanPhongPham{
         super.xuat();
         System.out.println("Phan loai chuc nang: " + phan_loai_chuc_nang);
     }
+    // public static void main(String[] args) {
+    //     VanPhong vp = new VanPhong();
+    //     vp.nhap();
+    //     vp.xuat();
+    // }
 }
