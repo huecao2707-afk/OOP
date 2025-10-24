@@ -23,18 +23,18 @@ public class PhieuNhanHang{
     ngay = x.ngay;
     tong_tien = x.tong_tien;
   }
-  public void nhap(){
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Nhap ma phieu nhan hang: ");
-    ma_pnh = sc.nextLine();
-    this.nv = new NhanVien();
-    nv.nhap();
-    this.ncc = new NhaCungCap();
-    ncc.nhap();
-    System.out.println("Nhap ngay: ");
-    ngay = sc.nextLine();
-    
-  }
+//  public void nhap(){
+//    Scanner sc = new Scanner(System.in);
+//    System.out.println("Nhap ma phieu nhan hang: ");
+//    ma_pnh = sc.nextLine();
+//    this.nv = new NhanVien();
+//    nv.nhap();
+//    this.ncc = new NhaCungCap();
+//    ncc.nhap();
+//    System.out.println("Nhap ngay: ");
+//    ngay = sc.nextLine();
+//
+//  }
 
   public void xuat(){
     System.out.printf("%-10s %-10s %-10s %-15s %-10d\n",ma_pnh,nv.getMaNV(),ncc.getMaNCC(),ngay,tong_tien);

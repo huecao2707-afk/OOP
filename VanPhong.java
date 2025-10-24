@@ -25,7 +25,7 @@ public class VanPhong extends VanPhongPham{
         phan_loai_chuc_nang = sc.nextLine();
     }
     @Override public void xuat(){
-        super.xuat();
-        System.out.println("Phan loai chuc nang: " + phan_loai_chuc_nang);
+        System.out.printf("%-15s %-15s %-15d %-15d %-15s %-30s \n",
+                getMaSP(), getTenSP(), getSoLuong(), getDonGia(), getDonViTinh(), getPhanLoaiChucNang() );
     }
 }

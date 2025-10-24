@@ -65,17 +65,17 @@ public class VanPhongPham {
     }
     public void nhap(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Ma SP: ");
+        System.out.print("Ma SP: ");
         ma_sp = sc.nextLine();
-        System.out.println("Ten SP: ");
+        System.out.print("Ten SP: ");
         ten_sp = sc.nextLine();
-        System.out.println("Don gia: ");
+        System.out.print("Don gia: ");
         don_gia = sc.nextInt();
         sc.nextLine();
-        System.out.println("So luong: ");
+        System.out.print("So luong: ");
         so_luong = sc.nextInt();
         sc.nextLine();
-        System.out.println("Don vi tinh: ");
+        System.out.print("Don vi tinh: ");
         don_vi_tinh = sc.nextLine();
     }
     public void xuat(){

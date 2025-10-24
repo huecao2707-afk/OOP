@@ -40,8 +40,7 @@ public class DoChoi extends VanPhongPham{
         lua_tuoi = sc.nextLine();
     }
     @Override public void xuat(){
-        super.xuat();
-        System.out.println("The loại: "+ the_loai);
-        System.out.println("Lua tuoi su dung: "+ lua_tuoi);
+        System.out.printf("%-15s %-15s %-15d %-15d %-46s %-30s %-30s\n",
+                getMaSP(), getTenSP(), getSoLuong(), getDonGia(), getDonViTinh() , getLua_tuoi(), getThe_loai() );
     }
 }
