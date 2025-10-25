@@ -29,15 +29,21 @@ public class DSNCC {
                 dsncc[i].nhap();
             }
         }
-        public void tieude(){
-            System.out.println("-------------DANH SACH NHA CUNG CAP-------------");
-            System.out.printf("%-10s %-20s %-30s\n","Ma NCC","Ten NCC","Dia chi");
-        }
+
         public void xuat(){
-            tieude();
+            System.out.println("-------------DANH SÁCH NHÀ CUNG CẤP-------------");
+            System.out.printf("%-20s %-20s %-20s\n","Mã Nhà Cung Cấp","Tên Nhà Cung Cấp","Địa Chỉ");
             for (int i = 0; i < n; i++){
                 dsncc[i].xuat();
             }
+        }
+        public NhaCungCap timKiemTheoMa(String ma_ncc){
+            for (int i = 0; i < n; i++){
+                if (dsncc[i].getMaNCC().equalsIgnoreCase(ma_ncc)){
+                    return dsncc[i];
+                }
+            }
+            return null; // Không tìm thấy
         }
         public static void main(String[] args) {
             DSNCC ds = new DSNCC();

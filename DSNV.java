@@ -40,7 +40,14 @@ public class DSNV {
         
             }
         }
-
+        public NhanVien timKiemTheoMa(String ma_nv){
+            for (int i = 0; i < n; i++){
+                if (dsnv[i].getMaNV().equalsIgnoreCase(ma_nv)){
+                    return dsnv[i];
+                }
+            }
+            return null; // Không tìm thấy
+        }
         public static void main(String[] args) {
             DSNV ds = new DSNV();
             ds.nhap();

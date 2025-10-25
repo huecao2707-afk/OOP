@@ -41,6 +41,6 @@ public class NhaCungCap {
         dia_chi=sc.nextLine();
     }
     public void xuat(){
-        System.out.printf("%-10s %-20s %-30s\n",ma_ncc,ten_ncc,dia_chi);
+        System.out.printf("%-20s %-20s %-20s\n",ma_ncc,ten_ncc,dia_chi);
     }
 }

@@ -15,45 +15,26 @@ public class DSPNH{
             this.ds_pnh[i] = new PhieuNhanHang(other.ds_pnh[i]);
         }
   }
-//  public void nhap(){
-//    Scanner sc = new Scanner(System.in);
-//    System.out.println("Nhap so luong phieu nhan hang: ");
-//    n = sc.nextInt();
-//    sc.nextLine();
-//    ds_pnh = new PhieuNhanHang [n]; // mang chua phieu nhan hang
-//    for(int i = 0; i < n; i++){
-//      ds_pnh[i] = new PhieuNhanHang(); //tao ra doi tuong phieu nhan hang
-//      ds_pnh[i].nhap(); // hàm nhập gọi từ class PhieuNhanHang
-//    }
-//  }
-//    this.n = other.n;
-//    this.ds_pnh = new PhieuNhanHang[n];
-//    for(int i = 0; i < n; i++){
-//      this.ds_pnh[i] = new PhieuNhanHang(other.ds_pnh[i]);
-//    }
-//  }
 //
-//  public void nhap(){
-//    Scanner sc = new Scanner(System.in);
-//    System.out.println("Nhap so luong phieu nhan hang n = ");
-//    n = sc.nextInt();
-//    ds_pnh = new PhieuNhanHang[n];
-//    for(int i = 0; i < n; i++){
-//      System.out.println("Nhap thong tin phieu nhan hang thu " + (i + 1) + ":");
-//      ds_pnh[i] = new PhieuNhanHang();
-//      ds_pnh[i].nhap();
-//    }
-//  }
-//  public void tieude(){
-//    System.out.println("-------------DANH SACH PHIEU NHAN HANG-------------");
-//    System.out.printf("%-10s %-10s %-10s %-15s %-10s\n","Ma PNH","Ma NV","Ma NCC","Ngay","Tong tien");
-//  }
-//  public void xuat(){
-//    tieude();
-//    for(int i = 0; i < n; i++){
-//      ds_pnh[i].xuat();
-//    }
-//  }
+public void nhap(DSNV ds_nv, DSNCC ds_ncc){
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhap so luong phieu nhan hang: ");
+    n = sc.nextInt();
+    sc.nextLine(); // doc bo dong thua
+    ds_pnh = new PhieuNhanHang [n]; // mang chua phieu nhan hang
+    for(int i = 0; i < n; i++){
+        System.out.println("Nhap thong tin phieu nhan hang thu " + (i+1) + ":");
+        ds_pnh[i] = new PhieuNhanHang(); //tao ra doi tuong phieu nhan hang
+        ds_pnh[i].nhap(ds_nv, ds_ncc); // GỌI HÀM NHẬP MỚI VỚI ĐỐI SỐ
+    }
+}
+  public void xuat(){
+    System.out.println("-------------DANH SÁCH PHIẾU NHẬN HÀNG------------");
+    System.out.printf("%-20s %-30s %-20s %-15s %-20s\n","Mã Phiếu Nhận Hàng","Mã Nhân Viên","Mã Nhà Cung Cấp","Ngày Nhận","Tổng Tiền");
+    for(int i = 0; i < n; i++){
+      ds_pnh[i].xuat();
+    }
+  }
   // public static void main(String[] args) {
   //   DSPNH ds = new DSPNH();
   //   ds.nhap();
