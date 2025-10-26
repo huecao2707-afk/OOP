@@ -8,6 +8,36 @@ public class QuanLyBanHang {
     DSHD ds_hd = new DSHD();
     DSCTHD ds_ctphd = new DSCTHD();
     DSCTPNH ds_ctpnh = new DSCTPNH();
+    public void menuCon() {
+        Scanner sc = new Scanner(System.in);
+        int choice = 0;
+        do {
+            System.out.println("\n--- MENU QUẢN LÝ SẢN PHẨM ---");
+            System.out.println("1. Thêm sản phẩm mới (vào bộ nhớ)");
+            System.out.println("2. Xóa sản phẩm");
+            System.out.println("3. Sửa sản phẩm");
+            System.out.println("4. Xuất danh sách sản phẩm (có menu con)");
+            System.out.println("0. Quay lại Menu Chính");
+            System.out.print("Lựa chọn của bạn: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    ds_vpp.nhap();
+                    break;
+                case 2:
+                    // xoa(); 
+                    break;
+                case 3:
+                    // sua();
+                    break;
+                case 4:
+                    ds_vpp.readFile();
+                    ds_vpp.xuat();
+                     break;
+            }
+        } while (choice != 0);
+    }
     public void menu() {
         Scanner sc = new Scanner(System.in);
         int choice;
@@ -19,7 +49,7 @@ public class QuanLyBanHang {
             System.out.println("4. Xem danh sách nhà cung cấp");
             System.out.println("5. Xem danh sách phiếu nhận hàng ");
             System.out.println("6. Xem danh sách phiếu chi tiết hóa đơn ");
-            System.out.println("7. Xem danh sách phiếu chi tiết phiếu nhận hàng");
+            System.out.println("7. Xem danh sách phiếu hóa đơn");
             System.out.println("8. Xem danh sách phiếu chi tiết hóa đơn");
             System.out.println("9. Tìm kiếm sinh viên theo điểm rèn luyện");
             System.out.println("10. Tìm kiếm sinh viên theo năm tốt nghiệp cao đẳng");
@@ -32,26 +62,21 @@ public class QuanLyBanHang {
             sc.nextLine(); // tránh trôi dòng
             switch (choice) {
                 case 1:
-//                    ds_vpp.nhap();
-                    ds_vpp.xuat();
+                    menuCon();
                     break;
-                case 2:
-                    ds_nv.nhap();
-                    ds_nv.xuat();
+ /*               case 2:
+                    dssv.xuatdssv();
                     break;
                 case 3:
-                    ds_kh.nhap();
-//                    ds_kh.xuat();
+                    dssv.themSinhVien();
                     break;
                 case 4:
-                    ds_ncc.nhap();
-                    ds_ncc.xuat();
+                    dssv.xoaSinhVien();
                     break;
-             case 5:
-                    ds_pnh.nhap(ds_nv, ds_ncc);
-                    ds_pnh.xuat();
+                case 5:
+                    dssv.sua();
                     break;
-  /*                 case 6:
+                case 6:
 //                    if (dssv.timKiemSinhVien() != null) sv.xuat();
 //                    else System.out.println("Không tìm thấy sinh viên.");
 //                    break;
@@ -86,6 +111,9 @@ public class QuanLyBanHang {
                 case 14:
                     System.out.println("Đã thoát chương trình.");
                     break;*/
+                case 6:
+                    
+                    break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ.");
             }
