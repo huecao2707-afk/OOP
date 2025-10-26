@@ -24,14 +24,6 @@ public class VanPhong extends VanPhongPham{
         Scanner sc = new Scanner(System.in);
         phan_loai_chuc_nang = sc.nextLine();
     }
-    @Override
-    public void tieude() {
-        System.out.println("+------------+----------------------+------------+--------------+------------+----------------------+");
-                    |   10s   |      20s       |    10s    |      12s    |     10s   |       20s          |
-        System.out.printf("| %-10s | %-20s | %-10s | %-12s | %-10s | %-20s |\n",
-            "MÃ SP", "TÊN SP", "SỐ LƯỢNG", "ĐƠN GIÁ", "ĐƠN VỊ", "CHỨC NĂNG");
-        System.out.println("+------------+----------------------+------------+--------------+------------+----------------------+");
-    }
 
   @Override
     public void xuat() {
@@ -41,7 +33,7 @@ public class VanPhong extends VanPhongPham{
             so_luong,          // Cột 3: Số Lượng (int)
             don_gia,           // Cột 4: Đơn Giá (int)
             don_vi_tinh,       // Cột 5: Đơn Vị Tính (String)
-            phan_loai_chuc_nang,// Cột 6: Chức Năng (String) - Có
+            phan_loai_chuc_nang,          // Cột 6: Chức Năng (String) - Có
             "",                // Cột 7: Độ Tuổi (String) - Để trống
             ""                 // Cột 8: Thể Loại (String) - Để trống
         );
