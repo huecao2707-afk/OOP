@@ -1,0 +1,2 @@
+VP,VP001,Bút bi,1,5000,Cái,Ghi
+DC,DC001,Xe Tank,1,199999,Chiếc,16+,War
