@@ -1,7 +1,8 @@
+
 import java.util.Scanner;
 public abstract class VanPhongPham {
-    private int don_gia,so_luong;
-    private String ma_sp, ten_sp,don_vi_tinh;
+    protected int don_gia,so_luong;
+    protected String ma_sp, ten_sp,don_vi_tinh;
     public VanPhongPham(){
         don_gia = 0;
         so_luong = 0;
@@ -63,6 +64,7 @@ public abstract class VanPhongPham {
     public void setTenSP(String ten_sp) {
         this.ten_sp = ten_sp;
     }
+    
     public void nhap(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Ma SP: ");
@@ -78,11 +80,6 @@ public abstract class VanPhongPham {
         System.out.print("Don vi tinh: ");
         don_vi_tinh = sc.nextLine();
     }
-    public void xuat(){
-        System.out.println("Ma sp: " +ma_sp);
-        System.out.println("Ten sp: " +ten_sp);
-        System.out.println("Don gia: " +don_gia);
-        System.out.println("So luong: " + so_luong);
-        System.out.println("Don vi tinh: " + don_vi_tinh);
-    }
+    public abstract void docDuLieu(String[] parts);
+    public abstract void xuat();
 }
