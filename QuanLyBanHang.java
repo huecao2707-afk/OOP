@@ -13,17 +13,17 @@ public class QuanLyBanHang {
         int choice = 0;
         do {
             System.out.println("\n--- MENU QUẢN LÝ SẢN PHẨM ---");
-            System.out.println("1. Thêm sản phẩm mới (vào bộ nhớ)");
+            System.out.println("1. Thêm sản phẩm mới");
             System.out.println("2. Xóa sản phẩm");
             System.out.println("3. Sửa sản phẩm");
-            System.out.println("4. Xuất danh sách sản phẩm (có menu con)");
+            System.out.println("4. Xuất danh sách sản phẩm ");
             System.out.println("0. Quay lại Menu Chính");
             System.out.print("Lựa chọn của bạn: ");
             choice = sc.nextInt();
 
             switch (choice) {
                 case 1:
-                    ds_vpp.nhap();
+                    ds_vpp.themSanPham();
                     break;
                 case 2:
                     // xoa(); 
