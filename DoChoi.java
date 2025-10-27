@@ -32,8 +32,8 @@ public class DoChoi extends VanPhongPham{
     public void setThe_loai(String the_loai) {
         this.the_loai = the_loai;
     }
-    @Override public void nhap(){
-        super.nhap();
+    @Override public void nhap(DSVPP dsvpp){
+        super.nhap(dsvpp);
         Scanner sc = new Scanner(System.in);
         System.out.print("The loai: ");
         the_loai = sc.nextLine();
