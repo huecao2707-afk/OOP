@@ -65,10 +65,17 @@ public abstract class VanPhongPham {
         this.ten_sp = ten_sp;
     }
     
-    public void nhap(){
+    public void nhap(DSVPP dsvpp){
         Scanner sc = new Scanner(System.in);
-        System.out.print("Ma SP: ");
-        ma_sp = sc.nextLine();
+        while(true){
+            System.out.print("Mã SP: ");
+            this.ma_sp = sc.nextLine();
+            if (dsvpp.maDuyNhat(ma_sp)) {
+                break; // Mã duy nhất, thoát vòng lặp
+            } else {
+                System.out.println("❌ Mã SP '" + ma_sp + "' đã tồn tại! Vui lòng nhập mã khác.");    
+            }
+        }
         System.out.print("Ten SP: ");
         ten_sp = sc.nextLine();
         System.out.print("Don gia: ");
