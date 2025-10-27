@@ -18,8 +18,8 @@ public class VanPhong extends VanPhongPham{
     public void setPhanLoaiChucNang(String phan_loai_chuc_nang) {
         this.phan_loai_chuc_nang = phan_loai_chuc_nang;
     }
-    @Override public void nhap(){
-        super.nhap();
+    @Override public void nhap(DSVPP dsvpp){
+        super.nhap(dsvpp);
         System.out.print("Phan loai chuc nang: ");
         Scanner sc = new Scanner(System.in);
         phan_loai_chuc_nang = sc.nextLine();
