@@ -18,11 +18,9 @@ public class QuanLyBanHang {
             System.out.println("2. Quản lý nhân viên");
             System.out.println("3. Quản lý khách hàng");
             System.out.println("4. Quản lý nhà cung cấp");
-            System.out.println("5. Quản lý phiếu nhận hàng ");
-            System.out.println("6. Quản lý chi tiết phiếu nhận hàng");
-            System.out.println("7. Quản lý hóa đơn");
-            System.out.println("8. Quản lý phiếu chi tiết hóa đơn");
-            System.out.println("9. Thoát");
+            System.out.println("5. Quản lý hóa đơn- Chi Tiết Hóa Đơn");
+            System.out.println("6. Quản lý phiếu nhận hàng - Chi Tiết Phiếu Nhận Hàng");
+            System.out.println("7. Thoát");
             System.out.print("Chọn chức năng: ");
             choice = sc.nextInt();
             sc.nextLine(); // tránh trôi dòn
