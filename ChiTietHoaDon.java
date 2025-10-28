@@ -1,51 +1,51 @@
 import java.util.Scanner;
 public class ChiTietHoaDon{
-    private VanPhongPham ma_sp;
-    private HoaDon ma_hoa_don;
-    private VanPhongPham don_gia;
-    private VanPhongPham so_luong;
+    private VanPhongPham masp;
+    private HoaDon mahoadon;
+    private VanPhongPham dongia;
+    private VanPhongPham soluong;
     private int thanhtien;
     public ChiTietHoaDon(){
         thanhtien=0;
     }
-    public ChiTietHoaDon(HoaDon ma_hoa_don, VanPhongPham ma_sp, VanPhongPham so_luong, VanPhongPham don_gia, int thanhtien){
-        this.ma_hoa_don=ma_hoa_don;
-        this.ma_sp=ma_sp;
-        this.so_luong=so_luong;
-        this.don_gia=don_gia;
+    public ChiTietHoaDon(HoaDon mahoadon, VanPhongPham masp, VanPhongPham soluong, VanPhongPham dongia, int thanhtien){
+        this.mahoadon=mahoadon;
+        this.masp=masp;
+        this.soluong=soluong;
+        this.dongia=dongia;
         this.thanhtien=thanhtien;
     }
     public ChiTietHoaDon(ChiTietHoaDon a){
-        this.ma_hoa_don=a.ma_hoa_don;
-        this.ma_sp=a.ma_sp;
-        this.so_luong=a.so_luong;
-        this.don_gia=a.don_gia;
+        this.mahoadon=a.mahoadon;
+        this.masp=a.masp;
+        this.soluong=a.soluong;
+        this.dongia=a.dongia;
         this.thanhtien=a.thanhtien;
     }
 //    public void nhap(){
 //        Scanner sc=new Scanner(System.in);
-//        ma_hoa_don=new HoaDon();
-//        ma_hoa_don.nhap();
+//        mahoadon=new HoaDon();
+//        mahoadon.nhap();
 //        System.out.println("Nhap ma san pham: ");
-//        ma_sp=new VanPhongPham();
-//        ma_sp.nhap();
+//        masp=new VanPhongPham();
+//        masp.nhap();
 //        System.out.println("Nhap so luong: ");
-//        so_luong=new VanPhongPham();
-//        so_luong.nhap();
+//        soluong=new VanPhongPham();
+//        soluong.nhap();
 //        System.out.println("Nhap don gia: ");
-//        don_gia=new VanPhongPham();
-//        don_gia.nhap();
-//        thanhtien=so_luong.getSoLuong()*don_gia.getDonGia();
+//        dongia=new VanPhongPham();
+//        dongia.nhap();
+//        thanhtien=soluong.getSoLuong()*dongia.getDonGia();
 //    }
     public void xuat(){
         System.out.println("Ma hoa don: ");
-        ma_hoa_don.xuat();
+        mahoadon.xuat();
         System.out.println("Ma san pham: ");
-        ma_sp.xuat();
+        masp.xuat();
         System.out.println("So luong: ");
-        so_luong.xuat();
+        soluong.xuat();
         System.out.println("Don gia: ");
-        don_gia.xuat();
+        dongia.xuat();
         System.out.println("Thanh tien: "+thanhtien);
     }
     public int getThanhTien(){
@@ -56,5 +56,7 @@ public class ChiTietHoaDon{
 //        cthd.nhap();
 //        cthd.xuat();
 //    }
+
+}
 
 }
