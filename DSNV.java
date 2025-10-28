@@ -29,12 +29,9 @@ public class DSNV {
                 dsnv[i].nhap();
             }
         }
-        public void tieude(){
+        public void xuat(){
             System.out.println("-------------DANH SACH NHAN VIEN-------------");
             System.out.printf("%-15s %-25s %-10s\n","Mã Nhân Viên","Họ và Tên","Lương Tháng");
-        }
-        public void xuat(){
-            tieude();
             for (int i = 0; i < n; i++){
                 dsnv[i].xuat();
         

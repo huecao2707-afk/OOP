@@ -1,46 +1,46 @@
 import java.util.Scanner;
 public class NhaCungCap {
-    private String ten_ncc, dia_chi, ma_ncc;
+    private String tenncc, diachi, mancc;
 
     public NhaCungCap() {
-        ma_ncc = "";
-        ten_ncc = "";
-        dia_chi = "";
+        mancc = "";
+        tenncc = "";
+        diachi = "";
     }
 
-    public NhaCungCap(String ma_ncc, String ten_ncc, String dia_chi) {
-        this.ma_ncc = ma_ncc;
-        this.ten_ncc = ten_ncc;
-        this.dia_chi = dia_chi;
+    public NhaCungCap(String mancc, String tenncc, String diachi) {
+        this.mancc = mancc;
+        this.tenncc = tenncc;
+        this.diachi = diachi;
     }
 
     public NhaCungCap(NhaCungCap a) {
-        ma_ncc = a.ma_ncc;
-        ten_ncc = a.ten_ncc;
-        dia_chi = a.dia_chi;
+        mancc = a.mancc;
+        tenncc = a.tenncc;
+        diachi = a.diachi;
     }
 
     public String getMaNCC() {
-        return ma_ncc;
+        return mancc;
     }
 
     public String getTenNCC() {
-        return ten_ncc;
+        return tenncc;
     }
 
     public String getDiaChi() {
-        return dia_chi;
+        return diachi;
     }
     public void nhap(){
         Scanner sc=new Scanner(System.in);
         System.out.print("Ma NCC: ");
-        ma_ncc=sc.nextLine();
+        mancc=sc.nextLine();
         System.out.print("Ten NCC: ");
-        ten_ncc=sc.nextLine();
+        tenncc=sc.nextLine();
         System.out.print("Dia chi: ");
-        dia_chi=sc.nextLine();
+        diachi=sc.nextLine();
     }
     public void xuat(){
-        System.out.printf("%-20s %-20s %-20s\n",ma_ncc,ten_ncc,dia_chi);
+        System.out.printf("%-20s %-20s %-20s\n",mancc,tenncc,diachi);
     }
 }

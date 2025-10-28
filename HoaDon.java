@@ -2,61 +2,61 @@ import java.util.Scanner;
 
 public class HoaDon {
     private NhanVien nv; // Kế thừa has a từ  class NhanVien
-    private KhachHang ma_kh; // Kế thừa has a từ  class KhachHang
-    private String ma_hoa_don, ngay_lap_hd;
-    private int tong_tien;
+    private KhachHang makh; // Kế thừa has a từ  class KhachHang
+    private String mahoadon, ngaylaphd;
+    private int tongtien;
     public HoaDon(){
-        tong_tien=0;
+        tongtien=0;
     }
-    public HoaDon(String ma_hoa_don,NhanVien ma_nv, KhachHang ma_kh, String ngay_lap_hd, int tong_tien){
-        this.ma_hoa_don=ma_hoa_don;
+    public HoaDon(String mahoadon,NhanVien ma_nv, KhachHang makh, String ngaylaphd, int tongtien){
+        this.mahoadon=mahoadon;
         this.nv=ma_nv;
-        this.ma_kh=ma_kh;
-        this.ngay_lap_hd=ngay_lap_hd;
-        this.tong_tien=tong_tien;
+        this.makh=makh;
+        this.ngaylaphd=ngaylaphd;
+        this.tongtien=tongtien;
         
     }
     public HoaDon(HoaDon x){
-        this.ma_hoa_don=x.ma_hoa_don;
+        this.mahoadon=x.mahoadon;
         this.nv=x.nv;
-        this.ma_kh=x.ma_kh;
-        this.ngay_lap_hd=x.ngay_lap_hd;
-        this.tong_tien=x.tong_tien;
+        this.makh=x.makh;
+        this.ngaylaphd=x.ngaylaphd;
+        this.tongtien=x.tongtien;
     }
 
    public String getMaHoaDon() {
-       return ma_hoa_don;
+       return mahoadon;
    }
 
     public int getTongTien() {
-        return tong_tien;
+        return tongtien;
     }
 
-    public void setMaHoaDon(String ma_hoa_don) {
-        this.ma_hoa_don = ma_hoa_don;
+    public void setMaHoaDon(String mahoadon) {
+        this.mahoadon = mahoadon;
     }
     public void setNhanVien(NhanVien nv) {
         this.nv = nv;
     }
-    // public void setTongTien(int tong_tien) {
-    //     this.tong_tien = tong_tien;
+    // public void setTongTien(int tongtien) {
+    //     this.tongtien = tongtien;
     // }
     public void nhap(){
         Scanner sc=new Scanner(System.in);
         System.out.print("Ma hoa don: ");
-        ma_hoa_don=sc.nextLine();
-        this.ma_kh = new KhachHang();
-        ma_kh.nhap();
+        mahoadon=sc.nextLine();
+        this.makh = new KhachHang();
+        makh.nhap();
         System.out.print("Ngay lap hoa don: ");
-        ngay_lap_hd=sc.nextLine();
+        ngaylaphd=sc.nextLine();
         System.out.print("Tong tien: ");
-        tong_tien=sc.nextInt();
+        tongtien=sc.nextInt();
     }
     public void tieude(){
         System.out.printf("%-10s %-10s %-10s %-15s %-10s\n","Ma HD","Ma NV","Ma KH","Ngay lap HD","Tong tien");
     }
     public void xuat(){
-        System.out.printf("%-10s %-10s %-10s %-15s %-10d\n",ma_hoa_don,nv.getMaNV(),ma_kh.getMaKH(),ngay_lap_hd,tong_tien);
+        System.out.printf("%-10s %-10s %-10s %-15s %-10d\n",mahoadon,nv.getMaNV(),makh.getMaKH(),ngaylaphd,tongtien);
     }
 //    public static void main(String[] args) {
 //        NhanVien nv1 = new NhanVien();

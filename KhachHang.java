@@ -1,26 +1,26 @@
 import java.util.Scanner;
 public class KhachHang {
-    private String ma_kh, ho, ten, dia_chi, so_dt;
+    private String makh, ho, ten, diachi, sodt;
     public KhachHang(){
-        ma_kh="";
+        makh="";
         ho="";
         ten="";
-        dia_chi="";
-        so_dt="";
+        diachi="";
+        sodt="";
     }
-    public KhachHang(String ma_kh,String ho,String ten, String dia_chi,String so_dt){
-        this.ma_kh=ma_kh;
+    public KhachHang(String makh,String ho,String ten, String diachi,String sodt){
+        this.makh=makh;
         this.ho=ho;
         this.ten=ten;
-        this.dia_chi=dia_chi;
-        this.so_dt=so_dt;
+        this.diachi=diachi;
+        this.sodt=sodt;
     }
     public KhachHang(KhachHang a){
-        ma_kh= a.ma_kh;
+        makh= a.makh;
         ho=a.ho;
         ten=a.ten;
-        dia_chi=a.dia_chi;
-        so_dt=a.so_dt;
+        diachi=a.diachi;
+        sodt=a.sodt;
     }
 
     public String getHo() {
@@ -32,31 +32,31 @@ public class KhachHang {
     }
 
     public String getDiaChi() {
-        return dia_chi;
+        return diachi;
     }
 
     public String getMaKH() {
-        return ma_kh;
+        return makh;
     }
 
     public String getSoDT() {
-        return so_dt;
+        return sodt;
     }
 
-    public void setDiaChi(String dia_chi) {
-        this.dia_chi = dia_chi;
+    public void setDiaChi(String diachi) {
+        this.diachi = diachi;
     }
 
     public void setHo(String ho) {
         this.ho = ho;
     }
 
-    public void setMaKH(String ma_kh) {
-        this.ma_kh = ma_kh;
+    public void setMaKH(String makh) {
+        this.makh = makh;
     }
 
-    public void setSoDT(String so_dt) {
-        this.so_dt = so_dt;
+    public void setSoDT(String sodt) {
+        this.sodt = sodt;
     }
 
     public void setTen(String ten) {
@@ -65,18 +65,18 @@ public class KhachHang {
     public void nhap(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Ma khach hang: ");
-        ma_kh = sc.nextLine();
+        makh = sc.nextLine();
         System.out.print("Ho: ");
         ho = sc.nextLine();
         System.out.print("Ten: ");
         ten = sc.nextLine();
         System.out.print("Dia chi: ");
-        dia_chi = sc.nextLine();
+        diachi = sc.nextLine();
         System.out.print("SDT: ");
-        so_dt = sc.nextLine();
+        sodt = sc.nextLine();
     }
     public void xuat(){
-        System.out.printf("%-15s %-25s %-15s %-60s \n",ma_kh,(ho + " " + ten),so_dt, dia_chi);
+        System.out.printf("%-15s %-25s %-15s %-60s \n",makh,(ho + " " + ten),sodt, diachi);
 
     }
 }
