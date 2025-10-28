@@ -1,39 +1,39 @@
 import java.util.Scanner;
 public class VanPhong extends VanPhongPham{
-    private String phan_loai_chuc_nang;
+    private String phanloaichucnang;
     public VanPhong(){
     }
-    public VanPhong(String ma_sp,String ten_sp, String don_vi_tinh,int don_gia,int so_luong, String phan_loai_chuc_nang){
-        super(don_gia, so_luong, ma_sp, ten_sp, don_vi_tinh);
-        this.phan_loai_chuc_nang = phan_loai_chuc_nang;
+    public VanPhong(String masp,String tensp, String donvitinh,int dongia,int soluong, String phanloaichucnang){
+        super(dongia, soluong, masp, tensp, donvitinh);
+        this.phanloaichucnang = phanloaichucnang;
     }
     public VanPhong(VanPhong other){
         super((VanPhongPham)other);
-        this.phan_loai_chuc_nang = other.phan_loai_chuc_nang;
+        this.phanloaichucnang = other.phanloaichucnang;
     }
     public String getPhanLoaiChucNang() {
-        return phan_loai_chuc_nang;
+        return phanloaichucnang;
     }
 
-    public void setPhanLoaiChucNang(String phan_loai_chuc_nang) {
-        this.phan_loai_chuc_nang = phan_loai_chuc_nang;
+    public void setPhanLoaiChucNang(String phanloaichucnang) {
+        this.phanloaichucnang = phanloaichucnang;
     }
-    @Override public void nhap(DSVPP dsvpp){
-        super.nhap(dsvpp);
-        System.out.print("Phan loai chuc nang: ");
-        Scanner sc = new Scanner(System.in);
-        phan_loai_chuc_nang = sc.nextLine();
-    }
+    // @Override public void nhap(DSVPP dsvpp){
+    //     super.nhap(dsvpp);
+    //     System.out.print("Phan loai chuc nang: ");
+    //     Scanner sc = new Scanner(System.in);
+    //     phanloaichucnang = sc.nextLine();
+    // }
 
   @Override
     public void xuat() {
        System.out.printf("| %-10s | %-20s | %-10d | %-13d | %-13s | %-20s | %-10s | %-10s |\n",
-            ma_sp,             // Cột 1: Mã SP (String)
-            ten_sp,            // Cột 2: Tên SP (String)
-            so_luong,          // Cột 3: Số Lượng (int)
-            don_gia,           // Cột 4: Đơn Giá (int)
-            don_vi_tinh,       // Cột 5: Đơn Vị Tính (String)
-            phan_loai_chuc_nang,          // Cột 6: Chức Năng (String) - Có
+            masp,             // Cột 1: Mã SP (String)
+            tensp,            // Cột 2: Tên SP (String)
+            soluong,          // Cột 3: Số Lượng (int)
+            dongia,           // Cột 4: Đơn Giá (int)
+            donvitinh,       // Cột 5: Đơn Vị Tính (String)
+            phanloaichucnang,          // Cột 6: Chức Năng (String) - Có
             "",                // Cột 7: Độ Tuổi (String) - Để trống
             ""                 // Cột 8: Thể Loại (String) - Để trống
         );
@@ -41,12 +41,12 @@ public class VanPhong extends VanPhongPham{
     @Override
     public void docDuLieu(String[] parts) {
         try {
-            this.ma_sp = parts[1];
-            this.ten_sp = parts[2];
-            this.so_luong = Integer.parseInt(parts[3]);
-            this.don_gia = Integer.parseInt(parts[4]);
-            this.don_vi_tinh = parts[5];
-            this.phan_loai_chuc_nang = parts[6];
+            this.masp = parts[1];
+            this.tensp = parts[2];
+            this.soluong = Integer.parseInt(parts[3]);
+            this.dongia = Integer.parseInt(parts[4]);
+            this.donvitinh = parts[5];
+            this.phanloaichucnang = parts[6];
         } catch (Exception e) {
             System.out.println("Lỗi đọc dòng VanPhong!");
         }
