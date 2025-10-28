@@ -1,39 +1,39 @@
 import java.util.Scanner;
 public class ChiTietPNH{ // Chi tiet phieu nhan hang
-  private String ma_pnh;// ma phieu nhan hang
-  private String ma_sp;
-  private int don_gia, so_luong, thanh_tien; 
+  private String mapnh;// ma phieu nhan hang
+  private String masp;
+  private int dongia, soluong, thanhtien; 
 
   public ChiTietPNH(){}
-  public ChiTietPNH(String ma_pnh, String ma_sp, int don_gia, int so_luong, int thanh_tien){
-    this.ma_pnh = ma_pnh;
-    this.ma_sp = ma_sp;
-    this.don_gia = don_gia;
-    this.so_luong = so_luong;
-    this.thanh_tien = thanh_tien;
+  public ChiTietPNH(String mapnh, String masp, int dongia, int soluong, int thanhtien){
+    this.mapnh = mapnh;
+    this.masp = masp;
+    this.dongia = dongia;
+    this.soluong = soluong;
+    this.thanhtien = thanhtien;
   }
    public ChiTietPNH(ChiTietPNH x){
-    ma_pnh = x.ma_pnh;
-    ma_sp = x.ma_sp;
-    don_gia = x.don_gia;
-    so_luong = x.so_luong;
-    thanh_tien = x.thanh_tien;
+    mapnh = x.mapnh;
+    masp = x.masp;
+    dongia = x.dongia;
+    soluong = x.soluong;
+    thanhtien = x.thanhtien;
   }
   public void nhap(){
     Scanner sc = new Scanner(System.in);
     System.out.print("Nhap ma phieu nhan hang: ");
-    ma_pnh = sc.nextLine();
+    mapnh = sc.nextLine();
     System.out.print("Nhap ma san pham: ");
-    ma_sp = sc.nextLine();
+    masp = sc.nextLine();
     System.out.print("Nhap don gia: ");
-    don_gia = sc.nextInt();
+    dongia = sc.nextInt();
     sc.nextLine();
     System.out.print("Nhap so luong: ");
-    so_luong = sc.nextInt();
+    soluong = sc.nextInt();
     sc.nextLine();
-    thanh_tien = don_gia * so_luong;
+    thanhtien = dongia * soluong;
   }
   public void xuat(){
-    System.out.printf("%-15s %-15s %-15d %-15d %-15d\n", ma_pnh, ma_sp, don_gia, so_luong, thanh_tien);
+    System.out.printf("%-15s %-15s %-15d %-15d %-15d\n", mapnh, masp, dongia, soluong, thanhtien);
   }
 }
