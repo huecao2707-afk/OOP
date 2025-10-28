@@ -1,25 +1,25 @@
 import java.util.Scanner;
 
 public class NhanVien {
-    private String ma_nv ,ho,ten;
-    private int luong_thang;
+    private String manv ,ho,ten;
+    private int luongthang;
     public NhanVien(){
-        ma_nv=" ";
+        manv=" ";
         ho=" ";
         ten=" ";
-        luong_thang=0;
+        luongthang=0;
     }
-    public NhanVien(String ma_nv,String ho,String ten,int luong_thang){
-        this.ma_nv=ma_nv;
+    public NhanVien(String manv,String ho,String ten,int luongthang){
+        this.manv=manv;
         this.ho=ho;
         this.ten=ten;
-        this.luong_thang=luong_thang;
+        this.luongthang=luongthang;
     }
     public NhanVien(NhanVien a){
-        ma_nv=a.ma_nv;
+        manv=a.manv;
         ho=a.ho;
         ten=a.ten;
-        luong_thang=a.luong_thang;
+        luongthang=a.luongthang;
     }
 
     public String getHo() {
@@ -27,7 +27,7 @@ public class NhanVien {
     }
 
     public String getMaNV() {
-        return ma_nv;
+        return manv;
     }
 
     public String getTen() {
@@ -35,39 +35,34 @@ public class NhanVien {
     }
 
     public int getLuongThang() {
-        return luong_thang;
+        return luongthang;
     }
-
     public void setHo(String ho) {
         this.ho = ho;
     }
-
-    public void setMaNV(String ma_nv) {
-        this.ma_nv = ma_nv;
+    public void setMaNV(String manv) {
+        this.manv = manv;
     }
-
     public void setTen(String ten) {
         this.ten = ten;
     }
-
-    public void setLuongThang(int luong_thang) {
-        this.luong_thang = luong_thang;
+    public void setLuongThang(int luongthang) {
+        this.luongthang = luongthang;
     }
-
     public void nhap(){
         Scanner sc=new Scanner(System.in);
-        System.out.print("Ma Nv: ");
-        ma_nv=sc.nextLine();
+        System.out.print("Ma NV: ");
+        manv=sc.nextLine();
         System.out.print("Ho: ");
         ho=sc.nextLine();
         System.out.print("Ten: ");
         ten=sc.nextLine();
         System.out.print("Luong thang: ");
-        luong_thang=sc.nextInt();
+        luongthang=sc.nextInt();
         sc.nextLine();
     }
     public void xuat(){
-        System.out.printf("%-15s %-25s %-10s\n",ma_nv,(ho + " " + ten),luong_thang);
+        System.out.printf("%-10s %-15s %-10s %-10d\n",manv,ho,ten,luongthang);
     }
 
 }
