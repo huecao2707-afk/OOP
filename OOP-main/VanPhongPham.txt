@@ -1,7 +1,0 @@
-VP,VP001,Bút bi,1,5000,Cái,Ghi
-DC,DC001,Xe Tank,1,199999,Chiếc,16+,War
-VP,VP002,Vở,1,12000,Cái,Lưu trữ kiến thức
-DC,DC002,Trực thăng,1,299999,Chiếc,16+,War
-DC,DC003,Rubik 3x3,5,245000,Cái,6+,Giải đố
-DC,DC004,Rubik GanRS 365 Pro,5,599000,Cái,6+,Giải đố
-VP,VP003,Máy In,1,15000000,Cái,In ấn
