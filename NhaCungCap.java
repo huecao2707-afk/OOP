@@ -1,17 +1,16 @@
 import java.util.Scanner;
 public class NhaCungCap {
-    private String tenncc, diachi, mancc;
+    private String tenncc, diachi, mancc, dt, namthanhlap;
 
     public NhaCungCap() {
-        mancc = "";
-        tenncc = "";
-        diachi = "";
     }
 
-    public NhaCungCap(String mancc, String tenncc, String diachi) {
+    public NhaCungCap(String mancc, String tenncc, String diachi, String dt, String namthanhlap) {
         this.mancc = mancc;
         this.tenncc = tenncc;
         this.diachi = diachi;
+        this.dt = dt;
+        this.namthanhlap = namthanhlap;
     }
 
     public NhaCungCap(NhaCungCap a) {
@@ -30,6 +29,18 @@ public class NhaCungCap {
 
     public String getDiaChi() {
         return diachi;
+    }
+    public String getDT(){
+        return dt;
+    }
+    public String getNamThanhLap(){
+        return namthanhlap;
+    }
+    public void setmaNCC(String mancc){
+        this.mancc = mancc;
+    }
+    public void setTenNCC(String tenncc){
+        this.tenncc = tenncc;
     }
     public void nhap(){
         Scanner sc=new Scanner(System.in);
