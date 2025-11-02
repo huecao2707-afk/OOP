@@ -1,13 +1,13 @@
 import java.util.Scanner;
 public class QuanLyBanHang {
-    DSVPP dsvpp = new DSVPP();
-    DSKH dskh = new DSKH();
-    DSNCC dsncc = new DSNCC();
-    DSNV dsnv = new DSNV();
-    DSPNH dspnh = new DSPNH();
-    DSHD dshd = new DSHD();
-    DSCTHD dsctphd = new DSCTHD();
-    DSCTPNH dsctpnh = new DSCTPNH();
+    static DSVPP dsvpp;
+    static DSKH dskh ;
+    static DSNCC dsncc;
+    static DSNV dsnv;
+    static DSPNH dspnh;
+    static DSHD dshd;
+    static DSCTHD dsctphd ;
+    static DSCTPNH dsctpnh;
     
     public void menuChinh() {
         Scanner sc = new Scanner(System.in);
@@ -28,9 +28,23 @@ public class QuanLyBanHang {
                 case 1:
                     menuConQuanLySanPham();
                     break;
-                case 6:
-                    
-                    break;
+                // case 2:
+                //     menuConQuanLyNhanVien();
+                //     break;
+                // case 3:
+                //     menuConQuanLyKhachHang();
+                //     break;
+                // case 4:
+                //     menuConQuanLyNhaCungCap();
+                //     break;
+                // case 5:
+                //     menuConQuanLyHoaDon();
+                //     break;
+                // case 6:
+                //     menuConQuanLyPhieuNhanHang();
+                //     break;
+                case 7:
+                    System.out.println("Tạm biệt!");
                 default:
                     System.out.println("Lựa chọn không hợp lệ.");
             }
@@ -61,7 +75,8 @@ public class QuanLyBanHang {
                     // sua();
                     break;
                 case 4:
-                    dsvpp.readFile();
+                    dsvpp = new DSVPP();
+                    dsvpp.docFileVPP();
                     dsvpp.xuat();
                      break;
             }
@@ -69,6 +84,6 @@ public class QuanLyBanHang {
     }
     public static void main(String[] args) {
         QuanLyBanHang ql1 = new QuanLyBanHang();
-        ql1.menuConQuanLySanPham();
+        ql1.menuChinh();
     }
 }
