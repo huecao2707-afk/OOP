@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 public class DoChoi extends VanPhongPham{ 
 
@@ -6,8 +9,8 @@ public class DoChoi extends VanPhongPham{
 
     public DoChoi(){
     }
-    public DoChoi(String masp,String tensp, int soluong,int dongia, String donvitinh, String theloai,String luatuoi){
-        super(dongia, soluong, masp, tensp, donvitinh);
+    public DoChoi(LoaiSanPham loaisanpham, String masp,String tensp,int dongia, String donvitinh,int soluong, String theloai,String luatuoi){
+        super(loaisanpham,masp, tensp, dongia,donvitinh,soluong);
         this.theloai = theloai;
         this.luatuoi = luatuoi;
     }
@@ -25,21 +28,21 @@ public class DoChoi extends VanPhongPham{
         return theloai;
     }
 
-    public void setLuatuoi(String luatuoi) {
+    public void setLuaTuoi(String luatuoi) {
         this.luatuoi = luatuoi;
     }
 
     public void setTheloai(String theloai) {
         this.theloai = theloai;
     }
-    // @Override public void nhap(DSVPP dsvpp){
-    //     super.nhap(dsvpp);
-    //     Scanner sc = new Scanner(System.in);
-    //     System.out.print("The loai: ");
-    //     theloai = sc.nextLine();
-    //     System.out.print("Lua tuoi: ");
-    //     luatuoi = sc.nextLine();
-    // }
+    @Override public void nhap(){
+        super.nhap();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Thể loại: ");
+        theloai = sc.nextLine();
+        System.out.print("Lứa tuổi: ");
+        luatuoi = sc.nextLine();
+    }
     @Override public void xuat() {
          System.out.printf("| %-10s | %-20s | %-10d | %-13d | %-13s | %-20s | %-10s | %-10s |\n",
             masp,             // Cột 1: Mã SP (String)
@@ -53,18 +56,18 @@ public class DoChoi extends VanPhongPham{
         );
     }
     @Override
-    public void docDuLieu(String[] parts) {
-        // File: DC,SP002,Xe hơi,5,250000,chiếc,Nhựa,6+
-        try {
-            this.masp = parts[1];
-        this.tensp = parts[2];
-        this.soluong = Integer.parseInt(parts[3]);
-        this.dongia = Integer.parseInt(parts[4]);
-        this.donvitinh = parts[5];
-        this.luatuoi = parts[6]; 
-        this.theloai = parts[7];  
-        } catch (Exception e) {
-            System.out.println("Lỗi đọc dòng DoChoi!");
+    public void ghiFile(){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("VanPhongPham.txt", true))) { //Ghi tiếp vào file
+            String loai = "DC";
+            String line = loai + "," +
+                          this.masp + "," + this.tensp + "," + this.soluong + "," +
+                          this.dongia + "," + this.donvitinh + "," + 
+                          "" + "," + this.luatuoi + "," + this.theloai; //Cộng thêm các cột rỗng cho Phân Loại Chức Năng ở class VanPhong
+            bw.write(line);
+            bw.newLine(); //Xuống dòng cho sản phẩm tiếp theo
+
+        }catch (IOException e) {
+            System.out.println("Lỗi khi ghi file: " + e.getMessage());
         }
     }
 }
