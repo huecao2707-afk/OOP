@@ -1,10 +1,13 @@
+import java.io.BufferedWriter;
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.FileWriter;
 public class VanPhong extends VanPhongPham{
     private String phanloaichucnang;
     public VanPhong(){
     }
-    public VanPhong(String masp,String tensp, String donvitinh,int dongia,int soluong, String phanloaichucnang){
-        super(dongia, soluong, masp, tensp, donvitinh);
+    public VanPhong(LoaiSanPham loaiSanPham, String masp,String tensp, int dongia,String donvitinh,int soluong, String phanloaichucnang){
+        super(loaiSanPham,masp,tensp,dongia,donvitinh,soluong);
         this.phanloaichucnang = phanloaichucnang;
     }
     public VanPhong(VanPhong other){
@@ -18,12 +21,12 @@ public class VanPhong extends VanPhongPham{
     public void setPhanLoaiChucNang(String phanloaichucnang) {
         this.phanloaichucnang = phanloaichucnang;
     }
-    // @Override public void nhap(DSVPP dsvpp){
-    //     super.nhap(dsvpp);
-    //     System.out.print("Phan loai chuc nang: ");
-    //     Scanner sc = new Scanner(System.in);
-    //     phanloaichucnang = sc.nextLine();
-    // }
+    @Override public void nhap(){
+        super.nhap();
+        System.out.print("Phân loại chức năng: ");
+        Scanner sc = new Scanner(System.in);
+        phanloaichucnang = sc.nextLine();
+    }
 
   @Override
     public void xuat() {
@@ -32,23 +35,26 @@ public class VanPhong extends VanPhongPham{
             tensp,            // Cột 2: Tên SP (String)
             soluong,          // Cột 3: Số Lượng (int)
             dongia,           // Cột 4: Đơn Giá (int)
-            donvitinh,       // Cột 5: Đơn Vị Tính (String)
-            phanloaichucnang,          // Cột 6: Chức Năng (String) - Có
-            "",                // Cột 7: Độ Tuổi (String) - Để trống
-            ""                 // Cột 8: Thể Loại (String) - Để trống
+            donvitinh,        //Cột 5: Đơn Vị Tính (String)
+            phanloaichucnang, // Cột 6: Chức Năng (String) - Có
+            "",               // Cột 7: Độ Tuổi (String) - Để trống
+            ""                // Cột 8: Thể Loại (String) - Để trống
         );
     }
     @Override
-    public void docDuLieu(String[] parts) {
-        try {
-            this.masp = parts[1];
-            this.tensp = parts[2];
-            this.soluong = Integer.parseInt(parts[3]);
-            this.dongia = Integer.parseInt(parts[4]);
-            this.donvitinh = parts[5];
-            this.phanloaichucnang = parts[6];
-        } catch (Exception e) {
-            System.out.println("Lỗi đọc dòng VanPhong!");
+    public void ghiFile(){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("VanPhongPham.txt", true))) { //Ghi tiếp vào file
+            String loai = "VP";
+            String line = loai + "," +
+                          this.masp + "," + this.tensp + "," + this.soluong + "," +
+                          this.dongia + "," + this.donvitinh + "," + 
+                          this.phanloaichucnang + "," + "" + "," + ""; //Cộng thêm các cột rỗng cho Độ Tuổi và Thể Loại ở class DoChoi
+            // Ghi dòng mới vào cuối file
+            bw.write(line);
+            bw.newLine(); //Xuống dòng cho sản phẩm tiếp theo
+
+        }catch (IOException e) {
+            System.out.println("Lỗi khi ghi file: " + e.getMessage());
         }
     }
 }
