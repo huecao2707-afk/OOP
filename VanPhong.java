@@ -1,13 +1,11 @@
-import java.io.BufferedWriter;
+
 import java.util.Scanner;
-import java.io.IOException;
-import java.io.FileWriter;
 public class VanPhong extends VanPhongPham{
     private String phanloaichucnang;
     public VanPhong(){
     }
-    public VanPhong(LoaiSanPham loaiSanPham, String masp,String tensp, int dongia,String donvitinh,int soluong, String phanloaichucnang){
-        super(loaiSanPham,masp,tensp,dongia,donvitinh,soluong);
+    public VanPhong(LoaiSanPham loaisanpham, String masp,String tensp, int dongia,String donvitinh,int soluong, String phanloaichucnang){
+        super(loaisanpham,masp,tensp,dongia,donvitinh,soluong);
         this.phanloaichucnang = phanloaichucnang;
     }
     public VanPhong(VanPhong other){
@@ -17,7 +15,6 @@ public class VanPhong extends VanPhongPham{
     public String getPhanLoaiChucNang() {
         return phanloaichucnang;
     }
-
     public void setPhanLoaiChucNang(String phanloaichucnang) {
         this.phanloaichucnang = phanloaichucnang;
     }
@@ -27,35 +24,26 @@ public class VanPhong extends VanPhongPham{
         Scanner sc = new Scanner(System.in);
         phanloaichucnang = sc.nextLine();
     }
-
-  @Override
+    @Override
     public void xuat() {
-       System.out.printf("| %-10s | %-20s | %-10d | %-13d | %-13s | %-20s | %-10s | %-10s |\n",
-            masp,             // Cột 1: Mã SP (String)
-            tensp,            // Cột 2: Tên SP (String)
-            soluong,          // Cột 3: Số Lượng (int)
-            dongia,           // Cột 4: Đơn Giá (int)
-            donvitinh,        //Cột 5: Đơn Vị Tính (String)
-            phanloaichucnang, // Cột 6: Chức Năng (String) - Có
-            "",               // Cột 7: Độ Tuổi (String) - Để trống
-            ""                // Cột 8: Thể Loại (String) - Để trống
+        String maloai = "VP";
+            if (this.getLoaiSP() != null) 
+            // 3. Nếu ĐÚNG: Lấy mã loại từ đối tượng
+                maloai = this.getLoaiSP().getMaLoai();
+
+        // Chuỗi định dạng 9 cột (Giống hệt DSVPP)
+        String format = "| %-8s | %-10s | %-20s | %-10d | %-13d | %-13s | %-20s | %-10s | %-10s |\n";
+
+        System.out.printf(format,
+                maloai,            // Cột 1: Loại SP
+                masp,              // Cột 2: Mã SP
+                tensp,             // Cột 3: Tên SP
+                soluong,           // Cột 4: Số Lượng (dùng %d)
+                dongia,            // Cột 5: Đơn Giá (dùng %d)
+                donvitinh,         // Cột 6: Đơn Vị Tính
+                phanloaichucnang,  // Cột 7: Chức Năng (Có)
+                "",                // Cột 8: Độ Tuổi (Trống)
+                ""                 // Cột 9: Thể Loại (Trống)
         );
     }
-    @Override
-    public void ghiFile(){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("VanPhongPham.txt", true))) { //Ghi tiếp vào file
-            String loai = "VP";
-            String line = loai + "," +
-                          this.masp + "," + this.tensp + "," + this.soluong + "," +
-                          this.dongia + "," + this.donvitinh + "," + 
-                          this.phanloaichucnang + "," + "" + "," + ""; //Cộng thêm các cột rỗng cho Độ Tuổi và Thể Loại ở class DoChoi
-            // Ghi dòng mới vào cuối file
-            bw.write(line);
-            bw.newLine(); //Xuống dòng cho sản phẩm tiếp theo
-
-        }catch (IOException e) {
-            System.out.println("Lỗi khi ghi file: " + e.getMessage());
-        }
-    }
 }
-
