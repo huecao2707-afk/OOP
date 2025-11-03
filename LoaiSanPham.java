@@ -1,4 +1,3 @@
-
 public class LoaiSanPham {
     private String maloai, tenloai, mota;
     public LoaiSanPham(){}
