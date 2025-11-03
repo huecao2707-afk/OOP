@@ -1,6 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.Scanner;
 public class DoChoi extends VanPhongPham{ 
 
@@ -32,7 +30,7 @@ public class DoChoi extends VanPhongPham{
         this.luatuoi = luatuoi;
     }
 
-    public void setTheloai(String theloai) {
+    public void setTheLoai(String theloai) {
         this.theloai = theloai;
     }
     @Override public void nhap(){
@@ -43,31 +41,25 @@ public class DoChoi extends VanPhongPham{
         System.out.print("Lứa tuổi: ");
         luatuoi = sc.nextLine();
     }
-    @Override public void xuat() {
-         System.out.printf("| %-10s | %-20s | %-10d | %-13d | %-13s | %-20s | %-10s | %-10s |\n",
-            masp,             // Cột 1: Mã SP (String)
-            tensp,            // Cột 2: Tên SP (String)
-            soluong,          // Cột 3: Số Lượng (int)
-            dongia,           // Cột 4: Đơn Giá (int)
-            donvitinh,       // Cột 5: Đơn Vị Tính (String)
-            "",                // Cột 6: Chức Năng (String) - Để trống
-            luatuoi,            // Cột 7: Độ Tuổi (String) - Có
-            theloai            // Cột 8: Thể Loại (String) - Có
-        );
-    }
+   
     @Override
-    public void ghiFile(){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("VanPhongPham.txt", true))) { //Ghi tiếp vào file
-            String loai = "DC";
-            String line = loai + "," +
-                          this.masp + "," + this.tensp + "," + this.soluong + "," +
-                          this.dongia + "," + this.donvitinh + "," + 
-                          "" + "," + this.luatuoi + "," + this.theloai; //Cộng thêm các cột rỗng cho Phân Loại Chức Năng ở class VanPhong
-            bw.write(line);
-            bw.newLine(); //Xuống dòng cho sản phẩm tiếp theo
-
-        }catch (IOException e) {
-            System.out.println("Lỗi khi ghi file: " + e.getMessage());
+    public void xuat() {
+        String maloai = "DC"; // Giá trị mặc định nếu loaisp bị null
+        if (this.getLoaiSP() != null) {
+            maloai = this.getLoaiSP().getMaLoai();
         }
+        String format = "| %-8s | %-10s | %-20s | %-10d | %-13d | %-13s | %-20s | %-10s | %-10s |\n";
+
+        System.out.printf(format,
+                maloai,        // Cột 1: Loại SP (String)
+                masp,          // Cột 2: Mã SP (String)
+                tensp,         // Cột 3: Tên SP (String)
+                soluong,       // Cột 4: Số Lượng (int)
+                dongia,        // Cột 5: Đơn Giá (int)
+                donvitinh,     // Cột 6: Đơn Vị Tính (String)
+                "",            // Cột 7: Chức Năng (Để trống)
+                luatuoi,       // Cột 8: Lứa Tuổi (String - Riêng của Đồ Chơi)
+                theloai        // Cột 9: Thể Loại (String - Riêng của Đồ Chơi)
+        );
     }
 }
