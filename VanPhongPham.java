@@ -1,19 +1,12 @@
-
 import java.util.Scanner;
 public abstract class VanPhongPham {
     protected int dongia,soluong;
     protected String masp, tensp,donvitinh;
-    protected LoaiSanPham maloai;
+    protected LoaiSanPham loaisp;
     public VanPhongPham(){
-        maloai = null;
-        masp = "";
-        tensp = "";
-        dongia = 0;
-        donvitinh = "";
-        soluong = 0;
     }
-    public VanPhongPham(LoaiSanPham maloai, String masp,String tensp,int dongia,String donvitinh, int soluong  ){
-        this.maloai = maloai;
+    public VanPhongPham(LoaiSanPham loaisp, String masp,String tensp,int dongia,String donvitinh, int soluong  ){
+        this.loaisp = loaisp;
         this.masp = masp;
         this.tensp = tensp;
         this.dongia = dongia;
@@ -21,7 +14,7 @@ public abstract class VanPhongPham {
         this.soluong = soluong;
     }
     public VanPhongPham(VanPhongPham x){
-        this.maloai = x.maloai;
+        this.loaisp = x.loaisp;
         this.masp = x.masp;
         this.tensp = x.tensp;
         this.dongia = x.dongia;
@@ -30,8 +23,8 @@ public abstract class VanPhongPham {
     }
 
     // Cac ham getter
-    public LoaiSanPham getMaLoai() {
-        return maloai;
+    public LoaiSanPham getLoaiSP() {
+        return loaisp;
     }
     public String getMaSP() {
         return masp;
@@ -49,8 +42,8 @@ public abstract class VanPhongPham {
         return soluong;
     }
     // Cac ham setter
-    public void setMaLoai(LoaiSanPham maloai) {
-        this.maloai = maloai;
+    public void setLoaiSP(LoaiSanPham loaisp) {
+        this.loaisp = loaisp;
     }
     public void setMaSP(String masp) {
         this.masp = masp;
@@ -99,7 +92,5 @@ public abstract class VanPhongPham {
         System.out.print("Đơn vị tính: ");
         donvitinh = sc.nextLine();
     }
-    // public abstract void docDuLieu();
     public abstract void xuat();
-    public abstract void ghiFile();
 }
