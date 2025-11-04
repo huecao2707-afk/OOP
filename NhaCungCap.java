@@ -42,6 +42,9 @@ public class NhaCungCap {
     public void setTenNCC(String tenncc){
         this.tenncc = tenncc;
     }
+    public void setDiaChi(String diachi){
+        this.diachi = diachi;
+    }
     public void nhap(){
         Scanner sc=new Scanner(System.in);
         System.out.print("Ma NCC: ");
