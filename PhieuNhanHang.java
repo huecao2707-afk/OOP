@@ -1,26 +1,26 @@
 import java.util.Scanner;
 public class PhieuNhanHang{
   private String mapnh;// ma phieu nhan hang
-  private NhaCungCap ncc;
-  private NhanVien nv;
-  private String ngay;
+  private NhanVien manv;
+  private NhaCungCap mancc;
+  private String ngaynhanhang;
   private int tongtien;//
   
   public PhieuNhanHang(){}
   
-  public PhieuNhanHang(String mapnh, NhanVien manv, NhaCungCap mancc, String ngay, int tongtien){
+  public PhieuNhanHang(String mapnh, NhanVien manv, NhaCungCap mancc, String ngaynhanhang, int tongtien){
     this.mapnh = mapnh;
-    this.nv = manv;
-    this.ncc = mancc;
-    this.ngay = ngay;
+    this.manv = manv;
+    this.mancc = mancc;
+    this.ngaynhanhang = ngaynhanhang;
     this.tongtien = tongtien;
   }
   
   public PhieuNhanHang(PhieuNhanHang x){
     mapnh = x.mapnh;
-    nv = x.nv;
-    ncc = x.ncc;
-    ngay = x.ngay;
+    manv = x.manv;
+    mancc = x.mancc;
+    ngaynhanhang = x.ngaynhanhang;
     tongtien = x.tongtien;
   }
 //  public void nhap(){
@@ -44,13 +44,13 @@ public class PhieuNhanHang{
     return mapnh;
   }
   public NhanVien getNhanVien(){ // Lấy thông tin nhân viên
-    return nv;
+    return manv;
   }
   public String getNgay(){
-    return ngay;
+    return ngaynhanhang;
   }
   public NhaCungCap getNhaCungCap(){ // Lấy thông tin nhà cung cấp
-    return ncc;
+    return mancc;
   }
   public int getTongTien(){
     return tongtien;
