@@ -55,6 +55,6 @@ public class NhaCungCap {
         diachi=sc.nextLine();
     }
     public void xuat(){
-        System.out.printf("%-20s %-20s %-20s\n",mancc,tenncc,diachi);
+        System.out.printf("| %-30s | %-35s | %-30s |\n",mancc,tenncc,diachi);
     }
 }
