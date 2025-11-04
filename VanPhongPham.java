@@ -92,5 +92,29 @@ public abstract class VanPhongPham {
         System.out.print("Đơn vị tính: ");
         donvitinh = sc.nextLine();
     }
-    public abstract void xuat();
+    public void xuat() {
+    System.out.println("\n--- DANH SÁCH TẤT CẢ SẢN PHẨM ---");
+
+    // Chuỗi định dạng (6 cột)
+    String format = "| %-15s | %-15s | %-20s | %-10s | %-10s | %-15s |\n";
+    String line = "+-----------------+-----------------+----------------------+------------+------------+-----------------+";
+
+    System.out.println(line);
+    System.out.printf(format, 
+            "Loại SP", "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Đơn Vị Tính");
+    System.out.println(line);
+
+    // Tránh lỗi null khi loaisp chưa được khởi tạo
+    String maLoai = (loaisp == null) ? "Chưa có" : loaisp.getMaLoai();
+
+    System.out.printf(format, 
+            maLoai, 
+            (masp == null ? "Chưa có" : masp), 
+            (tensp == null ? "Chưa có" : tensp), 
+            soluong, 
+            dongia, 
+            (donvitinh == null ? "Chưa có" : donvitinh)
+    );
+    System.out.println(line);
+}
 }
