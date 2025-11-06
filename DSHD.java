@@ -1,43 +1,76 @@
+import java.util.Arrays;
 import java.util.Scanner;
+
 public class DSHD {
     private int n;
-    public HoaDon[] ds_hd = new HoaDon[1];
+    public HoaDon[] dshd;
     public DSHD(){
+        dshd = new HoaDon[100];
+        n = 0;
     }
-    public DSHD(HoaDon[] ds_hd, int n){
+    public DSHD(int n,HoaDon[] dshd){
         this.n = n;
-        this.ds_hd = ds_hd;
+        this.dshd = dshd;
     }
-    public DSHD(DSHD other) {
-        this.n = other.n;
-        this.ds_hd = new HoaDon[this.n];
-        for (int i = 0; i < this.n; i++) {
-            this.ds_hd[i] = new HoaDon(other.ds_hd[i]);
+   public DSHD(DSHD other) {
+        this.n = other.n; 
+        this.dshd = new HoaDon[other.dshd.length];
+        for (int i = 0; i < this.n; i++) { 
+            this.dshd[i] = new HoaDon(other.dshd[i]);
         }
     }
-    public void nhap(NhanVien nv_lap_don) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap so luong hoa don: ");
-        n = sc.nextInt();
-        sc.nextLine();
-        
-        // Khởi tạo mảng với đúng số lượng 'n'
-        ds_hd = new HoaDon[n];
-        
+    public HoaDon timHDtheoMa(String mahd) {
         for (int i = 0; i < n; i++) {
-            System.out.println("----------HOA DON " + (i + 1) + "----------");
-            ds_hd[i] = new HoaDon(); // Tạo Hóa đơn
-            ds_hd[i].nhap(); // Gọi hàm nhập của Hóa đơn (để nhập Mã HD, Mã KH...)
-
-            // Gán nhân viên đang lập HĐ này cho Hóa đơn
-            // (Bạn cần có hàm setNhanVien trong class HoaDon)
-            ds_hd[i].setNhanVien(nv_lap_don);
+            if (dshd[i] != null && dshd[i].getMaHoaDon().equalsIgnoreCase(mahd)) {
+                return dshd[i]; // Trả về hóa đơn tìm thấy
+            }
         }
+        return null; // Không tìm thấy
+    }
+    public int timViTriHD(String mahd) {
+        for (int i = 0; i < n; i++) {
+            if (dshd[i] != null && dshd[i].getMaHoaDon().equalsIgnoreCase(mahd)) {
+                return i; // Trả về vị trí (index)
+            }
+        }
+        return -1; 
+    }
+    public boolean maDuyNhat(String mahd){
+        for(int i = 0; i < n; i++)
+            if(dshd[i].getMaHoaDon().equals(mahd))
+                return false;
+        return true;
+    }
+    public void themHoaDon(HoaDon hd) {
+        if (maDuyNhat(hd.getMaHoaDon())) {
+            dshd[n] = hd;
+            n++; // Tăng số lượng
+            System.out.println("-> Đã thêm Hóa Đơn " + hd.getMaHoaDon() + " vào danh sách.");
+        } else {
+            System.out.println("❌ Lỗi: Mã hóa đơn '" + hd.getMaHoaDon() + "' đã tồn tại. Không thể thêm.");
+        }
+    }
+    public void xoaHoaDon() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhập mã hóa đơn cần xóa: ");
+        String mahd = sc.nextLine();
+        int vitrixoa = timViTriHD(mahd);
+
+        if (vitrixoa == -1) {
+            System.out.println("❌ Không tìm thấy hóa đơn có mã: " + mahd);
+            return;
+        }
+        for (int i = vitrixoa; i < n - 1; i++) {
+            dshd[i] = dshd[i + 1];
+        }
+        dshd[n - 1] = null;
+        n--;
+        System.out.println("Đã xóa hóa đơn " + mahd);
     }
     public void xuat(){
         System.out.printf("%-10s %-10s %-10s %-15s %-10s\n","Ma HD","Ma NV","Ma KH","Ngay lap HD","Tong tien");
         for(int i = 0; i < n; i++){
-            ds_hd[i].xuat();
+            dshd[i].xuat();
         }
     }
 //    public static void main(String[] args) {
