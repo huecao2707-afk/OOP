@@ -11,7 +11,7 @@ public abstract class QuanLyBanHang {
    
 
     public QuanLyBanHang(){
-        taiDuLieuTuFile();
+
     }
     public QuanLyBanHang(DSVPP dsvpp, DSKH dskh, DSNCC dsncc, DSNV dsnv, DSPNH dspnh, DSCTPNH dsctpnh, DSHD dshd, DSCTHD dscthd){
         this.dsvpp = dsvpp;
@@ -45,10 +45,10 @@ public abstract class QuanLyBanHang {
         dshd = new DSHD();
         dsctphd = new DSCTHD();
         dsctpnh = new DSCTPNH();
-        dsvpp.docFile();
-        // dskh.docFile(); 
+        dsvpp.docFileSanPham();
+        dskh.docFileKhachHang();
+        dsnv.docFileNhanVien();
         // dsncc.docFile();
-        // dsnv.docFi   le();
         // dspnh.docFile();
         // dshd.docFile();
         // dsctphd.docFile();
@@ -56,6 +56,7 @@ public abstract class QuanLyBanHang {
 
         System.out.println("Tải dữ liệu hoàn tất!");
     }
+
     // public void
     public abstract void menuChinh();   
 }

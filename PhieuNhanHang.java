@@ -36,9 +36,9 @@ public class PhieuNhanHang{
 //
 //  }
 
-  public void xuat(){
-    System.out.printf("%-10s %-10s %-10s %-15s %-10d\n",mapnh,nv.getMaNV(),ncc.getMaNCC(),ngay,tongtien);
-  }
+//  public void xuat(){
+//    System.out.printf("%-10s %-10s %-10s %-15s %-10d\n",mapnh,manv.getMaNV(),ncc.getMaNCC(),ngay,tongtien);
+//  }
   
   public String getMaPNH(){
     return mapnh;

@@ -76,7 +76,7 @@ public class KhachHang {
         sodt = sc.nextLine();
     }
     public void xuat(){
-        System.out.printf("%-15s %-25s %-15s %-60s \n",makh,(ho + " " + ten),sodt, diachi);
+        System.out.printf("| %-15s | %-25s | %-15s | %-24s | \n",makh,(ho + " " + ten),sodt, diachi);
 
     }
 }

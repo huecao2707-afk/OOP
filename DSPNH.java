@@ -15,24 +15,24 @@ public class DSPNH{
             this.dspnh[i] = new PhieuNhanHang(other.dspnh[i]);
         }
   }
-//
-public void nhap(DSNV ds_nv, DSNCC ds_ncc){
-    Scanner sc = new Scanner(System.in);
-    System.out.print("Nhap so luong phieu nhan hang: ");
-    n = sc.nextInt();
-    sc.nextLine(); // doc bo dong thua
-    dspnh = new PhieuNhanHang [n]; // mang chua phieu nhan hang
-    for(int i = 0; i < n; i++){
-        System.out.println("Nhap thong tin phieu nhan hang thu " + (i+1) + ":");
-        dspnh[i] = new PhieuNhanHang(); //tao ra doi tuong phieu nhan hang
-        dspnh[i].nhap(ds_nv, ds_ncc); // GỌI HÀM NHẬP MỚI VỚI ĐỐI SỐ
-    }
-}
-  public void xuat(){
-    System.out.println("-------------DANH SÁCH PHIẾU NHẬN HÀNG------------");
-    System.out.printf("%-20s %-30s %-20s %-15s %-20s\n","Mã Phiếu Nhận Hàng","Mã Nhân Viên","Mã Nhà Cung Cấp","Ngày Nhận","Tổng Tiền");
-    for(int i = 0; i < n; i++){
-      dspnh[i].xuat();
-    }
-  }
+////
+//public void nhap(DSNV ds_nv, DSNCC ds_ncc){
+//    Scanner sc = new Scanner(System.in);
+//    System.out.print("Nhap so luong phieu nhan hang: ");
+//    n = sc.nextInt();
+//    sc.nextLine(); // doc bo dong thua
+//    dspnh = new PhieuNhanHang [n]; // mang chua phieu nhan hang
+//    for(int i = 0; i < n; i++){
+//        System.out.println("Nhap thong tin phieu nhan hang thu " + (i+1) + ":");
+//        dspnh[i] = new PhieuNhanHang(); //tao ra doi tuong phieu nhan hang
+//        dspnh[i].nhap(ds_nv, ds_ncc); // GỌI HÀM NHẬP MỚI VỚI ĐỐI SỐ
+//    }
+//}
+//  public void xuat(){
+//    System.out.println("-------------DANH SÁCH PHIẾU NHẬN HÀNG------------");
+//    System.out.printf("%-20s %-30s %-20s %-15s %-20s\n","Mã Phiếu Nhận Hàng","Mã Nhân Viên","Mã Nhà Cung Cấp","Ngày Nhận","Tổng Tiền");
+//    for(int i = 0; i < n; i++){
+//      dspnh[i].xuat();
+//    }
+//  }
 }

@@ -25,7 +25,7 @@ public class DSVPP {
         }
     }
     
-    public void docFile() {
+    public void docFileSanPham() {
         n = 0; // Reset số lượng về 0
         try (BufferedReader br = new BufferedReader(new FileReader("VanPhongPham.txt"))) {
             String line;

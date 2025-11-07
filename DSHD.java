@@ -19,6 +19,33 @@ public class DSHD {
             this.dshd[i] = new HoaDon(other.dshd[i]);
         }
     }
+    public void nhap(NhanVien nv_dang_nhap) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhap so luong hoa don: ");
+        int soLuongMoi = sc.nextInt();
+        sc.nextLine();
+
+        // Tăng kích thước mảng cũ lên n + soLuongMoi
+        this.dshd = Arrays.copyOf(this.dshd, this.n + soLuongMoi);
+
+        for (int i = 0; i < soLuongMoi; i++) {
+            System.out.println("----------HOA DON " + (this.n + i + 1) + "----------"); // Cập nhật STT
+            HoaDon hd = new HoaDon();
+
+            // TRUYỀN THÔNG TIN NHÂN VIÊN CHO HÓA ĐƠN NÀY
+            // Việc tìm KH và nhập CTHD đã được chuyển sang QLHD.themMotHoaDonMoi()
+            // Nếu dùng hàm nhap() này thì phải đảm bảo QLBH.dskh và QLBH.dsvpp đã được tải.
+            hd.setNhanVien(nv_dang_nhap);
+            hd.nhap(); // Hàm nhập cơ bản (Mã HĐ, Ngày Lập)
+            // **KHUYẾN NGHỊ:** Bạn cần thêm logic TÌM KH và NHẬP CTHD vào đây nếu dùng hàm này.
+            // Tốt nhất là chỉ dùng hàm themMotHoaDon() được điều phối từ QLHD.
+
+            // Lưu Hóa đơn vào mảng
+            this.dshd[this.n + i] = hd;
+        }
+
+        this.n += soLuongMoi; // Cập nhật n
+    }
     public HoaDon timHDtheoMa(String mahd) {
         for (int i = 0; i < n; i++) {
             if (dshd[i] != null && dshd[i].getMaHoaDon().equalsIgnoreCase(mahd)) {
@@ -41,15 +68,17 @@ public class DSHD {
                 return false;
         return true;
     }
-    public void themHoaDon(HoaDon hd) {
+    public void themMotHoaDon(HoaDon hd) {
         if (maDuyNhat(hd.getMaHoaDon())) {
-            dshd[n] = hd;
-            n++; // Tăng số lượng
-            System.out.println("-> Đã thêm Hóa Đơn " + hd.getMaHoaDon() + " vào danh sách.");
+        this.dshd = Arrays.copyOf(this.dshd, this.n + 1);
+        this.dshd[this.n] = new HoaDon(hd);
+        this.n++;
+            System.out.println("Đã thêm thành công 1 hóa đơn mới vào danh sách.");
         } else {
             System.out.println("❌ Lỗi: Mã hóa đơn '" + hd.getMaHoaDon() + "' đã tồn tại. Không thể thêm.");
         }
     }
+
     public void xoaHoaDon() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập mã hóa đơn cần xóa: ");

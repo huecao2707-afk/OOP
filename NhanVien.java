@@ -62,7 +62,7 @@ public class NhanVien {
         sc.nextLine();
     }
     public void xuat(){
-        System.out.printf("%-10s %-15s %-10s %-10d\n",manv,ho,ten,luongthang);
+        System.out.printf("| %-15s | %-25s | %-11s |\n",manv,ho + " " + ten,luongthang);
     }
 
 }

@@ -24,14 +24,18 @@ public class HeThong {
                     qlbh.menuChinh();
                     break;
                 case 2:
-                    // qlbh = new QLNV();
-                    // qlbh.menuChinh();
+                     qlbh = new QLNV();
+                     qlbh.menuChinh();
                     break;
                 case 3:
+                    qlbh = new QLKH();
+                    qlbh.menuChinh();
                     break;
                 case 4:
                     break;
                 case 5:
+                    qlbh = new QLHD();
+                    qlbh.menuChinh();
                     break;
                 case 6:
                     break;

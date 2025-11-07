@@ -1,4 +1,4 @@
-public class DSCTHD {
+public class DSCTHD { 
     int m;
     public ChiTietHoaDon[] dscthd = new ChiTietHoaDon[1];
     public DSCTHD(){
@@ -16,4 +16,5 @@ public class DSCTHD {
             this.dscthd[i] = new ChiTietHoaDon(other.dscthd[i]);
         }
     }
+    
 }
