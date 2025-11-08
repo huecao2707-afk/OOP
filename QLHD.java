@@ -17,6 +17,8 @@ public class QLHD extends QuanLyBanHang {
             if (nv_lap_don == null) {
                 System.out.println("❌ Lỗi: Không tìm thấy Nhân viên có mã " + maNV + ". Vui lòng nhập lại.");
             }
+            System.out.println("✅ Khách hàng: " + nv_lap_don.getHo() + " " + nv_lap_don.getTen());
+
         } while (nv_lap_don == null);
 
         // 2. TÌM KIẾM VÀ GÁN KHÁCH HÀNG MUA
@@ -34,7 +36,9 @@ public class QLHD extends QuanLyBanHang {
                 System.out.println("✅ Khách hàng: " + khmua.getHo() + " " + khmua.getTen());
                 break;
             } else {
-                System.out.println("❌ Lỗi: Không tìm thấy Khách hàng có mã " + maKH + ". Vui lòng nhập lại.");
+                System.out.println("Chưa có thông tin khách hàng ");
+                System.out.println("Nhập khách hàng mới ");
+                dskh.themKhachHang();
             }
         } while (true);
 

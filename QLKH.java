@@ -16,22 +16,28 @@ public class QLKH extends QuanLyBanHang {
             System.out.println("0. Quay lại Menu Chính");
             System.out.print("Lựa chọn của bạn: ");
             choice = sc.nextInt();
-
+            sc.nextLine();
             switch (choice) {
                 case 1:
                     dskh.xuatDanhSachKhachHang();
                     break;
                 case 2:
-                    dsvpp.themSanPham();
+                    dskh.themKhachHang();
                     break;
                 case 3:
-                    //dsvpp.xoaSanPham();
+                    System.out.println("Nhập mã của khách hàng cần xóa: ");
+                    String ma = sc.nextLine();
+
+                    dskh.xoaKhachHang(ma);
                     break;
                 case 4:
-                    // dsvpp.suaSanPham();
+                     dskh.sua();
                     break;
                 case 5:
-                    // dsvpp.timKiemSanPham();
+                    System.out.println("Nhập mã của khách hàng cần tìm: ");
+                     ma = sc.nextLine();
+
+                    dskh.timKiemTheoMa(ma);
                     break;
             }
         } while (choice != 0);

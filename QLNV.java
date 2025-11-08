@@ -14,22 +14,26 @@ public class QLNV extends QuanLyBanHang{
             System.out.println("0. Quay lại Menu Chính");
             System.out.print("Lựa chọn của bạn: ");
             choice = sc.nextInt();
-
+            sc.nextLine();
             switch (choice) {
                 case 1:
                     dsnv.xuat();
                     break;
                 case 2:
-                    dsvpp.themSanPham();
+                    dsnv.themNhanVien();
                     break;
                 case 3:
-                    //dsvpp.xoaSanPham();
+                    System.out.println("Nhập mã của nhân viên cần xóa: ");
+                    String ma = sc.nextLine();
+                    dsnv.xoaSinhVien(ma);
                     break;
                 case 4:
-                    // dsvpp.suaSanPham();
+                    dsnv.sua();
                     break;
                 case 5:
-                    // dsvpp.timKiemSanPham();
+                    System.out.println("Nhập mã của nhân viên cần tìm: ");
+                    ma = sc.nextLine();
+                    dsnv.timKiemTheoMa(ma);
                     break;
             }
         } while (choice != 0);
