@@ -24,8 +24,8 @@ public class HeThong {
                     qlbh.menuChinh();
                     break;
                 case 2:
-                     qlbh = new QLNV();
-                     qlbh.menuChinh();
+                    qlbh = new QLNV();
+                    qlbh.menuChinh();
                     break;
                 case 3:
                     qlbh = new QLKH();
@@ -49,7 +49,6 @@ public class HeThong {
     }
     public static void main(String[] args) {
         HeThong ht = new HeThong();
-        QuanLyBanHang.taiDuLieuTuFile();
         ht.menuChinh();
     }
 }

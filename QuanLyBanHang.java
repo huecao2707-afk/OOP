@@ -9,6 +9,29 @@ public abstract class QuanLyBanHang {
     static DSHD dshd;
     static DSCTHD dscthd ;
    
+    static {
+        // System.out.println("Đang tải dữ liệu từ các file...");
+        
+        // Khởi tạo các đối tượng danh sách
+        dsvpp = new DSVPP();
+        dskh = new DSKH();
+        dsncc = new DSNCC();
+        dsnv = new DSNV();
+        dspnh = new DSPNH();
+        dshd = new DSHD();
+        dscthd = new DSCTHD();
+        dsctpnh = new DSCTPNH();
+        dsvpp.docFileSanPham();
+        dskh.docFileKhachHang();
+        dsnv.docFileNhanVien();
+        // dsncc.docFile();
+        // dspnh.docFile();
+        // dshd.docFile();
+        // dscthd.docFile();
+        // dsctpnh.docFile();
+
+        System.out.println("Tải dữ liệu hoàn tất!");
+    }
 
     public QuanLyBanHang(){
 
@@ -33,30 +56,7 @@ public abstract class QuanLyBanHang {
         this.dshd = other.dshd;
         this.dscthd = other.dscthd;
     }
-    public static void taiDuLieuTuFile() {
-        System.out.println("Đang tải dữ liệu từ các file...");
-        
-        // Khởi tạo các đối tượng danh sách
-        dsvpp = new DSVPP();
-        dskh = new DSKH();
-        dsncc = new DSNCC();
-        dsnv = new DSNV();
-        dspnh = new DSPNH();
-        dshd = new DSHD();
-        dscthd = new DSCTHD();
-        dsctpnh = new DSCTPNH();
-        dsvpp.docFileSanPham();
-        dskh.docFileKhachHang();
-        dsnv.docFileNhanVien();
-        // dsncc.docFile();
-        // dspnh.docFile();
-        // dshd.docFile();
-        // dscthd.docFile();
-        // dsctpnh.docFile();
-
-        System.out.println("Tải dữ liệu hoàn tất!");
-    }
-
+    
     // public void
     public abstract void menuChinh();   
 }

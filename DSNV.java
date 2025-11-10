@@ -65,8 +65,6 @@ public class DSNV {
                     break;
                 }
             }
-            System.out.println("✅ Đọc file thành công. Đã nạp " + n + " nhân viên.");
-
         } catch (IOException e) {
             System.out.println("❌ Lỗi đọc file NhanVien.txt: " + e.getMessage());
         }
