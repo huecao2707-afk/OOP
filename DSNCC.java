@@ -113,4 +113,74 @@ public class DSNCC {
         ds.docfile1();
         ds.xuat();  
         }
+    public void them() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("=== THÊM NHÀ CUNG CẤP MỚI ===");
+        NhaCungCap ncc = new NhaCungCap();
+        ncc.nhap();
+
+        // Tăng mảng
+        NhaCungCap[] temp = new NhaCungCap[n + 1];
+        for (int i = 0; i < n; i++) {
+            temp[i] = dsncc[i];
+        }
+        temp[n] = ncc;
+        dsncc = temp;
+        n++;
+
+        System.out.println(">> Đã thêm nhà cung cấp thành công!");
+    }
+    public void sua() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhập mã nhà cung cấp cần sửa: ");
+        String ma = sc.nextLine();
+
+        int index = -1;
+        for (int i = 0; i < n; i++) {
+            if (dsncc[i].getMaNCC().equalsIgnoreCase(ma)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            System.out.println(">> Không tìm thấy mã nhà cung cấp cần sửa!");
+            return;
+        }
+
+        System.out.println("=== NHẬP LẠI THÔNG TIN NHÀ CUNG CẤP ===");
+        dsncc[index].nhap();
+        System.out.println(">> Đã cập nhật nhà cung cấp thành công!");
+    }
+    public void xoa() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhập mã nhà cung cấp cần xóa: ");
+        String ma = sc.nextLine();
+
+        int index = -1;
+        for (int i = 0; i < n; i++) {
+            if (dsncc[i].getMaNCC().equalsIgnoreCase(ma)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            System.out.println(">> Không tìm thấy mã nhà cung cấp cần xóa!");
+            return;
+        }
+
+        // Tạo mảng mới bỏ phần tử bị xóa
+        NhaCungCap[] temp = new NhaCungCap[n - 1];
+        int j = 0;
+        for (int i = 0; i < n; i++) {
+            if (i != index) {
+                temp[j++] = dsncc[i];
+            }
+        }
+        dsncc = temp;
+        n--;
+
+        System.out.println(">> Đã xóa nhà cung cấp thành công!");
+    }
 }
