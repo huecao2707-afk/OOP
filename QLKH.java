@@ -34,10 +34,7 @@ public class QLKH extends QuanLyBanHang {
                      dskh.sua();
                     break;
                 case 5:
-                    System.out.println("Nhập mã của khách hàng cần tìm: ");
-                     ma = sc.nextLine();
-
-                    dskh.timKiemTheoMa(ma);
+                    dskh.timKiemTheoMa();
                     break;
             }
         } while (choice != 0);

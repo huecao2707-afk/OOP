@@ -5,8 +5,6 @@ public class HoaDon {
     private KhachHang makh; // Kế thừa has a từ  class KhachHang
     private String mahoadon, ngaylaphd;
     private int tongtien;
-    private ChiTietHoaDon[] dscthd = new ChiTietHoaDon[0]; // Mảng CTHD
-    private int ncthd = 0;
     public HoaDon(){
         tongtien=0;
     }
@@ -43,9 +41,9 @@ public class HoaDon {
     public void setKhachHang(KhachHang makh) {
         this.makh = makh;
     }
-    // public void setTongTien(int tongtien) {
-    //     this.tongtien = tongtien;
-    // }
+    public void setTongTien(int tongtien) {
+        this.tongtien = tongtien;
+    }
     public void nhap() { // Không cần truyền NV, KH, CTHD vào hàm nhập cơ bản này nữa
         Scanner sc = new Scanner(System.in);
 
@@ -57,31 +55,6 @@ public class HoaDon {
         System.out.print("Nhập Ngày lập HĐ (VD: dd/mm/yyyy): ");
         ngaylaphd = sc.nextLine();
 
-    }
-    public void nhapChiTietHoaDon() {
-        Scanner sc = new Scanner(System.in);
-        int soLuongCTHD;
-        int tongTienHoaDon = 0;
-
-        System.out.print("Nhập số lượng mặt hàng (chi tiết HD): ");
-        soLuongCTHD = sc.nextInt();
-        sc.nextLine();
-
-        dscthd = new ChiTietHoaDon[soLuongCTHD];
-        this.ncthd = soLuongCTHD;
-
-        for (int i = 0; i < soLuongCTHD; i++) {
-            System.out.println("--- Nhập chi tiết mặt hàng thứ " + (i + 1) + " ---");
-            ChiTietHoaDon cthdMoi = new ChiTietHoaDon();
-
-            // Gọi hàm nhập của CTHD (đã được sửa để tự tra cứu VPP)
-            cthdMoi.nhap();
-
-            dscthd[i] = cthdMoi;
-            tongTienHoaDon += cthdMoi.getThanhtien();
-        }
-
-        this.tongtien = tongTienHoaDon;
     }
     void xuatHoaDonDayDu() {
 
@@ -104,9 +77,13 @@ public class HoaDon {
                 "STT", "Mã SP", "Tên Sản Phẩm", "Đơn Giá", "Số Lượng", "Thành Tiền");
         System.out.println("--------------------------------------------------------------------------");
 
-        // IN CHI TIẾT HÓA ĐƠN
-        for (int i = 0; i < ncthd; i++) {
-            dscthd[i].xuatThongTinCT(i + 1); // Sử dụng hàm xuất chi tiết trong CTHD
+       // TÌM CÁC CTHD CÓ MÃ HÓA ĐƠN TRÙNG KHỚP VỚI mahoadon CỦA ĐỐI TƯỢNG NÀY
+        ChiTietHoaDon[] cthd_cua_hd = QuanLyBanHang.dscthd.timCTHDTheoMaHD(this.mahoadon);
+        int n_cthd_cua_hd = (cthd_cua_hd != null) ? cthd_cua_hd.length : 0;
+
+        // IN CHI TIẾT HÓA ĐƠN ĐÃ TÌM ĐƯỢC
+        for (int i = 0; i < n_cthd_cua_hd; i++) {
+            cthd_cua_hd[i].xuatThongTinCT(i + 1);
         }
 
         System.out.println("--------------------------------------------------------------------------");

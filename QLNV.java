@@ -31,9 +31,7 @@ public class QLNV extends QuanLyBanHang{
                     dsnv.sua();
                     break;
                 case 5:
-                    System.out.println("Nhập mã của nhân viên cần tìm: ");
-                    ma = sc.nextLine();
-                    dsnv.timKiemTheoMa(ma);
+                    dsnv.timKiemTheoMa();
                     break;
             }
         } while (choice != 0);

@@ -18,7 +18,7 @@ public class HeThong {
             System.out.print("Chọn chức năng: ");
             choice = sc.nextInt();
             sc.nextLine(); // tránh trôi dòn
-            switch (choice) {
+            switch (choice) { 
                 case 1:
                     qlbh = new QLSP();
                     qlbh.menuChinh();

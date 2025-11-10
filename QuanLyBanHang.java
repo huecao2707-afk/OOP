@@ -7,7 +7,7 @@ public abstract class QuanLyBanHang {
     static DSPNH dspnh;
     static DSCTPNH dsctpnh;
     static DSHD dshd;
-    static DSCTHD dsctphd ;
+    static DSCTHD dscthd ;
    
 
     public QuanLyBanHang(){
@@ -21,7 +21,7 @@ public abstract class QuanLyBanHang {
         this.dspnh = dspnh;
         this.dsctpnh = dsctpnh;
         this.dshd = dshd;
-        this.dsctphd = dscthd;
+        this.dscthd = dscthd;
     }
     public QuanLyBanHang(QuanLyBanHang other){
         this.dsvpp = other.dsvpp;
@@ -31,7 +31,7 @@ public abstract class QuanLyBanHang {
         this.dspnh = other.dspnh;
         this.dsctpnh = other.dsctpnh;
         this.dshd = other.dshd;
-        this.dsctphd = other.dsctphd;
+        this.dscthd = other.dscthd;
     }
     public static void taiDuLieuTuFile() {
         System.out.println("Đang tải dữ liệu từ các file...");
@@ -43,7 +43,7 @@ public abstract class QuanLyBanHang {
         dsnv = new DSNV();
         dspnh = new DSPNH();
         dshd = new DSHD();
-        dsctphd = new DSCTHD();
+        dscthd = new DSCTHD();
         dsctpnh = new DSCTPNH();
         dsvpp.docFileSanPham();
         dskh.docFileKhachHang();
@@ -51,7 +51,7 @@ public abstract class QuanLyBanHang {
         // dsncc.docFile();
         // dspnh.docFile();
         // dshd.docFile();
-        // dsctphd.docFile();
+        // dscthd.docFile();
         // dsctpnh.docFile();
 
         System.out.println("Tải dữ liệu hoàn tất!");

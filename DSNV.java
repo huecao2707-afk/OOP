@@ -91,7 +91,18 @@ public class DSNV {
     public NhanVien timKiemTheoMa(String ma_nv) {
         for (int i = 0; i < n; i++) {
             if (dsnv[i].getMaNV().equalsIgnoreCase(ma_nv)) {
-                dsnv[i].xuat();
+                return dsnv[i];
+            }
+        }
+        return null; // Không tìm thấy
+    }
+    public NhanVien timKiemTheoMa() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập mã của nhân viên cần tìm: ");
+            String ma = sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            if (dsnv[i].getMaNV().equalsIgnoreCase(ma)) {
+                System.out.printf("%s, %s , %d\n", dsnv[i].getMaNV(),dsnv[i].getHo() + " " + dsnv[i].getTen(), + dsnv[i].getLuongThang());
                 return dsnv[i];
             }
         }

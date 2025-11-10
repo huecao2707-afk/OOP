@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class ChiTietHoaDon {
-    private HoaDon mahoadon;
+    private String mahoadon;
     private VanPhongPham masp;
     private int dongia;
     private int soluong;
@@ -10,7 +10,7 @@ public class ChiTietHoaDon {
         thanhtien = 0;
     }
 
-    public ChiTietHoaDon(HoaDon mahoadon, VanPhongPham masp, int soluong, int dongia, int thanhtien) {
+    public ChiTietHoaDon(String mahoadon, VanPhongPham masp, int soluong, int dongia, int thanhtien) {
         this.mahoadon = mahoadon;
         this.masp = masp;
         this.soluong = soluong;
@@ -77,23 +77,36 @@ public class ChiTietHoaDon {
         System.out.printf("%-5d | %-10s | %-30s | %,10d | %,-15d | %,15d%n",
                 stt, masp.getMaSP(), masp.getTenSP(), dongia, soluong, thanhtien);
     }
-
+    
+    public String getMahoadon() {
+        return mahoadon;
+    }
+    public void setMaHoaDon(String mahd) { 
+        this.mahoadon = mahd; 
+    }
+    public int getDongia() {
+        return dongia;
+    }
+    public void setDongia(int dongia) {
+        this.dongia = dongia;
+    }
+    public int getSoluong() {
+        return soluong;
+    }
+    public void setSoluong(int soluong) {
+        this.soluong = soluong;
+    }
+    public VanPhongPham getMasp() {
+        return masp;
+    }
+    public void setMasp(VanPhongPham masp) {
+        this.masp = masp;
+    }
     public int getThanhtien() {
         return thanhtien;
     }
+    public void setThanhtien(int thanhtien) {
+        this.thanhtien = thanhtien;
+    }
 }
-//    public void xuat() {
-//        System.out.println("Ma hoa don: ");
-//        mahoadon.xuat(); // In thông tin Hóa đơn
-//        System.out.println("Ma san pham: ");
-//        masp.xuat(); // In thông tin VPP
-//        System.out.println("So luong: " + soluong);
-//        System.out.println("Don gia: " + dongia);
-//        System.out.println("Thanh tien: " + thanhtien);
-//    }
 
-//    public static void main(String[] args){
-//        ChiTietHoaDon cthd=new ChiTietHoaDon();
-//        cthd.nhap();
-//        cthd.xuat();
-//    }

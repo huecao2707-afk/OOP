@@ -93,13 +93,24 @@ public class DSKH {
         for (int i = 0; i < dskh.length; i++) {
             // Phải kiểm tra null nếu mảng có thể có phần tử null
             if (dskh[i] != null && dskh[i].getMaKH().equalsIgnoreCase(makh)) {
-                dskh[i].xuat();
                 return dskh[i];
             }
         }
         return null;
     }
-
+    public KhachHang timKiemTheoMa() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập mã của khách hàng cần tìm: ");
+        String ma = sc.nextLine();      // Giả sử dskh là mảng chứa các đối tượng KhachHang
+        for (int i = 0; i < dskh.length; i++) {
+            // Phải kiểm tra null nếu mảng có thể có phần tử null
+            if (dskh[i] != null && dskh[i].getMaKH().equalsIgnoreCase(ma)) {
+                System.out.printf("%s, %s, %s, %s", dskh[i].getMaKH(), dskh[i].getHo() + " " + dskh[i].getTen(), dskh[i].getSoDT() , dskh[i].getDiaChi());
+                return dskh[i];
+            }
+        }
+        return null;
+    }
     public boolean maDuyNhat(String makh) {
         for (int i = 0; i < n; i++) {
             if (dskh[i].getMaKH().equalsIgnoreCase(makh)) {

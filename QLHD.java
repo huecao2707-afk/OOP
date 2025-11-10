@@ -17,7 +17,9 @@ public class QLHD extends QuanLyBanHang {
             if (nv_lap_don == null) {
                 System.out.println("❌ Lỗi: Không tìm thấy Nhân viên có mã " + maNV + ". Vui lòng nhập lại.");
             }
-            System.out.println("✅ Khách hàng: " + nv_lap_don.getHo() + " " + nv_lap_don.getTen());
+            else{            
+                System.out.println("✅ Nhân viên: " + nv_lap_don.getHo() + " " + nv_lap_don.getTen());
+            }
 
         } while (nv_lap_don == null);
 
@@ -42,25 +44,48 @@ public class QLHD extends QuanLyBanHang {
             }
         } while (true);
 
-        // 3. TẠO VÀ NHẬP THÔNG TIN CỦA HÓA ĐƠN
+        // 3. TẠO VÀ NHẬP THÔNG TIN CƠ BẢN CỦA HÓA ĐƠN
         HoaDon hdMoi = new HoaDon();
-
-        // 3.1. Thiết lập NV & KH
         hdMoi.setNhanVien(nv_lap_don);
         hdMoi.setKhachHang(khmua);
+        hdMoi.nhap(); // Nhập Mã HĐ, Ngày lập
 
-        // 3.2. Gọi hàm nhập cơ bản của Hóa đơn (chỉ nhập Mã HĐ, Ngày lập)
-        hdMoi.nhap(); // Gọi hàm nhập không tham số mới
+        // LẤY MÃ HÓA ĐƠN VỪA NHẬP ĐỂ GÁN CHO CÁC CTHD
+        String maHD_moi = hdMoi.getMaHoaDon();
+        int tongTienHoaDon = 0;
 
-        // 3.3. Nhập Chi tiết Hóa đơn (dùng hàm đã sửa trong HoaDon.java)
-        hdMoi.nhapChiTietHoaDon();
+        // 3.3. Nhập Chi tiết Hóa đơn LẶP LẠI
+        System.out.print("Nhập số lượng mặt hàng (chi tiết HD): ");
+        int soLuongCTHD = sc.nextInt();
+        sc.nextLine();
+
+        // TẠO VÀ NHẬP TỪNG CTHD
+        for (int i = 0; i < soLuongCTHD; i++) {
+            System.out.println("--- Nhập chi tiết mặt hàng thứ " + (i + 1) + " ---");
+            ChiTietHoaDon cthdMoi = new ChiTietHoaDon();
+
+            // 🎯 LOGIC MỚI: Gán Mã HĐ cho CTHD
+            cthdMoi.setMaHoaDon(maHD_moi); 
+            
+            cthdMoi.nhap(); // Nhập Mã SP, Số lượng, tính Thành tiền
+            
+            // 🎯 LOGIC MỚI: Thêm CTHD vào DSCTHD TOÀN BỘ HỆ THỐNG
+            QuanLyBanHang.dscthd.themMotChiTiet(cthdMoi); 
+
+            tongTienHoaDon += cthdMoi.getThanhtien();
+        }
+
+        // 3.4. Cập nhật Tổng tiền vào Hóa đơn
+        hdMoi.setTongTien(tongTienHoaDon);
 
         // 4. THÊM VÀO DANH SÁCH (DSHD)
         QuanLyBanHang.dshd.themMotHoaDon(hdMoi);
 
         System.out.println("✅ Đã thêm hóa đơn thành công!");
-        hdMoi.xuatHoaDonDayDu(); // Xuất để người dùng thấy ngay
-    }
+        // CHÚ Ý: CẦN TRUYỀN DSCTHD TOÀN BỘ ĐỂ XUẤT ĐẦY ĐỦ
+        hdMoi.xuatHoaDonDayDu(); 
+    }    
+
     public void menuChinh() {
         Scanner sc = new Scanner(System.in);
         int choice = 0;
@@ -94,5 +119,4 @@ public class QLHD extends QuanLyBanHang {
             }
         } while (choice != 0);
     }
-
-    }
+}
