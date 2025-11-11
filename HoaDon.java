@@ -1,39 +1,43 @@
 import java.util.Scanner;
 
 public class HoaDon {
-    private NhanVien manv; // Kế thừa has a từ  class NhanVien
-    private KhachHang makh; // Kế thừa has a từ  class KhachHang
-    private String mahoadon, ngaylaphd;
+    private String mahoadon;
+    private String manvstring;
+    private String makhstring;
+    private String ngaylaphd;
+    private NhanVien nv; // Tham chiếu đối tượng Nhân viên
+    private KhachHang kh; // Tham chiếu đối tượng Khách hàng
+   
     private int tongtien;
-    private String maNV_string;
-    private String maKH_string;
+    // Lưu tạm mã NV/KH dạng String khi đọc/ghi file, sẽ được liên kết sang object sau
+    
     public HoaDon(){
         tongtien=0;
     }
-    public HoaDon(String mahoadon,NhanVien manv, KhachHang makh, String ngaylaphd, int tongtien){
+    public HoaDon(String mahoadon,String manvstring, String makhstring, String ngaylaphd, int tongtien){
         this.mahoadon=mahoadon;
-        this.manv=manv;
-        this.makh=makh;
+        this.manvstring=manvstring;
+        this.makhstring=makhstring;
         this.ngaylaphd=ngaylaphd;
         this.tongtien=tongtien;
         
     }
-    public HoaDon(HoaDon x){
+   public HoaDon(HoaDon x){
         this.mahoadon=x.mahoadon;
-        this.manv=x.manv;
-        this.makh=x.makh;
+        this.manvstring=x.manvstring;
+        this.makhstring=x.makhstring;
         this.ngaylaphd=x.ngaylaphd;
         this.tongtien=x.tongtien;
+        this.nv = x.nv;       // Sao chép đối tượng Nhân viên
+        this.kh = x.kh;       // Sao chép đối tượng Khách hàng
     }
 
     public String getMaHoaDon() {
        return mahoadon;
-   }
-
+    }
     public void setMaHoaDon(String mahoadon) {
         this.mahoadon = mahoadon;
     }
-    
     public int getTongTien() {
         return tongtien;
     }
@@ -43,87 +47,56 @@ public class HoaDon {
         this.tongtien = tongtien;
     }
     
-    public String getNgaylaphd() {
-        return ngaylaphd;
-    }
-    
-    public void setNgaylaphd(String ngaylaphd) {
-        this.ngaylaphd = ngaylaphd;
-    }
-    
-    public NhanVien getManv() {
-        return manv;
-    }
-    
-    public void setNhanVien(NhanVien nv) {
-        this.manv = nv;
-    }
+    public String getNgayLapHD() { return ngaylaphd; }
+    public void setNgayLapHD(String ngaylaphd) { this.ngaylaphd = ngaylaphd; }
 
-    public KhachHang getMakh() {
-        return makh;
+    public NhanVien getNhanVien() { return nv; }        
+    public void setNhanVien(NhanVien nv) { this.nv = nv; }
+    public KhachHang getKhachHang() { return kh; }
+    public void setKhachHang(KhachHang kh) { this.kh = kh; }
+    public String getMaKH(){
+        return makhstring;
     }
-    
-    public void setKhachHang(KhachHang makh) {
-        this.makh = makh;
+    public void setMaKH(String makhstring){
+        this.makhstring = makhstring;
     }
-    
-    public String getMaNV_string() { 
-        return maNV_string; 
+    public void setMaNhanVien(String manvstring){
+        this.manvstring = manvstring;
     }
-    
-    public void setMaNV_string(String maNV_string) { 
-        this.maNV_string = maNV_string; 
+    public String getMaNhanVien(){
+        return manvstring;
     }
-    
-    public String getMaKH_string() { 
-        return maKH_string; 
-    }
-    
-    public void setMaKH_string(String maKH_string) { 
-        this.maKH_string = maKH_string; 
-    }
-    
-    public void nhap() { // Không cần truyền NV, KH, CTHD vào hàm nhập cơ bản này nữa
+    public void nhap() { 
         Scanner sc = new Scanner(System.in);
-
-        // 1. Nhập Mã Hóa đơn (Phải đảm bảo Mã không trùng - cần thêm kiểm tra nếu có)
         System.out.print("Nhập Mã hóa đơn: ");
         mahoadon = sc.nextLine();
-
-        // 2. Nhập Ngày lập hóa đơn
         System.out.print("Nhập Ngày lập HĐ (VD: dd/mm/yyyy): ");
         ngaylaphd = sc.nextLine();
-
     }
     void xuatHoaDonDayDu() {
-
-        String tenNV = (manv != null) ? (manv.getHo() + " " + manv.getTen()) : "Chưa gán"; // Giả định NV có getHo/getTen
-        String tenKH = (makh != null) ? (makh.getHo() + " " + makh.getTen()) : "Chưa gán";
-        String sdtKH = (makh != null) ? makh.getSoDT() : "N/A";
-
         System.out.println("\n==================================================================================================");
         System.out.println("======================================== PHIẾU THANH TOÁN ========================================");
         System.out.println("==================================================================================================");
         System.out.printf("| Mã Hóa Đơn: %-61s Ngày Lập: %s | \n", mahoadon, ngaylaphd);
         System.out.println("--------------------------------------------------------------------------------------------------");
-        System.out.printf("Nhân Viên Lập: %-20s | Mã NV: %s%n", tenNV, manv.getMaNV());
-        System.out.printf("Khách Hàng:    %-20s | Mã KH: %s%n", tenKH, makh.getMaKH());
+        String tennv = (nv != null) ? (nv.getHo() + " " + nv.getTen()) : "Chưa gán";
+        String tenkh = (kh != null) ? (kh.getHo() + " " + kh.getTen()) : "Chưa gán";
+        String manvhienthi = (nv != null) ? nv.getMaNV() : "N/A";
+        String makhhienthi = (kh != null) ? kh.getMaKH() : "N/A";
+        String sdtKH = (kh != null) ? kh.getSoDT() : "N/A";
+        System.out.printf("Nhân Viên Lập: %-20s | Mã NV: %s%n", tennv, manvhienthi);
+        System.out.printf("Khách Hàng:    %-20s | Mã KH: %s%n", tenkh, makhhienthi );
         System.out.printf("Số Điện Thoại: %s%n", sdtKH);
         System.out.println("==================================================================================================");
-
-        // TIÊU ĐỀ CHI TIẾT
+    //Xuất chi tiết hóa đơn
         System.out.printf("| %-5s | %-10s | %-30s | %-10s | %-9s | %-15s |\n","STT", "Mã SP", "Tên Sản Phẩm", "Đơn Giá", "Số Lượng", "Thành Tiền");
         System.out.println("--------------------------------------------------------------------------------------------------");
-
-       // TÌM CÁC CTHD CÓ MÃ HÓA ĐƠN TRÙNG KHỚP VỚI mahoadon CỦA ĐỐI TƯỢNG NÀY
-        ChiTietHoaDon[] cthd_cua_hd = QuanLyBanHang.dscthd.timCTHDTheoMaHD(this.mahoadon);
-        int n_cthd_cua_hd = (cthd_cua_hd != null) ? cthd_cua_hd.length : 0;
-
-        // IN CHI TIẾT HÓA ĐƠN ĐÃ TÌM ĐƯỢC
-        for (int i = 0; i < n_cthd_cua_hd; i++) {
-            cthd_cua_hd[i].xuatThongTinCT(i + 1);
+        // Lấy chi tiết theo mã hóa đơn
+        ChiTietHoaDon[] cthdcuahoadon  = QuanLyBanHang.dscthd.timCTHDTheoMaHD(this.mahoadon);
+        int soluongcthd = (cthdcuahoadon != null) ? cthdcuahoadon.length : 0;
+        for (int i = 0; i < soluongcthd; i++) {
+            cthdcuahoadon[i].xuatThongTinCT(i + 1);
         }
-
         System.out.println("--------------------------------------------------------------------------------------------------");
         System.out.printf("| TỔNG CỘNG: %71s %,d VNĐ |\n", "", tongtien);
         System.out.println("==================================================================================================");
@@ -131,9 +104,9 @@ public class HoaDon {
     }
     // Hàm xuất ngắn gọn (Cập nhật để xuất Tên thay vì Mã)
     public void xuat() { // Hàm này dùng cho việc xuất danh sách
-        String maNV_hien_thi = (manv != null) ? manv.getMaNV() : "N/A";        
-        String maKH_hien_thi = (makh != null) ? makh.getMaKH() : "N/A";
-        System.out.printf("| %-10s | %-10s | %-10s | %-15s | %-10s |\n" ,mahoadon, maNV_hien_thi, maKH_hien_thi, ngaylaphd, tongtien);
+        String manvhienthi = (nv != null) ? nv.getMaNV() : "N/A";        
+        String makhhienthi = (kh != null) ? kh.getMaKH() : "N/A";
+        System.out.printf("| %-10s | %-10s | %-10s | %-15s | %-10s |\n" ,mahoadon, manvhienthi, makhhienthi, ngaylaphd, tongtien);
     }
 }
 
