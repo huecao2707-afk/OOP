@@ -53,8 +53,8 @@ public class DSCTHD {
     
                     ChiTietHoaDon cthd = new ChiTietHoaDon();
                     cthd.setMaHoaDon(thongtin[0].trim());
-                    cthd.setMaSP_string(thongtin[1].trim());                    
-                    cthd.setSoluong(soluong);
+                    cthd.setMaSP(thongtin[1].trim());                    
+                    cthd.setSoLuong(soluong);
                     dscthd[m] = cthd; 
                     m++; 
                 }
@@ -67,13 +67,17 @@ public class DSCTHD {
     public void ghiFileMotChiTiet(ChiTietHoaDon cthd) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("ChiTietHoaDon.txt", true))) {
             
-            // 1. Tạo biến an toàn để lấy Mã SP, tránh NullPointerException
-            String maSP_an_toan = (cthd.getMasp() != null) 
-                ? cthd.getMasp().getMaSP() 
-                : cthd.getMaSP_string();
+            // 1. Logic an toàn để lấy Mã SP, xử lý cả 2 trường hợp (đối tượng mới hoặc đối tượng đọc từ file)
+            String maspantoan;
+            if (cthd.getSanPham() != null) {
+                // Trường hợp 1: Đối tượng mới, lấy mã từ đối tượng VanPhongPham
+                maspantoan = cthd.getSanPham().getMaSP();
+            } else {
+                // Trường hợp 2: Đối tượng đọc từ file, lấy mã (String) đã lưu
+                maspantoan = cthd.getMaSP();
+            }
                 
-            // 2. SỬA LỖI: Sử dụng biến maSP_an_toan thay vì gọi cthd.getMasp().getMaSP()
-            String line = cthd.getMahoadon() + "," + maSP_an_toan + "," + cthd.getSoluong(); 
+            String line = cthd.getMaHoaDon() + "," + maspantoan + "," + cthd.getSoLuong(); 
             
             bw.write(line);
             bw.newLine();
@@ -81,20 +85,27 @@ public class DSCTHD {
         catch (IOException e) {
             System.out.println("❌ Lỗi khi ghi thêm chi tiết vào file: " + e.getMessage());
         }
-    }  
+    }
     
     public void ghiLaiToanBoFileCTHD() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("ChiTietHoaDon.txt", false))) {
             for (int i = 0; i < m; i++) {
                 ChiTietHoaDon cthd = dscthd[i];
+                if (cthd == null) continue; // Bỏ qua nếu phần tử cthd bị null
+
+                // 1. Logic an toàn: Ưu tiên lấy mã từ đối tượng SP (nếu tồn tại)
+                String maspantoan;
+                if (cthd.getSanPham() != null) {
+                    // Trường hợp 1: Đối tượng mới (được thêm khi chạy), 'sp' tồn tại.
+                    maspantoan = cthd.getSanPham().getMaSP();
+                } else {
+                    // Trường hợp 2: Đối tượng đọc từ file, 'sp' là null.
+                    // Lấy mã (String) đã được lưu khi đọc file.
+                    maspantoan = cthd.getMaSP(); 
+                }
                 
-                // 1. Tạo biến an toàn để lấy Mã SP, tránh NullPointerException
-                String maSP_an_toan = (cthd.getMasp() != null) 
-                    ? cthd.getMasp().getMaSP() 
-                    : cthd.getMaSP_string();
-                    
-                // 2. SỬA LỖI: Sử dụng biến maSP_an_toan
-                String line = cthd.getMahoadon() + "," + maSP_an_toan + "," + cthd.getSoluong(); 
+                // 2. Sử dụng biến maspantoan
+                String line = cthd.getMaHoaDon() + "," + maspantoan + "," + cthd.getSoLuong(); 
                 
                 bw.write(line);
                 bw.newLine();
@@ -126,7 +137,7 @@ public class DSCTHD {
             // 1. Đếm số lượng CTHD có Mã HĐ trùng khớp
             int count = 0;
             for (int i = 0; i < m; i++) {
-                if (dscthd[i] != null && dscthd[i].getMahoadon().equalsIgnoreCase(mahd)) {
+                if (dscthd[i] != null && dscthd[i].getMaHoaDon().equalsIgnoreCase(mahd)) {
                     count++;
                 }
             }
@@ -134,14 +145,14 @@ public class DSCTHD {
             if (count == 0) return null; 
     
             // 2. Tạo mảng kết quả và sao chép các phần tử tìm thấy
-            ChiTietHoaDon[] ketQua = new ChiTietHoaDon[count];
+            ChiTietHoaDon[] ketqua = new ChiTietHoaDon[count];
             int j = 0;
             for (int i = 0; i < m; i++) {
-                if (dscthd[i].getMahoadon().equalsIgnoreCase(mahd)) {
-                    ketQua[j++] = dscthd[i];
+                if (dscthd[i].getMaHoaDon().equalsIgnoreCase(mahd)) {
+                    ketqua[j++] = dscthd[i];
                 }
             }
-            return ketQua;
+            return ketqua;
         }
     
         public void xuat() {
@@ -170,8 +181,8 @@ public class DSCTHD {
             // 1. Tìm vị trí của CTHD cần xóa
             for (int i = 0; i < m; i++) {
                 if (dscthd[i] != null && 
-                    dscthd[i].getMahoadon().equalsIgnoreCase(mahd) && 
-                    dscthd[i].getMaSP_string().equalsIgnoreCase(masp)) 
+                    dscthd[i].getMaHoaDon().equalsIgnoreCase(mahd) && 
+                    dscthd[i].getMaSP().equalsIgnoreCase(masp)) 
                 {
                     index = i;
                     break;
