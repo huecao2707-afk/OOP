@@ -1,4 +1,9 @@
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays; // Cần import để sử dụng Arrays.copyOf
 
 public class DSCTHD { 
@@ -20,117 +25,179 @@ public class DSCTHD {
             this.dscthd[i] = new ChiTietHoaDon(other.dscthd[i]);
         }
     }
+        // =========================================================
+        // 1. CÁC HÀM ĐỌC/GHI FILE
+        // =========================================================
     
-    // ===============================================
-    // HÀM MỚI: THÊM MỘT CHI TIẾT HÓA ĐƠN VÀO DANH SÁCH TOÀN HỆ THỐNG
-    // (Được gọi từ QLHD.themMotHoaDonMoi() sau khi đã nhập CTHD)
-    // ===============================================
-    public void themMotChiTiet(ChiTietHoaDon cthd) {
-        // Sử dụng Arrays.copyOf để tăng kích thước mảng hiệu quả hơn
-        this.dscthd = Arrays.copyOf(this.dscthd, this.m + 1);
-        
-        // Thêm chi tiết hóa đơn mới
-        this.dscthd[this.m] = new ChiTietHoaDon(cthd); // Thêm bản sao
-        this.m++;
-    }
-
-    // ===============================================
-    // HÀM MỚI: TÌM CÁC CTHD DỰA TRÊN MÃ HÓA ĐƠN
-    // (Được gọi từ HoaDon.xuatHoaDonDayDu())
-    // ===============================================
-    public ChiTietHoaDon[] timCTHDTheoMaHD(String mahd) {
-        // 1. Đếm số lượng CTHD có Mã HĐ trùng khớp
-        int count = 0;
-        for (int i = 0; i < m; i++) {
-            if (dscthd[i] != null && dscthd[i].getMahoadon().equalsIgnoreCase(mahd)) {
-                count++;
+        public void docFileCTHD() {
+            m = 0; 
+            try (BufferedReader br = new BufferedReader(new FileReader("ChiTietHoaDon.txt"))) {
+                String line;
+                while ((line = br.readLine()) != null) { 
+                    String[] thongtin = line.split(",");
+                    if (thongtin.length < 3) {
+                        System.out.println("Lỗi dữ liệu: Không đủ thông tin chi tiết hóa đơn. Bỏ qua: " + line);
+                        continue;
+                    }
+                    int soluong;
+                    try {
+                        soluong = Integer.parseInt(thongtin[2].trim());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Lỗi dữ liệu: Số lượng không hợp lệ. Bỏ qua: " + line);
+                        continue;
+                    }
+                    
+                    if (m >= dscthd.length) {
+                        dscthd = Arrays.copyOf(dscthd, m + 1);
+                    }
+    
+                    ChiTietHoaDon cthd = new ChiTietHoaDon();
+                    cthd.setMaHoaDon(thongtin[0].trim());
+                    cthd.setMaSP_string(thongtin[1].trim());                    
+                    cthd.setSoluong(soluong);
+                    dscthd[m] = cthd; 
+                    m++; 
+                }
+            } catch (IOException e) {
+                System.out.println("❌ Lỗi đọc file ChiTietHoaDon.txt: " + e.getMessage());
             }
         }
-
-        if (count == 0) return null; // Không tìm thấy
-
-        // 2. Tạo mảng kết quả và sao chép các phần tử tìm thấy
-        ChiTietHoaDon[] ketQua = new ChiTietHoaDon[count];
-        int j = 0;
-        for (int i = 0; i < m; i++) {
-            if (dscthd[i].getMahoadon().equalsIgnoreCase(mahd)) {
-                ketQua[j++] = dscthd[i];
-            }
+    
+    // Sửa trong class DSCTHD.java
+    public void ghiFileMotChiTiet(ChiTietHoaDon cthd) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("ChiTietHoaDon.txt", true))) {
+            
+            // 1. Tạo biến an toàn để lấy Mã SP, tránh NullPointerException
+            String maSP_an_toan = (cthd.getMasp() != null) 
+                ? cthd.getMasp().getMaSP() 
+                : cthd.getMaSP_string();
+                
+            // 2. SỬA LỖI: Sử dụng biến maSP_an_toan thay vì gọi cthd.getMasp().getMaSP()
+            String line = cthd.getMahoadon() + "," + maSP_an_toan + "," + cthd.getSoluong(); 
+            
+            bw.write(line);
+            bw.newLine();
+        } 
+        catch (IOException e) {
+            System.out.println("❌ Lỗi khi ghi thêm chi tiết vào file: " + e.getMessage());
         }
-        return ketQua;
-    }
+    }  
     
-    // --- CÁC HÀM CŨ (Cần cập nhật logic sửa/xóa nếu muốn dùng) ---
-    // Lưu ý: Các hàm sua(), xoa(), them() dưới đây không được khuyến nghị
-    // cho việc quản lý CTHD toàn hệ thống vì chúng không cập nhật Tổng tiền trong HoaDon.
+    public void ghiLaiToanBoFileCTHD() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("ChiTietHoaDon.txt", false))) {
+            for (int i = 0; i < m; i++) {
+                ChiTietHoaDon cthd = dscthd[i];
+                
+                // 1. Tạo biến an toàn để lấy Mã SP, tránh NullPointerException
+                String maSP_an_toan = (cthd.getMasp() != null) 
+                    ? cthd.getMasp().getMaSP() 
+                    : cthd.getMaSP_string();
+                    
+                // 2. SỬA LỖI: Sử dụng biến maSP_an_toan
+                String line = cthd.getMahoadon() + "," + maSP_an_toan + "," + cthd.getSoluong(); 
+                
+                bw.write(line);
+                bw.newLine();
+            }
+            System.out.println("-> Đã cập nhật lại toàn bộ file ChiTietHoaDon.txt.");
+        } catch (IOException e) {
+            System.out.println("❌ Lỗi khi ghi lại toàn bộ file CTHD: " + e.getMessage());
+        }
+    }    
+        // =========================================================
+        // 2. CÁC HÀM THAO TÁC DỮ LIỆU CHÍNH
+        // =========================================================
     
-    // Hàm them() cũ có thể đổi tên thành 'nhapVaThemVaoHeThong' nếu muốn giữ lại
-    public void nhapVaThemVaoHeThong() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("=== NHẬP MỘT CHI TIẾT HÓA ĐƠN RIÊNG LẺ ===");
-        ChiTietHoaDon cthd = new ChiTietHoaDon();
-        cthd.nhap(); 
+        public void themMotChiTiet(ChiTietHoaDon cthd) {
+            if (cthd == null) return;
+            
+            this.dscthd = Arrays.copyOf(this.dscthd, this.m + 1);
+            
+            this.dscthd[this.m] = new ChiTietHoaDon(cthd); 
+            this.m++;
+            
+            // Ghi thêm vào file
+            ghiFileMotChiTiet(cthd);
+        }
         
-        // Hàm này KHÔNG có Mã HĐ, nên không nên dùng để tạo CTHD cho Hóa đơn cụ thể.
-        // Chỉ nên dùng themMotChiTiet(cthd) từ QLHD.
-        
-        this.dscthd = Arrays.copyOf(this.dscthd, this.m + 1);
-        this.dscthd[this.m] = cthd;
-        this.m++;
-        System.out.println(">> Đã thêm chi tiết hóa đơn mới thành công!");
-    }
+        public ChiTietHoaDon[] timCTHDTheoMaHD(String mahd) {
+            if (mahd == null || mahd.trim().isEmpty()) return null;
+            
+            // 1. Đếm số lượng CTHD có Mã HĐ trùng khớp
+            int count = 0;
+            for (int i = 0; i < m; i++) {
+                if (dscthd[i] != null && dscthd[i].getMahoadon().equalsIgnoreCase(mahd)) {
+                    count++;
+                }
+            }
     
-    // Hàm sua() cũ (Giữ nguyên, nhưng không nên dùng)
-    // public void sua() {
-    //     Scanner sc = new Scanner(System.in);
-    //     System.out.print("Nhập mã sản phẩm cần sửa: ");
-    //     String ma = sc.nextLine();
-
-    //     int index = -1;
-    //     for (int i = 0; i < m; i++) {
-    //         if (dscthd[i].getMasp() != null && (dscthd[i].getMasp()).equalsIgnoreCase(ma)) { 
-    //             index = i;
-    //             break;
-    //         }
-    //     }
-    //     if (index == -1) {
-    //         System.out.println(">> Không tìm thấy mã sản phẩm cần sửa!");
-    //         return;
-    //     }
-
-    //     System.out.println("=== NHẬP LẠI THÔNG TIN MỚI ===");
-    //     dscthd[index].nhap();
-    //     System.out.println(">> Đã cập nhật chi tiết hóa đơn thành công!");
-    // }
-    // Hàm xoa() cũ (Giữ nguyên, nhưng không nên dùng)
-    public void xoa() {
-    //     Scanner sc = new Scanner(System.in);
-    //     System.out.print("Nhập mã sản phẩm cần xóa: ");
-    //     String ma = sc.nextLine();
-
-    //     int index = -1;
-    //     for (int i = 0; i < m; i++) {
-    //         if (dscthd[i].masp != null && dscthd[i].masp.getMaSP().equalsIgnoreCase(ma)) {
-    //             index = i;
-    //             break;
-    //         }
-    //     }
-
-    //     if (index == -1) {
-    //         System.out.println(">> Không tìm thấy mã sản phẩm cần xóa!");
-    //         return;
-    //     }
-
-    //     // Tạo mảng mới bỏ phần tử bị xóa
-    //     ChiTietHoaDon[] temp = new ChiTietHoaDon[m - 1];
-    //     int j = 0;
-    //     for (int i = 0; i < m; i++) {
-    //         if (i != index) {
-    //             temp[j++] = dscthd[i];
-    //         }
-    //     }
-    //     dscthd = temp;
-    //     m--;
-    //     System.out.println(">> Đã xóa chi tiết hóa đơn thành công!");
-    // }
-}}
+            if (count == 0) return null; 
+    
+            // 2. Tạo mảng kết quả và sao chép các phần tử tìm thấy
+            ChiTietHoaDon[] ketQua = new ChiTietHoaDon[count];
+            int j = 0;
+            for (int i = 0; i < m; i++) {
+                if (dscthd[i].getMahoadon().equalsIgnoreCase(mahd)) {
+                    ketQua[j++] = dscthd[i];
+                }
+            }
+            return ketQua;
+        }
+    
+        public void xuat() {
+            if (m == 0) {
+                System.out.println("Danh sách chi tiết hóa đơn trống.");
+                return;
+            }
+            System.out.println("----------- DANH SÁCH TẤT CẢ CHI TIẾT HÓA ĐƠN -----------");
+            System.out.printf("%-10s | %-10s | %-10s | %-15s | %-15s\n", 
+                "Mã HĐ", "Mã SP", "SL", "Đơn Giá (dự kiến)", "Thành Tiền (dự kiến)");
+            System.out.println("-------------------------------------------------------------------------");
+    
+            for (int i = 0; i < m; i++) {
+                // Cần hàm xuat() trong ChiTietHoaDon để hiển thị
+                dscthd[i].xuatThongTinCT(i); 
+            }
+            System.out.println("-------------------------------------------------------------------------");
+        }
+    
+        // =========================================================
+        // 3. HÀM XÓA CTHD (THEO MÃ HĐ VÀ MÃ SP)
+        // =========================================================
+        public boolean xoaChiTiet(String mahd, String masp) {
+            int index = -1;
+            
+            // 1. Tìm vị trí của CTHD cần xóa
+            for (int i = 0; i < m; i++) {
+                if (dscthd[i] != null && 
+                    dscthd[i].getMahoadon().equalsIgnoreCase(mahd) && 
+                    dscthd[i].getMaSP_string().equalsIgnoreCase(masp)) 
+                {
+                    index = i;
+                    break;
+                }
+            }
+            
+            if (index == -1) {
+                System.out.println("❌ Không tìm thấy chi tiết hóa đơn cần xóa.");
+                return false;
+            }
+    
+            // 2. Xóa khỏi mảng bằng cách dịch chuyển
+            for (int i = index; i < m - 1; i++) {
+                dscthd[i] = dscthd[i + 1];
+            }
+            dscthd[m - 1] = null;
+            m--;
+            
+            // Giảm kích thước mảng trong bộ nhớ
+            dscthd = Arrays.copyOf(dscthd, m); 
+    
+            System.out.println("✅ Đã xóa CTHD cho HĐ " + mahd + " (SP: " + masp + ").");
+    
+            // 3. Cập nhật lại toàn bộ file
+            ghiLaiToanBoFileCTHD(); 
+            return true;
+        }
+    
+    }

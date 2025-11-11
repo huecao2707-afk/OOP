@@ -25,7 +25,7 @@ public class QLKH extends QuanLyBanHang {
                     dskh.themKhachHang();
                     break;
                 case 3:
-                    System.out.println("Nhập mã của khách hàng cần xóa: ");
+                    System.out.print("Nhập mã của khách hàng cần xóa: ");
                     String ma = sc.nextLine();
 
                     dskh.xoaKhachHang(ma);

@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -70,6 +72,31 @@ public class DSNV {
         }
     }
 
+    public void ghiFileNhanVien(NhanVien nv){
+        String line ="";
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("NhanVien.txt", true))) {
+            line = nv.getMaNV() + "," + nv.getHo() + "," + nv.getTen() + "," + nv.getLuongThang();
+
+            bw.write(line);
+            bw.newLine();
+            } 
+        catch (IOException e) {
+                System.out.println("❌ Lỗi khi ghi thêm vào file: " + e.getMessage());
+            }
+    }
+
+    public void ghiLaiToanBoFileNhanVien() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("NhanVien.txt", false))) { // <-- false để ghi đè (overwrite)
+            for (int i = 0; i < n; i++) {
+                NhanVien nv = dsnv[i];
+                String line = nv.getMaNV() + "," + nv.getHo() + "," + nv.getTen() + "," + nv.getLuongThang();
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Lỗi khi ghi lại toàn bộ file: " + e.getMessage());
+        }
+    }
 
     public void xuat() {
         String line = "+-----------------+---------------------------+-------------+";
@@ -94,9 +121,10 @@ public class DSNV {
         }
         return null; // Không tìm thấy
     }
+
     public NhanVien timKiemTheoMa() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Nhập mã của nhân viên cần tìm: ");
+        System.out.print("Nhập mã của nhân viên cần tìm: ");
             String ma = sc.nextLine();
         for (int i = 0; i < n; i++) {
             if (dsnv[i].getMaNV().equalsIgnoreCase(ma)) {
@@ -106,6 +134,7 @@ public class DSNV {
         }
         return null; // Không tìm thấy
     }
+
     public void themNhanVien(){
         // 1. Kiểm tra mảng còn chỗ không
         if (n >= dsnv.length) {
@@ -119,13 +148,13 @@ public class DSNV {
         nvmoi.nhap();
         while (!maDuyNhat(nvmoi.getMaNV())) {
             System.out.println("❌ Mã nhân viên đã tồn tại. Vui lòng nhập lại.");
-            System.out.println("Nhập lại mã sinh viên: ");
+            System.out.print("Nhập lại mã sinh viên: ");
             String ma = sc.nextLine();
             nvmoi.setMaNV(ma);
         }
         dsnv[n] = nvmoi;
         n++;
-
+        ghiFileNhanVien(nvmoi);
         System.out.println("-> Đã thêm nhân viên mới thành công !");
     }
 
@@ -152,6 +181,7 @@ public class DSNV {
         }
         dsnv = Arrays.copyOf(dsnv, dsnv.length - 1);
         n--;
+        ghiLaiToanBoFileNhanVien();
         System.out.println("✅ Đã xóa nhân viên có mã " + ma);
     }
 
@@ -182,6 +212,7 @@ public class DSNV {
                     dsnv[i].setLuongThang(newluong);
 
                 }
+                ghiLaiToanBoFileNhanVien();
                 System.out.println("✅ Đã cập nhật thông tin nhân viên.");
                 return;
             }

@@ -1,6 +1,40 @@
 import java.util.Scanner;
 
 public class QLHD extends QuanLyBanHang {
+// Trong file QLHD.java (Hàm LienKetDuLieuHoaDon)
+
+    public void LienKetDuLieuHoaDon() {
+        System.out.println("--- Đang liên kết dữ liệu Hóa đơn ---");
+
+        // Dùng .length để lặp qua kích thước VẬT LÝ của mảng
+        // KHÔNG CẦN dshd.n NỮA, vì n là private
+        for (int i = 0; i < dshd.dshd.length; i++) { 
+            
+            HoaDon hd = dshd.dshd[i];
+            
+            // KIỂM TRA QUAN TRỌNG: Đảm bảo phần tử mảng KHÔNG phải là null
+            if (hd == null) {
+                // Khi gặp null, tức là đã hết các Hóa đơn thực tế được lưu.
+                // Chúng ta có thể thoát vòng lặp để tránh lặp thừa.
+                break; 
+            }
+
+            // 1. LIÊN KẾT NHÂN VIÊN
+            String maNVCanTim = hd.getMaNV_string();
+            NhanVien nvTimDuoc = QuanLyBanHang.dsnv.timKiemTheoMa(maNVCanTim); 
+            if (nvTimDuoc != null) {
+                hd.setNhanVien(nvTimDuoc);
+            }
+            
+            // 2. LIÊN KẾT KHÁCH HÀNG
+            String maKHCanTim = hd.getMaKH_string();
+            KhachHang khTimDuoc = QuanLyBanHang.dskh.timKiemTheoMa(maKHCanTim); 
+            if (khTimDuoc != null) {
+                hd.setKhachHang(khTimDuoc);
+            }
+        }
+        System.out.println("--- Liên kết Hóa đơn hoàn tất! ---");
+    }    
     public void themMotHoaDonMoi() {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n--- BẮT ĐẦU THÊM HÓA ĐƠN MỚI ---");
@@ -85,7 +119,6 @@ public class QLHD extends QuanLyBanHang {
         // CHÚ Ý: CẦN TRUYỀN DSCTHD TOÀN BỘ ĐỂ XUẤT ĐẦY ĐỦ
         hdMoi.xuatHoaDonDayDu(); 
     }    
-
     public void menuChinh() {
         Scanner sc = new Scanner(System.in);
         int choice = 0;
@@ -105,7 +138,7 @@ public class QLHD extends QuanLyBanHang {
                     dshd.xuat();
                     break;
                 case 2:
-                   themMotHoaDonMoi();
+                    themMotHoaDonMoi();
                 break;
                 case 3:
                     //dsvpp.xoaSanPham();

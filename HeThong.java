@@ -4,7 +4,7 @@ public class HeThong {
     QuanLyBanHang qlbh;
     
     public void menuChinh(){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in); 
         int choice;
         do {
             System.out.println("\n===== MENU QUẢN LÝ BÁN HÀNG =====");
@@ -32,6 +32,8 @@ public class HeThong {
                     qlbh.menuChinh();
                     break;
                 case 4:
+                    qlbh = new QLNCC();
+                    qlbh.menuChinh();
                     break;
                 case 5:
                     qlbh = new QLHD();
@@ -41,11 +43,12 @@ public class HeThong {
                     break;
                 case 7:
                     System.out.println("Tạm biệt!");
+                    break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ.");
             }
         }
-        while (choice != 14);
+        while (choice != 7);
     }
     public static void main(String[] args) {
         HeThong ht = new HeThong();

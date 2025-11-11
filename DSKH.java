@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -31,6 +33,32 @@ public class DSKH {
                 dskh[i].nhap();
             }
         }
+
+    public void ghiFileKhachHang(KhachHang kh){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("KhachHang.txt", true))) {
+            String line = kh.getMaKH() + "," + kh.getHo() + "," + kh.getTen() + "," + kh.getSoDT() + "," + kh.getDiaChi();
+
+            bw.write(line);
+            bw.newLine();
+            } 
+        catch (IOException e) {
+                System.out.println("❌ Lỗi khi ghi thêm vào file: " + e.getMessage());
+            }
+    }
+
+    public void ghiLaiToanBoFileKhachHang() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("KhachHang.txt", false))) { // <-- false để ghi đè (overwrite)
+            for (int i = 0; i < n; i++) {
+                KhachHang kh = dskh[i];
+                String line = kh.getMaKH() + "," + kh.getHo() + "," + kh.getTen() + "," + kh.getSoDT() + "," + kh.getDiaChi();
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Lỗi khi ghi lại toàn bộ file: " + e.getMessage());
+        }
+    }
+
     public void docFileKhachHang() {
         n = 0; // Reset số lượng về 0
         try (BufferedReader br = new BufferedReader(new FileReader("KhachHang.txt"))) {
@@ -98,9 +126,10 @@ public class DSKH {
         }
         return null;
     }
+    
     public KhachHang timKiemTheoMa() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Nhập mã của khách hàng cần tìm: ");
+        System.out.print("Nhập mã của khách hàng cần tìm: ");
         String ma = sc.nextLine();      // Giả sử dskh là mảng chứa các đối tượng KhachHang
         for (int i = 0; i < dskh.length; i++) {
             // Phải kiểm tra null nếu mảng có thể có phần tử null
@@ -111,6 +140,7 @@ public class DSKH {
         }
         return null;
     }
+    
     public boolean maDuyNhat(String makh) {
         for (int i = 0; i < n; i++) {
             if (dskh[i].getMaKH().equalsIgnoreCase(makh)) {
@@ -131,14 +161,14 @@ public class DSKH {
         khmoi.nhap();
         while (!maDuyNhat(khmoi.getMaKH())) {
             System.out.println("❌ Mã khách hàng đã tồn tại. Vui lòng nhập lại.");
-            System.out.println("Nhập lại mã khách hàng: ");
+            System.out.print("Nhập lại mã khách hàng: ");
             String ma = sc.nextLine();
             khmoi.setMaKH(ma);
         }
         dskh[n] = khmoi;
         n++;
-
-        System.out.println("-> Đã thêm khách hàng mới thành công !");
+        ghiFileKhachHang(khmoi);
+        System.out.print("-> Đã thêm khách hàng mới thành công !");
     }
 
     public void xoaKhachHang(String ma) {
@@ -156,6 +186,7 @@ public class DSKH {
         dskh = Arrays.copyOf(dskh, dskh.length - 1);
         n--;
         System.out.println("✅ Đã xóa khách hàng có mã " + ma);
+        ghiLaiToanBoFileKhachHang();
     }
 
     public void sua() {
@@ -196,6 +227,7 @@ public class DSKH {
             }
         }
         System.out.println("❌ Không tìm thấy khách hàng với mã: " + ma);
+        ghiLaiToanBoFileKhachHang();
     }
 
 }

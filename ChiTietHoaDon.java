@@ -5,7 +5,7 @@ public class ChiTietHoaDon {
     private int dongia;
     private int soluong;
     private int thanhtien;
-
+    private String maSP_string;
     public ChiTietHoaDon() {
         thanhtien = 0;
     }
@@ -74,39 +74,57 @@ public class ChiTietHoaDon {
     // Hàm xuất thông tin chi tiết (để dùng trong vòng lặp của HoaDon.xuat())
     public void xuatThongTinCT(int stt) {
         // Giả sử VanPhongPham có getTenSP()
-        System.out.printf("%-5d | %-10s | %-30s | %,10d | %,-15d | %,15d%n",
+        System.out.printf("| %-5d | %-10s | %-30s | %-10d | %-9d | %-15d |\n",
                 stt, masp.getMaSP(), masp.getTenSP(), dongia, soluong, thanhtien);
     }
     
     public String getMahoadon() {
         return mahoadon;
     }
+    
     public void setMaHoaDon(String mahd) { 
         this.mahoadon = mahd; 
     }
+    
     public int getDongia() {
         return dongia;
     }
+    
     public void setDongia(int dongia) {
         this.dongia = dongia;
     }
+    
     public int getSoluong() {
         return soluong;
     }
+    
     public void setSoluong(int soluong) {
         this.soluong = soluong;
     }
+    
     public VanPhongPham getMasp() {
         return masp;
     }
+    
     public void setMasp(VanPhongPham masp) {
         this.masp = masp;
     }
+    
     public int getThanhtien() {
         return thanhtien;
     }
+    
     public void setThanhtien(int thanhtien) {
         this.thanhtien = thanhtien;
     }
+
+    public String getMaSP_string() {
+        return maSP_string;
+    }
+    
+    public void setMaSP_string(String maSP_string) { // <-- Setter này nhận String
+        this.maSP_string = maSP_string;
+    }
+
 }
 
