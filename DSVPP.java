@@ -25,43 +25,66 @@ public class DSVPP {
         }
     }
     
+    // Trong file DSVPP.java
     public void docFileSanPham() {
         n = 0; // Reset số lượng về 0
         try (BufferedReader br = new BufferedReader(new FileReader("VanPhongPham.txt"))) {
             String line;
 
             while ((line = br.readLine()) != null) { // Đọc từng dòng
+                // FIX: Bỏ qua các dòng trống hoặc chỉ có dấu phẩy do file hỏng
+                if (line.trim().isEmpty() || line.trim().startsWith(",")) {
+                    System.out.println("Lỗi dữ liệu: Bỏ qua dòng hỏng: " + line);
+                    continue;
+                }
+
                 String[] thongtin = line.split(",");
-                String loai = thongtin[0];
+                String loai = thongtin[0].trim(); // Lấy mã loại (VP hoặc DC)
                 VanPhongPham vpp = null;
+
+                // === 1. TẠO "THẺ LOẠI" (LoaiSanPham) ===
+                LoaiSanPham lsp = new LoaiSanPham();
+                lsp.setMaLoai(loai);
+                // ======================================
+
                 if (loai.equalsIgnoreCase("VP")) {
                     vpp = new VanPhong();
-                    vpp.setMaSP(thongtin[1]);
-                    vpp.setTenSP(thongtin[2]);
-                    vpp.setSoLuong(Integer.parseInt(thongtin[3]));
-                    vpp.setDonGia(Integer.parseInt(thongtin[4]));
-                    vpp.setDonViTinh(thongtin[5]);
-                    ((VanPhong) vpp).setPhanLoaiChucNang(thongtin[6]); 
+                    // === 2. GÁN "THẺ LOẠI" CHO SẢN PHẨM ===
+                    vpp.setLoaiSP(lsp); 
+                    
+                    vpp.setMaSP(thongtin[1].trim());
+                    vpp.setTenSP(thongtin[2].trim());
+                    vpp.setSoLuong(Integer.parseInt(thongtin[3].trim()));
+                    vpp.setDonGia(Integer.parseInt(thongtin[4].trim()));
+                    vpp.setDonViTinh(thongtin[5].trim());
+                    ((VanPhong) vpp).setPhanLoaiChucNang(thongtin[6].trim()); 
 
                 } else if (loai.equalsIgnoreCase("DC")) {
                     vpp = new DoChoi();
-                    vpp.setMaSP(thongtin[1]);
-                    vpp.setTenSP(thongtin[2]);
-                    vpp.setSoLuong(Integer.parseInt(thongtin[3]));
-                    vpp.setDonGia(Integer.parseInt(thongtin[4]));
-                    vpp.setDonViTinh(thongtin[5]);
-                    ((DoChoi) vpp).setLuaTuoi(thongtin[6]); // Gán luôn
-                    ((DoChoi) vpp).setTheLoai(thongtin[7]); // Gán luôn
+                    // === 2. GÁN "THẺ LOẠI" CHO SẢN PHẨM ===
+                    vpp.setLoaiSP(lsp);
+
+                    vpp.setMaSP(thongtin[1].trim());
+                    vpp.setTenSP(thongtin[2].trim());
+                    vpp.setSoLuong(Integer.parseInt(thongtin[3].trim()));
+                    vpp.setDonGia(Integer.parseInt(thongtin[4].trim()));
+                    vpp.setDonViTinh(thongtin[5].trim());
+                    ((DoChoi) vpp).setLuaTuoi(thongtin[6].trim());
+                    ((DoChoi) vpp).setTheLoai(thongtin[7].trim());
                 } else {
                     System.out.println("Lỗi dữ liệu: Loại không hợp lệ! Bỏ qua: " + line);
-                    continue; // Bỏ qua dòng này
+                    continue; 
                 }
+                
                 dsvpp[n] = vpp; // Thêm sản phẩm vào mảng
-                n++; // Tăng số lượng
+                n++; 
             }
         }
-        catch (IOException e) { // Chỉ bắt lỗi IO (không tìm thấy file)
+        catch (IOException e) { 
             System.out.println("❌ Lỗi đọc file VanPhongPham.txt: " + e.getMessage());
+        }
+        catch (Exception e){ // Bắt các lỗi khác như NumberFormat, NullPointer...
+            System.out.println("❌ Lỗi dữ liệu file VanPhongPham.txt: " + e.getMessage());
         }
     }
     public void xuat() {
@@ -196,6 +219,55 @@ public class DSVPP {
             }
         }
         return true; // Mã duy nhất
+    }
+    
+    // Ghi lại toàn bộ file sản phẩm dựa trên dữ liệu hiện tại trong bộ nhớ
+    private void ghiLaiToanBoFileSanPham() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("VanPhongPham.txt"))) {
+            for (int i = 0; i < n; i++) {
+                if (dsvpp[i] == null) continue;
+                VanPhongPham sp = dsvpp[i];
+                String loai = (sp.getLoaiSP() != null) ? sp.getLoaiSP().getMaLoai() : "";
+                String line = loai + "," +
+                              sp.getMaSP() + "," +
+                              sp.getTenSP() + "," +
+                              sp.getSoLuong() + "," +
+                              sp.getDonGia() + "," +
+                              sp.getDonViTinh();
+                if (sp instanceof VanPhong) {
+                    line += "," + ((VanPhong) sp).getPhanLoaiChucNang();
+                } else if (sp instanceof DoChoi) {
+                    line += "," + ((DoChoi) sp).getLuaTuoi() + "," + ((DoChoi) sp).getTheLoai();
+                }
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Lỗi khi ghi lại file sản phẩm: " + e.getMessage());
+        }
+    }
+    
+    // Cập nhật số lượng sản phẩm theo mã (cho phép cộng/trừ tồn kho)
+    public void capNhatSLSP(String masp, int soluong) {
+        if (masp == null || masp.trim().isEmpty()) {
+            System.out.println("❌ Mã sản phẩm không hợp lệ.");
+            return;
+        }
+        for (int i = 0; i < n; i++) {
+            if (dsvpp[i] != null && dsvpp[i].getMaSP().equalsIgnoreCase(masp)) {
+                int sanphamhientai = dsvpp[i].getSoLuong();
+                int spmoi = sanphamhientai + soluong; // soluong có thể âm (bán hàng) hoặc dương (nhập hàng)
+                if (spmoi < 0) {
+                    System.out.println("❌ Không đủ tồn kho để trừ. Hiện tại: " + sanphamhientai + ", yêu cầu trừ: " + (-soluong));
+                    return;
+                }
+                dsvpp[i].setSoLuong(spmoi);
+                ghiLaiToanBoFileSanPham();
+                System.out.println("✅ Đã cập nhật SL sản phẩm " + dsvpp[i].getMaSP() + " từ " + sanphamhientai + " -> " + spmoi);
+                return;
+            }
+        }
+        System.out.println("❌ Không tìm thấy sản phẩm có mã: " + masp);
     }
     
 }
