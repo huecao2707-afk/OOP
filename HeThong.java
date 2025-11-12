@@ -40,8 +40,6 @@ public class HeThong {
                     qlbh.menuChinh();
                     break;
                 case 6:
-                    qlbh = new QLPNH();
-                    qlbh.menuChinh();
                     break;
                 case 7:
                     System.out.println("Tạm biệt!");
