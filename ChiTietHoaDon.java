@@ -1,53 +1,51 @@
 import java.util.Scanner;
 public class ChiTietHoaDon {
-    private String mahoadon;
-    private VanPhongPham sp;
+    private String mahd;
+    private String masp;
     private int dongia;
     private int soluong;
     private int thanhtien;
-    private String masp;
     public ChiTietHoaDon() {
         thanhtien = 0;
     }   
 
-    public ChiTietHoaDon(String mahoadon, VanPhongPham sp, int soluong, int dongia, int thanhtien) {
-        this.mahoadon = mahoadon;   
-        this.sp = sp;
-        this.soluong = soluong;
+    public ChiTietHoaDon(String mahd, String masp, int dongia, int soluong, int thanhtien) {
+        this.mahd = mahd;  
+        this.masp = masp;
         this.dongia = dongia;
+        this.soluong = soluong;
         this.thanhtien = thanhtien;
     }
 
     public ChiTietHoaDon(ChiTietHoaDon a) {
-        this.mahoadon = a.mahoadon;
-        this.sp = a.sp;           // <-- DÒNG NÀY BẮT BUỘC PHẢI CÓ
+        this.mahd = a.mahd;
+        this.masp = a.masp;
+        this.dongia = a.dongia;           
         this.soluong = a.soluong;
-        this.dongia = a.dongia;
-        this.thanhtien = a.thanhtien;
-        this.masp = a.masp;       // <-- DÒNG NÀY CŨNG BẮT BUỘC PHẢI CÓ
+        this.thanhtien = a.thanhtien; 
     }
 
     public void nhap() { 
         Scanner sc = new Scanner(System.in);
         String maspcantim;
-        VanPhongPham vpptimduoc = null;
+        VanPhongPham vpptimduoc = null; // Biến tạm để tra cứu
 
         do {
             System.out.print("  > Nhập Mã sản phẩm cần mua: ");
             maspcantim = sc.nextLine();
 
-            // SỬ DỤNG QuanLyBanHang.dsvpp để tra cứu
-            // Phải đảm bảo QLBH đã được khởi tạo và tải dữ liệu DSVPP
-            vpptimduoc = QuanLyBanHang.dsvpp.timMaSP(maspcantim); // Tra cứu sản phẩm
+            // Vẫn tra cứu để lấy thông tin Tên, Giá, Tồn kho
+            vpptimduoc = QuanLyBanHang.dsvpp.timMaSP(maspcantim); 
 
             if (vpptimduoc != null) {
-                this.sp = vpptimduoc;
-                // 🎯 IN THÔNG TIN SẢN PHẨM TRƯỚC KHI NHẬP SỐ LƯỢNG
+                
+                this.masp = maspcantim; 
+                
+                // (Các logic còn lại giữ nguyên)
                 System.out.println("  🎯 Đã tìm thấy: " + vpptimduoc.getTenSP() + ".");
-                this.dongia = vpptimduoc.getDonGia(); // Giả sử hàm getGiaBan tồn tại
+                this.dongia = vpptimduoc.getDonGia(); 
                 System.out.printf("  > Giá Bán: %,d | Tồn Kho: %d%n", this.dongia, vpptimduoc.getSoLuong());
 
-                // 5. Nhập số lượng mua và kiểm tra tồn kho
                 int soluongcanmua;
                 do {
                     System.out.print("  > Nhập Số lượng mua: ");
@@ -60,10 +58,7 @@ public class ChiTietHoaDon {
                 } while (soluongcanmua <= 0 || soluongcanmua > vpptimduoc.getSoLuong());
 
                 this.soluong = soluongcanmua;
-
-                // 5. Tính Thành tiền
                 this.thanhtien = this.soluong * this.dongia;
-
                 break;
 
             } else {
@@ -74,27 +69,25 @@ public class ChiTietHoaDon {
 
     // Hàm xuất thông tin chi tiết (để dùng trong vòng lặp của HoaDon.xuat())
     public void xuatThongTinCT(int stt) {
-        String tenSP = "N/A (Lỗi Tra Cứu)";
-        if (sp != null) {
-            tenSP = sp.getTenSP();
-        } else {
-            // Tra cứu từ mã SP String (khi đọc file, đối tượng sp chưa được liên kết)
-            // VanPhongPham sp_temp = QuanLyBanHang.dsvpp.timMaSP(this.masp);
-            // if (sp_temp != null) tenSP = sp_temp.getTenSP();
-            tenSP = this.masp + " (Cần liên kết)";
+        
+        String tensp = "N/A"; // Mặc định
+        
+        // Tra cứu sản phẩm từ DSVPP
+        VanPhongPham vpp = QuanLyBanHang.dsvpp.timMaSP(this.masp);
+        if (vpp != null) {
+            tensp = vpp.getTenSP();
         }
-
-        // Giả sử VanPhongPham có getTenSP()
+        
         System.out.printf("| %-5d | %-10s | %-30s | %-10d | %-9d | %-15d |\n",
-                stt, sp.getMaSP(), sp.getTenSP(), dongia, soluong, thanhtien);
+                stt, this.masp, tensp, dongia, soluong, thanhtien);
     }
     
-    public String getMaHoaDon() {
-        return mahoadon;
+    public String getMaHD() {
+        return mahd;
     }
     
-    public void setMaHoaDon(String mahd) { 
-        this.mahoadon = mahd; 
+    public void setMaHD(String mahd) { 
+        this.mahd = mahd; 
     }
     
     public int getDonGia() {
@@ -113,18 +106,10 @@ public class ChiTietHoaDon {
         this.soluong = soluong;
     }
     
-    public VanPhongPham getSanPham() {
-        return sp;
-    }
-    
-    public void setSanPham(VanPhongPham sp) {
-        this.sp = sp;
-    }
-    
     public int getThanhTien() {
         return thanhtien;
     }
-    
+        
     public void setThanhTien(int thanhtien) {
         this.thanhtien = thanhtien;
     }
