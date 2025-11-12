@@ -1,104 +1,124 @@
 import java.util.Scanner;
 
-public class ChiTietPNH{
-    private String mapnh;// ma phieu nhan hang
-    private VanPhongPham sp; // Lưu đối tượng sản phẩm
+public class ChiTietPNH {
+    private String mapnh; 
+    private String masp;
     private int dongia, soluong, thanhtien;
-    private String masp; // Lưu mã SP String để ghi file
 
-    public ChiTietPNH(){}
+    public ChiTietPNH() {
+    }
 
-    // Constructor cho đối tượng đầy đủ
-    public ChiTietPNH(String mapnh, VanPhongPham sp, int dongia, int soluong, int thanhtien){
+    // Constructor cho đối tượng đầy đủ (theo thuộc tính mới)
+    public ChiTietPNH(String mapnh, String masp, int dongia, int soluong, int thanhtien) {
         this.mapnh = mapnh;
-        this.sp = sp;
+        this.masp = masp;
         this.dongia = dongia;
         this.soluong = soluong;
         this.thanhtien = thanhtien;
-        this.masp = sp.getMaSP();
     }
 
-    // Constructor cho việc copy hoặc đọc file (chỉ có mã SP)
-    public ChiTietPNH(ChiTietPNH x){
+    // Constructor cho việc copy
+    public ChiTietPNH(ChiTietPNH x) {
         mapnh = x.mapnh;
-        sp = x.sp; // Sao chép đối tượng SP
+        masp = x.masp; // SỬA: Sao chép mã sp
         dongia = x.dongia;
         soluong = x.soluong;
         thanhtien = x.thanhtien;
-        masp = x.masp; // Sao chép mã SP String
     }
 
-    public void nhap(){
+    /**
+     * SỬA LẠI:
+     * - Xóa bỏ tham chiếu đến 'sp'.
+     * - Thêm try-catch để bắt lỗi nhập sai định dạng số.
+     */
+    public void nhap() {
         Scanner sc = new Scanner(System.in);
         String maspcantim;
         VanPhongPham vpptimduoc = null;
 
+        // Vòng lặp 1: Tìm sản phẩm
         do {
             System.out.print("  > Nhập Mã sản phẩm cần nhập hàng: ");
-            maspcantim = sc.nextLine();
+            maspcantim = sc.nextLine().trim();
+            if (maspcantim.isEmpty()) {
+                System.out.println("  ❌ Lỗi: Mã SP không được trống. Nhập lại!");
+                continue;
+            }
 
             // SỬ DỤNG QuanLyBanHang.dsvpp để tra cứu sản phẩm
             vpptimduoc = QuanLyBanHang.dsvpp.timMaSP(maspcantim);
 
             if (vpptimduoc != null) {
-                this.sp = vpptimduoc;
-                this.masp = vpptimduoc.getMaSP(); // Lưu mã String
-
-                System.out.println("  🎯 Đã tìm thấy: " + vpptimduoc.getTenSP() + ".");
-
-                // Giá nhập thường khác Giá bán
-                System.out.print("  > Nhập Đơn giá nhập: ");
-                this.dongia = sc.nextInt();
-                sc.nextLine();
-
-                int soluongcanmua;
-                do {
-                    System.out.print("  > Nhập Số lượng nhập: ");
-                    soluongcanmua = sc.nextInt();
-                    sc.nextLine();
-
-                    if (soluongcanmua <= 0) {
-                        System.out.println("  ❌ Lỗi: Số lượng phải lớn hơn 0. Nhập lại!");
-                    }
-                } while (soluongcanmua <= 0);
-
-                this.soluong = soluongcanmua;
-                this.thanhtien = this.soluong * this.dongia;
-                break;
+                // SỬA: Chỉ lưu mã (String), không lưu đối tượng 'sp'
+                this.masp = vpptimduoc.getMaSP();
+                System.out.println("  🎯 Đã tìm thấy: " + vpptimduoc.getTenSP() + "."); 
+                break; // Thoát vòng lặp khi tìm thấy
             } else {
-                System.out.println("❌ Lỗi: Không tìm thấy Sản phẩm có mã: " + maspcantim + ". Vui lòng nhập lại!");
+                System.out.println("  ❌ Lỗi: Không tìm thấy Sản phẩm có mã: " + maspcantim + ". Vui lòng nhập lại!");
             }
         } while (true);
+        System.out.print("  > Nhập Đơn giá nhập: ");
+        this.dongia = sc.nextInt();
+        sc.nextLine(); // Tiêu thụ ký tự Enter
+
+        // Vòng lặp 3: Nhập Số lượng (Thêm try-catch)
+        // SỬA: Đã loại bỏ kiểm tra (validation) theo yêu cầu
+        System.out.print("  > Nhập Số lượng nhập: ");
+        this.soluong = sc.nextInt();
+        sc.nextLine(); // Tiêu thụ ký tự Enter
+
+        // Tính thành tiền
+        this.thanhtien = this.soluong * this.dongia;
     }
 
-    // Hàm xuất chi tiết theo format (để dùng trong xuatPhieuDayDu)
     public void xuatThongTinCT(int stt) {
-        // Cần phải tra cứu Tên SP nếu đối tượng 'sp' là null (khi đọc từ file)
-        String tenSP = "N/A (Lỗi Tra Cứu)";
-        if (sp != null) {
-            tenSP = sp.getTenSP();
+        String tensp;
+
+        // SỬA: Luôn tra cứu lại SP từ DSVPP bằng 'masp' (String)
+        VanPhongPham sptamthoi = QuanLyBanHang.dsvpp.timMaSP(this.masp);
+
+        if (sptamthoi != null) {
+            tensp = sptamthoi.getTenSP();
         } else {
-            // Tra cứu từ mã SP String (khi đọc file, đối tượng sp chưa được liên kết)
-            // VanPhongPham sp_temp = QuanLyBanHang.dsvpp.timMaSP(this.masp);
-            // if (sp_temp != null) tenSP = sp_temp.getTenSP();
-            tenSP = this.masp + " (Cần liên kết)";
+            // Trường hợp SP đã bị xóa khỏi DSVPP nhưng CTPNH vẫn còn
+            tensp = "N/A (Không tìm thấy)";
         }
 
         System.out.printf("| %-5d | %-10s | %-30s | %-10d | %-9d | %-15d |\n",
-                stt, masp, tenSP, dongia, soluong, thanhtien);
+                stt, masp, tensp, dongia, soluong, thanhtien);
     }
 
-    // Getters/Setters
-    public String getMaPNH() { return mapnh; }
-    public void setMaPNH(String mapnh) { this.mapnh = mapnh; }
-    public String getMaSP() { return masp; }
-    public void setMaSP(String masp) { this.masp = masp; }
-    public VanPhongPham getSanPham() { return sp; }
-    public void setSanPham(VanPhongPham sp) { this.sp = sp; }
-    public int getDonGia() { return dongia; }
-    public void setDonGia(int dongia) { this.dongia = dongia; }
-    public int getSoLuong() { return soluong; }
-    public void setSoLuong(int soluong) { this.soluong = soluong; }
-    public int getThanhTien() { return thanhtien; }
-    public void setThanhTien(int thanhtien) { this.thanhtien = thanhtien; }
+    // Getter
+    public String getMaPNH() {
+        return mapnh;
+    }
+    public String getMaSP() {
+        return masp;
+    }
+    public int getDonGia() {
+        return dongia;
+    }
+    public int getSoLuong() {
+        return soluong;
+    }
+    public int getThanhTien() {
+        return thanhtien;
+    }
+
+    //Setter
+    public void setMaPNH(String mapnh) {
+        this.mapnh = mapnh;
+    }
+    public void setMaSP(String masp) {
+        this.masp = masp;
+    }
+    public void setDonGia(int dongia) {
+        this.dongia = dongia;
+    }
+    public void setSoLuong(int soluong) {
+        this.soluong = soluong;
+    }
+    public void setThanhTien(int thanhtien) {
+        this.thanhtien = thanhtien;
+    }
 }
