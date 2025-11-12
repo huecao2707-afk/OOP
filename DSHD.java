@@ -27,32 +27,29 @@ public class DSHD {
 
     // Trong class DSHD.java
     public void ghiFileHoaDon(HoaDon hd){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("HoaDon.txt", true))) { // <-- Sửa KhachHang.txt thành HoaDon.txt
-            // Để lưu object NhanVien/KhachHang, ta chỉ lưu Mã của chúng.
-            String manv = (hd.getManv() != null) ? hd.getManv().getMaNV() : "";        
-            String makh = (hd.getMakh() != null) ? hd.getMakh().getMaKH() : "";
-            
-            String line = hd.getMaHoaDon() + "," + manv + "," + makh + "," + hd.getNgaylaphd() + "," + hd.getTongTien();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("HoaDon.txt", true))) {
+            // Lấy mã NV/KH từ các trường String tạm thời:
+            String line = hd.getMaHoaDon() + "," + hd.getMaNhanVien() + "," + hd.getMaKH() + "," + hd.getNgayLapHD() + "," + hd.getTongTien();
 
             bw.write(line);
             bw.newLine();
-        } 
+        }
         catch (IOException e) {
             System.out.println("❌ Lỗi khi ghi thêm vào file: " + e.getMessage());
         }
     }
 
     public void ghiLaiToanBoFileHoaDon() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("HoaDon.txt", false))) { // <-- Sửa KhachHang.txt thành HoaDon.txt
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("HoaDon.txt", false))) {
             for (int i = 0; i < n; i++) {
-                HoaDon hd = dshd[i]; // <-- Sửa dskh[i] thành dshd[i]
-                
-                // Để lưu object NhanVien/KhachHang, ta chỉ lưu Mã của chúng.
-                String manv = (hd.getManv() != null) ? hd.getManv().getMaNV() : "";        
-                String makh = (hd.getMakh() != null) ? hd.getMakh().getMaKH() : "";
-                    
-                String line = hd.getMaHoaDon() + "," + manv + "," + makh + "," + hd.getNgaylaphd() + "," + hd.getTongTien();
-                
+                HoaDon hd = dshd[i];
+
+                // Lấy mã NV/KH từ các trường String tạm thời:
+                String manv = hd.getMaNhanVien(); // Đây là String manvstring
+                String makh = hd.getMaKH();      // Đây là String makhstring
+
+                String line = hd.getMaHoaDon() + "," + manv + "," + makh + "," + hd.getNgayLapHD() + "," + hd.getTongTien();
+
                 bw.write(line);
                 bw.newLine();
             }
@@ -60,7 +57,7 @@ public class DSHD {
             System.out.println("❌ Lỗi khi ghi lại toàn bộ file: " + e.getMessage());
         }
     }
-        public void docFileHoaDon() {
+    public void docFileHoaDon() {
             n = 0; // Reset số lượng về 0
             try (BufferedReader br = new BufferedReader(new FileReader("HoaDon.txt"))) {
                 String line;
@@ -93,9 +90,9 @@ public class DSHD {
         
                     HoaDon hd = new HoaDon();
                     hd.setMaHoaDon(thongtin[0].trim()); // mahoadon
-                    hd.setMaNV_string(thongtin[1].trim()); //  Mã NV string
-                    hd.setMaKH_string(thongtin[2].trim()); //Mã KH string                    
-                    hd.setNgaylaphd(thongtin[3].trim()); // ngaylaphd (Cần thêm setNgayLapHD() vào class HoaDon)
+                    hd.setMaNhanVien(thongtin[1].trim()); //  Mã NV string
+                    hd.setMaKH(thongtin[2].trim()); //Mã KH string
+                    hd.setNgayLapHD(thongtin[3].trim()); // ngaylaphd (Cần thêm setNgayLapHD() vào class HoaDon)
                     hd.setTongTien(tongtien);           // tongtien
         
                     dshd[n] = hd; // Thêm hóa đơn vào mảng

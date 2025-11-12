@@ -74,6 +74,16 @@ public class ChiTietHoaDon {
 
     // Hàm xuất thông tin chi tiết (để dùng trong vòng lặp của HoaDon.xuat())
     public void xuatThongTinCT(int stt) {
+        String tenSP = "N/A (Lỗi Tra Cứu)";
+        if (sp != null) {
+            tenSP = sp.getTenSP();
+        } else {
+            // Tra cứu từ mã SP String (khi đọc file, đối tượng sp chưa được liên kết)
+            // VanPhongPham sp_temp = QuanLyBanHang.dsvpp.timMaSP(this.masp);
+            // if (sp_temp != null) tenSP = sp_temp.getTenSP();
+            tenSP = this.masp + " (Cần liên kết)";
+        }
+
         // Giả sử VanPhongPham có getTenSP()
         System.out.printf("| %-5d | %-10s | %-30s | %-10d | %-9d | %-15d |\n",
                 stt, sp.getMaSP(), sp.getTenSP(), dongia, soluong, thanhtien);

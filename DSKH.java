@@ -170,6 +170,15 @@ public class DSKH {
         ghiFileKhachHang(khmoi);
         System.out.print("-> Đã thêm khách hàng mới thành công !");
     }
+    public void themKhachHang(KhachHang kh){
+        if (!maDuyNhat(kh.getMaKH())) {
+            System.out.println("❌ Lỗi: Mã khách hàng '" + kh.getMaKH() + "' đã tồn tại. Không thể thêm.");
+            return;
+        }
+        dskh[n]= kh;
+        n++;
+        ghiFileKhachHang(kh);
+    }
 
     public void xoaKhachHang(String ma) {
         if (dskh.length == 0) {
