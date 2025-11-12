@@ -25,16 +25,11 @@ public abstract class QuanLyBanHang {
         dskh.docFileKhachHang();
         dsnv.docFileNhanVien();
         dsncc.docFileNhaCungCap();
+        //dspnh.docFile();
         dshd.docFileHoaDon();
         dscthd.docFileCTHD();
-         dspnh.docFilePNH();
-         dsctpnh.docFileCTPNH();
+        //dsctpnh.docFile();
 
-        System.out.println("Tải dữ liệu hoàn tất!");
-        QLHD qlhd = new QLHD(); // Khởi tạo để gọi các hàm liên kết
-        qlhd.LienKetDuLieuHoaDon();
-        QLPNH qlpnh = new QLPNH();
-        qlpnh.LienKetDuLieuPNH();
     }
 
     public QuanLyBanHang(){
