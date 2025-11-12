@@ -7,21 +7,21 @@ import java.io.IOException;
 import java.util.Arrays; // Cần import để sử dụng Arrays.copyOf
 
 public class DSCTHD { 
-    int m;
+int n; // <-- ĐÃ SỬA
     public ChiTietHoaDon[] dscthd; // Mảng chứa TẤT CẢ Chi tiết Hóa đơn của hệ thống
 
     public DSCTHD(){
-        m = 0;
+        n = 0; // <-- ĐÃ SỬA
         dscthd = new ChiTietHoaDon[0]; // Khởi tạo mảng rỗng
     }
-    public DSCTHD(int m, ChiTietHoaDon[] dscthd){
-        this.m = m;
+    public DSCTHD(int n, ChiTietHoaDon[] dscthd){ // <-- ĐÃ SỬA
+        this.n = n; // <-- ĐÃ SỬA
         this.dscthd = dscthd;
     }
     public DSCTHD(DSCTHD other){
-        this.m = other.m;
-        this.dscthd = new ChiTietHoaDon[m];
-        for (int i = 0; i < m; i++){ // Dùng m thay vì dscthd.length để tránh lỗi nếu m nhỏ hơn capacity
+        this.n = other.n; // <-- ĐÃ SỬA
+        this.dscthd = new ChiTietHoaDon[n]; // <-- ĐÃ SỬA
+        for (int i = 0; i < n; i++){ // <-- ĐÃ SỬA
             this.dscthd[i] = new ChiTietHoaDon(other.dscthd[i]);
         }
     }
@@ -29,55 +29,14 @@ public class DSCTHD {
         // 1. CÁC HÀM ĐỌC/GHI FILE
         // =========================================================
     
-        public void docFileCTHD() {
-            m = 0; 
-            try (BufferedReader br = new BufferedReader(new FileReader("ChiTietHoaDon.txt"))) {
-                String line;
-                while ((line = br.readLine()) != null) { 
-                    String[] thongtin = line.split(",");
-                    if (thongtin.length < 3) {
-                        System.out.println("Lỗi dữ liệu: Không đủ thông tin chi tiết hóa đơn. Bỏ qua: " + line);
-                        continue;
-                    }
-                    int soluong;
-                    try {
-                        soluong = Integer.parseInt(thongtin[2].trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Lỗi dữ liệu: Số lượng không hợp lệ. Bỏ qua: " + line);
-                        continue;
-                    }
-                    
-                    if (m >= dscthd.length) {
-                        dscthd = Arrays.copyOf(dscthd, m + 1);
-                    }
-    
-                    ChiTietHoaDon cthd = new ChiTietHoaDon();
-                    cthd.setMaHoaDon(thongtin[0].trim());
-                    cthd.setMaSP(thongtin[1].trim());                    
-                    cthd.setSoLuong(soluong);
-                    dscthd[m] = cthd; 
-                    m++; 
-                }
-            } catch (IOException e) {
-                System.out.println("❌ Lỗi đọc file ChiTietHoaDon.txt: " + e.getMessage());
-            }
-        }
     
     // Sửa trong class DSCTHD.java
     public void ghiFileMotChiTiet(ChiTietHoaDon cthd) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("ChiTietHoaDon.txt", true))) {
             
-            // 1. Logic an toàn để lấy Mã SP, xử lý cả 2 trường hợp (đối tượng mới hoặc đối tượng đọc từ file)
-            String maspantoan;
-            if (cthd.getSanPham() != null) {
-                // Trường hợp 1: Đối tượng mới, lấy mã từ đối tượng VanPhongPham
-                maspantoan = cthd.getSanPham().getMaSP();
-            } else {
-                // Trường hợp 2: Đối tượng đọc từ file, lấy mã (String) đã lưu
-                maspantoan = cthd.getMaSP();
-            }
+            String maspantoan = cthd.getMaSP();
                 
-            String line = cthd.getMaHoaDon() + "," + maspantoan + "," + cthd.getSoLuong(); 
+            String line = cthd.getMaHD() + "," + maspantoan + "," + cthd.getSoLuong(); 
             
             bw.write(line);
             bw.newLine();
@@ -86,26 +45,15 @@ public class DSCTHD {
             System.out.println("❌ Lỗi khi ghi thêm chi tiết vào file: " + e.getMessage());
         }
     }
-    
     public void ghiLaiToanBoFileCTHD() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("ChiTietHoaDon.txt", false))) {
-            for (int i = 0; i < m; i++) {
+            for (int i = 0; i < n; i++) { // <-- ĐÃ SỬA
                 ChiTietHoaDon cthd = dscthd[i];
-                if (cthd == null) continue; // Bỏ qua nếu phần tử cthd bị null
+                if (cthd == null) continue; 
 
-                // 1. Logic an toàn: Ưu tiên lấy mã từ đối tượng SP (nếu tồn tại)
-                String maspantoan;
-                if (cthd.getSanPham() != null) {
-                    // Trường hợp 1: Đối tượng mới (được thêm khi chạy), 'sp' tồn tại.
-                    maspantoan = cthd.getSanPham().getMaSP();
-                } else {
-                    // Trường hợp 2: Đối tượng đọc từ file, 'sp' là null.
-                    // Lấy mã (String) đã được lưu khi đọc file.
-                    maspantoan = cthd.getMaSP(); 
-                }
+                String maspantoan = cthd.getMaSP(); 
                 
-                // 2. Sử dụng biến maspantoan
-                String line = cthd.getMaHoaDon() + "," + maspantoan + "," + cthd.getSoLuong(); 
+                String line = cthd.getMaHD() + "," + maspantoan + "," + cthd.getSoLuong(); 
                 
                 bw.write(line);
                 bw.newLine();
@@ -114,7 +62,39 @@ public class DSCTHD {
         } catch (IOException e) {
             System.out.println("❌ Lỗi khi ghi lại toàn bộ file CTHD: " + e.getMessage());
         }
-    }    
+    }
+
+    public void docFileCTHD() {
+        n = 0; // <-- ĐÃ SỬA
+        try (BufferedReader br = new BufferedReader(new FileReader("ChiTietHoaDon.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) { 
+                String[] thongtin = line.split(",");
+                if (thongtin.length < 3) {
+                    System.out.println("Lỗi dữ liệu: Không đủ thông tin chi tiết hóa đơn. Bỏ qua: " + line);
+                    continue;
+                }
+                int soluong;
+                try {
+                    soluong = Integer.parseInt(thongtin[2].trim());
+                } catch (NumberFormatException e) {
+                    System.out.println("Lỗi dữ liệu: Số lượng không hợp lệ. Bỏ qua: " + line);
+                    continue;
+                }    
+                if (n >= dscthd.length) { // <-- ĐÃ SỬA
+                    dscthd = Arrays.copyOf(dscthd, n + 1); // <-- ĐÃ SỬA
+                }
+                ChiTietHoaDon cthd = new ChiTietHoaDon();
+                cthd.setMaHD(thongtin[0].trim());
+                cthd.setMaSP(thongtin[1].trim());                     
+                cthd.setSoLuong(soluong);
+                dscthd[n] = cthd; // <-- ĐÃ SỬA
+                n++; // <-- ĐÃ SỬA
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Lỗi đọc file ChiTietHoaDon.txt: " + e.getMessage());
+        }
+    }   
         // =========================================================
         // 2. CÁC HÀM THAO TÁC DỮ LIỆU CHÍNH
         // =========================================================
@@ -122,10 +102,10 @@ public class DSCTHD {
         public void themMotChiTiet(ChiTietHoaDon cthd) {
             if (cthd == null) return;
             
-            this.dscthd = Arrays.copyOf(this.dscthd, this.m + 1);
+            this.dscthd = Arrays.copyOf(this.dscthd, this.n + 1);
             
-            this.dscthd[this.m] = new ChiTietHoaDon(cthd); 
-            this.m++;
+            this.dscthd[this.n] = new ChiTietHoaDon(cthd); 
+            this.n++;
             
             // Ghi thêm vào file
             ghiFileMotChiTiet(cthd);
@@ -134,21 +114,19 @@ public class DSCTHD {
         public ChiTietHoaDon[] timCTHDTheoMaHD(String mahd) {
             if (mahd == null || mahd.trim().isEmpty()) return null;
             
-            // 1. Đếm số lượng CTHD có Mã HĐ trùng khớp
             int count = 0;
-            for (int i = 0; i < m; i++) {
-                if (dscthd[i] != null && dscthd[i].getMaHoaDon().equalsIgnoreCase(mahd)) {
+            for (int i = 0; i < n; i++) { // <-- ĐÃ SỬA
+                if (dscthd[i] != null && dscthd[i].getMaHD().equalsIgnoreCase(mahd)) {
                     count++;
                 }
             }
     
             if (count == 0) return null; 
     
-            // 2. Tạo mảng kết quả và sao chép các phần tử tìm thấy
             ChiTietHoaDon[] ketqua = new ChiTietHoaDon[count];
             int j = 0;
-            for (int i = 0; i < m; i++) {
-                if (dscthd[i].getMaHoaDon().equalsIgnoreCase(mahd)) {
+            for (int i = 0; i < n; i++) { // <-- ĐÃ SỬA
+                if (dscthd[i].getMaHD().equalsIgnoreCase(mahd)) {
                     ketqua[j++] = dscthd[i];
                 }
             }
@@ -156,7 +134,7 @@ public class DSCTHD {
         }
     
         public void xuat() {
-            if (m == 0) {
+            if (n == 0) { // <-- ĐÃ SỬA
                 System.out.println("Danh sách chi tiết hóa đơn trống.");
                 return;
             }
@@ -165,9 +143,8 @@ public class DSCTHD {
                 "Mã HĐ", "Mã SP", "SL", "Đơn Giá (dự kiến)", "Thành Tiền (dự kiến)");
             System.out.println("-------------------------------------------------------------------------");
     
-            for (int i = 0; i < m; i++) {
-                // Cần hàm xuat() trong ChiTietHoaDon để hiển thị
-                dscthd[i].xuatThongTinCT(i); 
+            for (int i = 0; i < n; i++) { // <-- ĐÃ SỬA
+                dscthd[i].xuatThongTinCT(i + 1); 
             }
             System.out.println("-------------------------------------------------------------------------");
         }
@@ -178,10 +155,9 @@ public class DSCTHD {
         public boolean xoaChiTiet(String mahd, String masp) {
             int index = -1;
             
-            // 1. Tìm vị trí của CTHD cần xóa
-            for (int i = 0; i < m; i++) {
+            for (int i = 0; i < n; i++) { // <-- ĐÃ SỬA
                 if (dscthd[i] != null && 
-                    dscthd[i].getMaHoaDon().equalsIgnoreCase(mahd) && 
+                    dscthd[i].getMaHD().equalsIgnoreCase(mahd) && 
                     dscthd[i].getMaSP().equalsIgnoreCase(masp)) 
                 {
                     index = i;
@@ -194,19 +170,15 @@ public class DSCTHD {
                 return false;
             }
     
-            // 2. Xóa khỏi mảng bằng cách dịch chuyển
-            for (int i = index; i < m - 1; i++) {
+            for (int i = index; i < n - 1; i++) { // <-- ĐÃ SỬA
                 dscthd[i] = dscthd[i + 1];
             }
-            dscthd[m - 1] = null;
-            m--;
+            dscthd[n - 1] = null; // <-- ĐÃ SỬA
+            n--; // <-- ĐÃ SỬA
             
-            // Giảm kích thước mảng trong bộ nhớ
-            dscthd = Arrays.copyOf(dscthd, m); 
+            dscthd = Arrays.copyOf(dscthd, n); // <-- ĐÃ SỬA
     
             System.out.println("✅ Đã xóa CTHD cho HĐ " + mahd + " (SP: " + masp + ").");
-    
-            // 3. Cập nhật lại toàn bộ file
             ghiLaiToanBoFileCTHD(); 
             return true;
         }
