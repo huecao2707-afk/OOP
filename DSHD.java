@@ -5,12 +5,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+// THÊM MỚI: Import thư viện LocalDate và Formatter
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 public class DSHD {
     private int n;
     public HoaDon[] dshd;
+    
+    // THÊM MỚI: Thêm định dạng ngày tháng
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
     public DSHD(){
-        dshd = new HoaDon[100];
+        dshd = new HoaDon[100]; // Mảng chứa các đối tượng HoaDon
         n = 0;
     }
     public DSHD(int n,HoaDon[] dshd){
@@ -25,31 +34,43 @@ public class DSHD {
         }
     }
 
-    // Trong class DSHD.java
+    // =========================================================
+    // HÀM GHI FILE (ĐÃ SỬA LỖI)
+    // =========================================================
     public void ghiFileHoaDon(HoaDon hd){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("HoaDon.txt", true))) {
-            // Lấy mã NV/KH từ các trường String tạm thời:
-            String line = hd.getMaHoaDon() + "," + hd.getMaNhanVien() + "," + hd.getMaKH() + "," + hd.getNgayLapHD() + "," + hd.getTongTien();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("HoaDon.txt", true))) { 
+            
+            // SỬA LỖI: Lấy trực tiếp String ID và Ngày đã định dạng
+            // (Không cần gọi getNhanVien() hay getKhachHang() nữa)
+            String manv = hd.getMaNV();        
+            String makh = hd.getMaKH();
+            LocalDate ngay = hd.getNgayLapHD(); // Lấy ngày đã định dạng
+            
+            String line = hd.getMaHD() + "," + manv + "," + makh + "," + ngay + "," + hd.getTongTien();
 
             bw.write(line);
             bw.newLine();
-        }
+        } 
         catch (IOException e) {
             System.out.println("❌ Lỗi khi ghi thêm vào file: " + e.getMessage());
         }
     }
 
+    // =========================================================
+    // HÀM GHI LẠI FILE (ĐÃ SỬA LỖI)
+    // =========================================================
     public void ghiLaiToanBoFileHoaDon() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("HoaDon.txt", false))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("HoaDon.txt", false))) { 
             for (int i = 0; i < n; i++) {
-                HoaDon hd = dshd[i];
-
-                // Lấy mã NV/KH từ các trường String tạm thời:
-                String manv = hd.getMaNhanVien(); // Đây là String manvstring
-                String makh = hd.getMaKH();      // Đây là String makhstring
-
-                String line = hd.getMaHoaDon() + "," + manv + "," + makh + "," + hd.getNgayLapHD() + "," + hd.getTongTien();
-
+                HoaDon hd = dshd[i]; 
+                
+                // SỬA LỖI: Tương tự như hàm ghiFileHoaDon
+                String manv = hd.getMaNV();        
+                String makh = hd.getMaKH();
+                LocalDate ngay = hd.getNgayLapHD();                   
+                
+                String line = hd.getMaHD() + "," + manv + "," + makh + "," + ngay + "," + hd.getTongTien();
+                
                 bw.write(line);
                 bw.newLine();
             }
@@ -57,7 +78,11 @@ public class DSHD {
             System.out.println("❌ Lỗi khi ghi lại toàn bộ file: " + e.getMessage());
         }
     }
-    public void docFileHoaDon() {
+    
+    // =========================================================
+    // HÀM ĐỌC FILE (ĐÃ SỬA LỖI)
+    // =========================================================
+        public void docFileHoaDon() {
             n = 0; // Reset số lượng về 0
             try (BufferedReader br = new BufferedReader(new FileReader("HoaDon.txt"))) {
                 String line;
@@ -65,13 +90,11 @@ public class DSHD {
                 while ((line = br.readLine()) != null) { // Đọc từng dòng
                     String[] thongtin = line.split(",");
         
-                    // YÊU CẦU 5 TRƯỜNG: mahd, manv, makh, ngaylaphd, tongtien
                     if (thongtin.length < 5) {
                         System.out.println("Lỗi dữ liệu: Không đủ thông tin hóa đơn. Bỏ qua: " + line);
                         continue;
                     }
         
-                    // Chuyển đổi Tổng Tiền từ String sang int
                     int tongtien;
                     try {
                         tongtien = Integer.parseInt(thongtin[4].trim());
@@ -80,23 +103,26 @@ public class DSHD {
                         continue;
                     }
                     
-                    // LƯU Ý QUAN TRỌNG:
-                    // Vì đối tượng HoaDon lưu trữ NhanVien và KhachHang (Object) chứ không phải mã (String),
-                    // ở đây ta chỉ có thể lưu trữ Mã NV và Mã KH (String) tạm thời.
-                    // Để có đối tượng NhanVien/KhachHang hoàn chỉnh, bạn cần một hàm khác
-                    // để tra cứu (lookup) NhanVien/KhachHang từ ID sau khi toàn bộ file đã được đọc.
-                    // TẠM THỜI: Ta chỉ cần 3 trường chính của HoaDon cho file: mahd, ngaylaphd, tongtien. 
-                    // Hai trường còn lại (manv, makh) sẽ được gán sau.
-        
                     HoaDon hd = new HoaDon();
-                    hd.setMaHoaDon(thongtin[0].trim()); // mahoadon
-                    hd.setMaNhanVien(thongtin[1].trim()); //  Mã NV string
-                    hd.setMaKH(thongtin[2].trim()); //Mã KH string
-                    hd.setNgayLapHD(thongtin[3].trim()); // ngaylaphd (Cần thêm setNgayLapHD() vào class HoaDon)
+                    
+                    // SỬA LỖI: Dùng các hàm set mới của HoaDon.java
+                    hd.setMaHD(thongtin[0].trim()); // setMaHD
+                    hd.setMaNV(thongtin[1].trim()); // setMaNV (String)
+                    hd.setMaKH(thongtin[2].trim()); // setMaKH (String)                    
+                    
+                    // SỬA LỖI: Phải parse (chuyển đổi) String thành LocalDate
+                    try {
+                        LocalDate ngay = LocalDate.parse(thongtin[3].trim(), DATE_FORMATTER);
+                        hd.setNgayLapHD(ngay); // Dùng setNgayLapHD(LocalDate)
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Lỗi dữ liệu: Ngày không hợp lệ. Gán là null: " + line);
+                        hd.setNgayLapHD(null); // Gán null nếu ngày sai
+                    }
+                    
                     hd.setTongTien(tongtien);           // tongtien
         
-                    dshd[n] = hd; // Thêm hóa đơn vào mảng
-                    n++; // Tăng số lượng
+                    dshd[n] = hd; 
+                    n++; 
         
                     if (n >= dshd.length) {
                         System.out.println("Cảnh báo: Đã đầy mảng lưu trữ hóa đơn.");
@@ -108,46 +134,49 @@ public class DSHD {
             }
         }
 
-    public void nhap(NhanVien nv_dang_nhap) {
+    public void nhap(NhanVien nvdangnhap) { // Hàm này dường như không còn được dùng, nhưng vẫn sửa
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap so luong hoa don: ");
-        int soLuongMoi = sc.nextInt();
+        int soluongmoi = sc.nextInt();
         sc.nextLine();
 
-        // Tăng kích thước mảng cũ lên n + soLuongMoi
-        this.dshd = Arrays.copyOf(this.dshd, this.n + soLuongMoi);
+        this.dshd = Arrays.copyOf(this.dshd, this.n + soluongmoi);
 
-        for (int i = 0; i < soLuongMoi; i++) {
-            System.out.println("----------HOA DON " + (this.n + i + 1) + "----------"); // Cập nhật STT
+        for (int i = 0; i < soluongmoi; i++) {
+            System.out.println("----------HOA DON " + (this.n + i + 1) + "----------"); 
             HoaDon hd = new HoaDon();
 
-            // TRUYỀN THÔNG TIN NHÂN VIÊN CHO HÓA ĐƠN NÀY
-            // Việc tìm KH và nhập CTHD đã được chuyển sang QLHD.themMotHoaDonMoi()
-            // Nếu dùng hàm nhap() này thì phải đảm bảo QLBH.dskh và QLBH.dsvpp đã được tải.
-            hd.setNhanVien(nv_dang_nhap);
+            // SỬA LỖI: Dùng setMaNV(String)
+            if (nvdangnhap != null) {
+                hd.setMaNV(nvdangnhap.getMaNV());
+            }
+            
             hd.nhap(); // Hàm nhập cơ bản (Mã HĐ, Ngày Lập)
-            // **KHUYẾN NGHỊ:** Bạn cần thêm logic TÌM KH và NHẬP CTHD vào đây nếu dùng hàm này.
-            // Tốt nhất là chỉ dùng hàm themMotHoaDon() được điều phối từ QLHD.
 
-            // Lưu Hóa đơn vào mảng
             this.dshd[this.n + i] = hd;
         }
 
-        this.n += soLuongMoi; // Cập nhật n
+        this.n += soluongmoi; // Cập nhật n
     }
-    public HoaDon timHDtheoMa(String mahd) {
+
+    // =========================================================
+    // CÁC HÀM TÌM KIẾM (ĐÃ SỬA LỖI)
+    // =========================================================
+    public HoaDon timKiemTheoMa(String mahd) {
         for (int i = 0; i < n; i++) {
-            if (dshd[i] != null && dshd[i].getMaHoaDon().equalsIgnoreCase(mahd)) {
-                return dshd[i]; // Trả về hóa đơn tìm thấy
+            // SỬA LỖI: Dùng getMaHD()
+            if (dshd[i] != null && dshd[i].getMaHD().equalsIgnoreCase(mahd)) {
+                return dshd[i]; 
             }
         }
-        return null; // Không tìm thấy
+        return null; 
     }
     
     public int timViTriHD(String mahd) {
         for (int i = 0; i < n; i++) {
-            if (dshd[i] != null && dshd[i].getMaHoaDon().equalsIgnoreCase(mahd)) {
-                return i; // Trả về vị trí (index)
+            // SỬA LỖI: Dùng getMaHD()
+            if (dshd[i] != null && dshd[i].getMaHD().equalsIgnoreCase(mahd)) {
+                return i; 
             }
         }
         return -1; 
@@ -155,21 +184,35 @@ public class DSHD {
     
     public boolean maDuyNhat(String mahd){
         for(int i = 0; i < n; i++)
-            if(dshd[i].getMaHoaDon().equals(mahd))
+            // SỬA LỖI: Dùng getMaHD()
+            if(dshd[i].getMaHD().equals(mahd))
                 return false;
         return true;
     }
     
+    // =========================================================
+    // HÀM THÊM/XÓA (ĐÃ SỬA LỖI)
+    // =========================================================
     public void themMotHoaDon(HoaDon hd) {
-        if (maDuyNhat(hd.getMaHoaDon())) {
-        this.dshd = Arrays.copyOf(this.dshd, this.n + 1);
-        this.dshd[this.n] = new HoaDon(hd);
-        this.n++;
+        // SỬA LỖI: Dùng getMaHD()
+        if (maDuyNhat(hd.getMaHD())) { 
+            
+            // Tối ưu hóa: Tăng kích thước mảng nếu cần
+            if (n >= dshd.length) {
+                 this.dshd = Arrays.copyOf(this.dshd, this.n + 1);
+            }
+           
+            this.dshd[this.n] = new HoaDon(hd);
+            this.n++;
             System.out.println("Đã thêm thành công 1 hóa đơn mới vào danh sách.");
         } else {
-            System.out.println("❌ Lỗi: Mã hóa đơn '" + hd.getMaHoaDon() + "' đã tồn tại. Không thể thêm.");
-        }ghiFileHoaDon(hd);
+            // SỬA LỖI: Dùng getMaHD()
+            System.out.println("❌ Lỗi: Mã hóa đơn '" + hd.getMaHD() + "' đã tồn tại. Không thể thêm.");
+            return;
+        }
+        ghiFileHoaDon(hd);
     }
+    
     public void xoaHoaDon() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập mã hóa đơn cần xóa: ");
@@ -188,6 +231,10 @@ public class DSHD {
         System.out.println("Đã xóa hóa đơn " + mahd);
         ghiLaiToanBoFileHoaDon();
     }
+    
+    // =========================================================
+    // HÀM XUAT() (Không cần sửa)
+    // =========================================================
     public void xuat(){
         String line = "+------------+------------+------------+-----------------+------------+";
         String format = "| %-10s | %-10s | %-10s | %-15s | %-10s |\n";
@@ -196,6 +243,8 @@ public class DSHD {
         System.out.printf(format,"Ma HD","Ma NV","Ma KH","Ngay lap HD","Tong tien");
         System.out.println(line);
         for(int i = 0; i < n; i++){
+            // Hàm xuat() của HoaDon (prompt 44) đã được sửa
+            // để chỉ in String ID, nên hàm này chạy đúng.
             dshd[i].xuat();
         }
         System.out.println(line);
