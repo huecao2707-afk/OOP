@@ -24,26 +24,17 @@ public class VanPhong extends VanPhongPham{
         Scanner sc = new Scanner(System.in);
         phanloaichucnang = sc.nextLine();
     }
+    // Sửa lại hàm xuat() của lớp VanPhong
     @Override
     public void xuat() {
-        String maloai = "VP";
-            if (this.getLoaiSP() != null) 
-            // 3. Nếu ĐÚNG: Lấy mã loại từ đối tượng
-                maloai = this.getLoaiSP().getMaLoai();
+        super.xuat(); 
+        String format = "| %-20s | %-10s | %-10s |\n"; // Có \n
 
-        // Chuỗi định dạng 9 cột (Giống hệt DSVPP)
-        String format = "| %-8s | %-10s | %-20s | %-10d | %-13d | %-13s | %-20s | %-10s | %-10s |\n";
-
+        // 3. In 3 cột cuối
         System.out.printf(format,
-                maloai,            // Cột 1: Loại SP
-                masp,              // Cột 2: Mã SP
-                tensp,             // Cột 3: Tên SP
-                soluong,           // Cột 4: Số Lượng (dùng %d)
-                dongia,            // Cột 5: Đơn Giá (dùng %d)
-                donvitinh,         // Cột 6: Đơn Vị Tính
-                phanloaichucnang,  // Cột 7: Chức Năng (Có)
-                "",                // Cột 8: Độ Tuổi (Trống)
-                ""                 // Cột 9: Thể Loại (Trống)
+            phanloaichucnang, // Cột 7
+            "",               // Cột 8
+            ""                // Cột 9
         );
     }
 }
