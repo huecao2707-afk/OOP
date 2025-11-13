@@ -43,22 +43,12 @@ public class DoChoi extends VanPhongPham{
    
     @Override
     public void xuat() {
-        String maloai = "DC"; // Giá trị mặc định nếu loaisp bị null
-        if (this.getLoaiSP() != null) {
-            maloai = this.getLoaiSP().getMaLoai();
-        }
-        String format = "| %-8s | %-10s | %-20s | %-10d | %-13d | %-13s | %-20s | %-10s | %-10s |\n";
-
+        super.xuat();
+        String format = "| %-20s | %-10s | %-10s |\n";
         System.out.printf(format,
-                maloai,        // Cột 1: Loại SP (String)
-                masp,          // Cột 2: Mã SP (String)
-                tensp,         // Cột 3: Tên SP (String)
-                soluong,       // Cột 4: Số Lượng (int)
-                dongia,        // Cột 5: Đơn Giá (int)
-                donvitinh,     // Cột 6: Đơn Vị Tính (String)
-                "",            // Cột 7: Chức Năng (Để trống)
-                luatuoi,       // Cột 8: Lứa Tuổi (String - Riêng của Đồ Chơi)
-                theloai        // Cột 9: Thể Loại (String - Riêng của Đồ Chơi)
+        "", // Cột 7
+            luatuoi, // Cột 8
+            theloai  // Cột 9
         );
     }
 }
