@@ -77,29 +77,18 @@ public abstract class VanPhongPham {
         donvitinh = sc.nextLine();
     }
 
+    // Sửa lại hàm xuat() của lớp cha (VanPhongPham)
+    // Nó sẽ được các lớp con gọi bằng super.xuat()
     public void xuat() {
-        System.out.println("\n--- DANH SÁCH TẤT CẢ SẢN PHẨM ---");
-
-        // Chuỗi định dạng (6 cột)
-        String format = "| %-15s | %-15s | %-20s | %-10s | %-10s | %-15s |\n";
-        String line = "+-----------------+-----------------+----------------------+------------+------------+-----------------+";
-
-        System.out.println(line);
+        String maloai = loaisp.getMaLoai();
+        String format = "| %-8s | %-10s | %-20s | %-10d | %-13d | %-13s ";
         System.out.printf(format, 
-                "Loại SP", "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Đơn Vị Tính");
-        System.out.println(line);
-
-        // Tránh lỗi null khi loaisp chưa được khởi tạo
-        String maLoai = (loaisp == null) ? "Chưa có" : loaisp.getMaLoai();
-
-        System.out.printf(format, 
-                maLoai, 
-                (masp == null ? "Chưa có" : masp), 
-                (tensp == null ? "Chưa có" : tensp), 
-                soluong, 
-                dongia, 
-                (donvitinh == null ? "Chưa có" : donvitinh)
+            maloai, 
+            masp, 
+            tensp, 
+            soluong, 
+            dongia, 
+            donvitinh
         );
-        System.out.println(line);
     }
 }
