@@ -129,7 +129,6 @@ public class QLPNH extends QuanLyBanHang {
             System.out.println("1. Thêm một Phiếu Nhận Hàng mới");
             System.out.println("2. Xem danh sách Phiếu Nhận Hàng");
             System.out.println("3. Tìm kiếm Phiếu Nhận Hàng");
-            System.out.println("4. Xem Chi tiết Phiếu Nhận Hàng theo Mã");
             System.out.println("0. Quay lại Menu chính");
             System.out.print("Nhập lựa chọn của bạn: ");
 
@@ -153,9 +152,6 @@ public class QLPNH extends QuanLyBanHang {
                 case 3:
                     timPNH(); // Không truyền tham số
                     break;
-                case 4:
-                    xemChiTiet(); // Không truyền tham số
-                    break;
                 case 0:
                     System.out.println("Quay lại Menu chính.");
                     break;
@@ -163,13 +159,8 @@ public class QLPNH extends QuanLyBanHang {
                     System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
             }
         }
-        // Không đóng sc (sc.close()) ở đây để tránh đóng System.in
     }
 
-    /**
-     * Tìm PNH.
-     * Phương thức này tự tạo Scanner riêng.
-     */
     public void timPNH() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập mã Phiếu Nhận Hàng cần tìm: ");
@@ -183,13 +174,8 @@ public class QLPNH extends QuanLyBanHang {
         } else {
             System.out.println("❌ Không tìm thấy Phiếu Nhận Hàng có mã: " + mapnh);
         }
-        // Không đóng sc (sc.close())
     }
 
-    /**
-     * Xem chi tiết PNH.
-     * Phương thức này tự tạo Scanner riêng.
-     */
     public void xemChiTiet() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập mã Phiếu Nhận Hàng để xem chi tiết: ");

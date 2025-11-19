@@ -195,4 +195,7 @@ public class DSPNH {
         System.out.println("Đã xóa phiếu nhập hàng " + mapnh);
         ghiLaiToanBoFilePNH();
     }
+    public int getN() {
+        return n; 
+    }
 }

@@ -138,9 +138,6 @@ public class DSCTPNH {
         }
     }
 
-    /**
-     * Hàm này đã đúng, thêm 1 chi tiết vào mảng và gọi ghi file.
-     */
     public void themMotChiTiet(ChiTietPNH ctpnh) {
         if (ctpnh == null) return;
         this.dsctpnh = Arrays.copyOf(this.dsctpnh, this.m + 1);

@@ -25,10 +25,10 @@ public abstract class QuanLyBanHang {
         dskh.docFileKhachHang();
         dsnv.docFileNhanVien();
         dsncc.docFileNhaCungCap();
-        //dspnh.docFile();
+        dspnh.docFilePNH();
         dshd.docFileHoaDon();
         dscthd.docFileCTHD();
-        //dsctpnh.docFile();
+        dsctpnh.docFileCTPNH();
 
     }
 

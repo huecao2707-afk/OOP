@@ -78,8 +78,8 @@ public class HoaDon {
     }
     void xuatHoaDonDayDu() {
         System.out.println("\n==================================================================================================");
-        System.out.println("======================================== PHIẾU THANH TOÁN ==========================================");
-        System.out.println("====================================================================================================");
+        System.out.println("======================================== PHIẾU THANH TOÁN ========================================");
+        System.out.println("==================================================================================================");
         
         // SỬA LỖI: Dùng getter đã định dạng ngày
         System.out.printf("| Mã Hóa Đơn: %-61s Ngày Lập: %s | \n", mahd, getNgayLapHDString());
@@ -95,10 +95,10 @@ public class HoaDon {
         for (int i = 0; i < soluongcthd; i++) {
             cthdcuahoadon[i].xuatThongTinCT(i + 1);
         }
+        String tongtienda = String.format("%,d VNĐ", tongtien);
         System.out.println("--------------------------------------------------------------------------------------------------");
-        System.out.printf("| TỔNG CỘNG: %71s %,d VNĐ |\n", "", tongtien);
+        System.out.printf("| %-78s %15s |\n", "TỔNG CỘNG:", tongtienda);
         System.out.println("==================================================================================================");
-        System.out.println("Cảm ơn quý khách và hẹn gặp lại!");
     }
     // Hàm xuất ngắn gọn (Cập nhật để xuất Tên thay vì Mã)
    public void xuat() { // Hàm này dùng cho việc xuất danh sách

@@ -35,6 +35,10 @@ public class DSNCC {
         }
 
         public void xuat(){
+            if (n == 0) { 
+                System.out.println("Danh sách nhà cung cấp trống.");
+                return;
+            }
             String format = "| %-15s | %-20s | %-15s | %-15s | %-20s |\n";
             String line = "+-----------------+----------------------+-----------------+-----------------+----------------------+";
             System.out.println(line);
@@ -217,5 +221,8 @@ public class DSNCC {
 
         System.out.println(">> Đã xóa nhà cung cấp thành công!");
         ghiLaiToanBoFileNhaCungCap();
+    }
+    public int getN() {
+        return n; 
     }
 }

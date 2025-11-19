@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 public class DSKH {
         private int n;
-        private KhachHang[] dskh;
+        public KhachHang[] dskh;
         public DSKH(){
             dskh = new KhachHang[300]; // 300 san pham t
             n = 0;
@@ -103,6 +103,10 @@ public class DSKH {
 
     // Hàm in ra danh sách khách hàng để kiểm tra
     public void xuatDanhSachKhachHang() {
+        if (n == 0) {
+            System.out.println("Danh sách khách hàng trống.");
+            return;
+        }
         String line = "+-----------------+---------------------------+-----------------+--------------------------+";
         String format = "| %-15s | %-25s | %-15s | %-24s |\n";
 
@@ -238,5 +242,7 @@ public class DSKH {
         System.out.println("❌ Không tìm thấy khách hàng với mã: " + ma);
         ghiLaiToanBoFileKhachHang();
     }
-
+    public int getN() {
+        return n; 
+    }
 }

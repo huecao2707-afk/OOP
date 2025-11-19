@@ -44,7 +44,7 @@ public class DSHD {
             // (Không cần gọi getNhanVien() hay getKhachHang() nữa)
             String manv = hd.getMaNV();        
             String makh = hd.getMaKH();
-            LocalDate ngay = hd.getNgayLapHD(); // Lấy ngày đã định dạng
+            String ngay = hd.getNgayLapHDString(); // Lấy ngày đã định dạng
             
             String line = hd.getMaHD() + "," + manv + "," + makh + "," + ngay + "," + hd.getTongTien();
 
@@ -67,7 +67,7 @@ public class DSHD {
                 // SỬA LỖI: Tương tự như hàm ghiFileHoaDon
                 String manv = hd.getMaNV();        
                 String makh = hd.getMaKH();
-                LocalDate ngay = hd.getNgayLapHD();                   
+                String ngay = hd.getNgayLapHDString(); // Lấy ngày đã định dạng
                 
                 String line = hd.getMaHD() + "," + manv + "," + makh + "," + ngay + "," + hd.getTongTien();
                 
@@ -166,6 +166,7 @@ public class DSHD {
         for (int i = 0; i < n; i++) {
             // SỬA LỖI: Dùng getMaHD()
             if (dshd[i] != null && dshd[i].getMaHD().equalsIgnoreCase(mahd)) {
+                dshd[i].xuatHoaDonDayDu();
                 return dshd[i]; 
             }
         }
@@ -213,10 +214,7 @@ public class DSHD {
         ghiFileHoaDon(hd);
     }
     
-    public void xoaHoaDon() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nhập mã hóa đơn cần xóa: ");
-        String mahd = sc.nextLine();
+    public void xoaHoaDon(String mahd) {
         int vitrixoa = timViTriHD(mahd);
 
         if (vitrixoa == -1) {
@@ -236,6 +234,10 @@ public class DSHD {
     // HÀM XUAT() (Không cần sửa)
     // =========================================================
     public void xuat(){
+        if (n == 0) {
+            System.out.println("Danh sách hóa đơn trống.");
+            return;
+        }
         String line = "+------------+------------+------------+-----------------+------------+";
         String format = "| %-10s | %-10s | %-10s | %-15s | %-10s |\n";
         System.out.println("\n--- Danh sách Đơn Hàng ---");
@@ -249,5 +251,19 @@ public class DSHD {
         }
         System.out.println(line);
 
+    }
+
+    public void xuatHoaDonDayDu(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhập mã hóa đơn: ");
+        String ma = sc.nextLine();
+        for(int i = 0; i < n; i++){
+            if (dshd[i].getMaHD().contains(ma)) {
+                dshd[i].xuatHoaDonDayDu();
+            }
+        }
+    }
+    public int getN() {
+        return n; 
     }
 }

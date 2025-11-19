@@ -1,7 +1,7 @@
-VP,VP001,Bút bi,10,5000,Cái,Ghi
-DC,DC001,Xe Tank,15,199999,Chiếc,16+,War
-VP,VP002,Vở,15,12000,Cái,Lưu trữ kiến thức
-DC,DC002,Trực thăng,20,299999,Chiếc,16+,War
-DC,DC003,Rubik 3x3,17,245000,Cái,6+,Giải đố
-DC,DC004,Rubik GanRS 365 Pro,15,599000,Cái,6+,Giải đố
-VP,VP003,Máy In,10,15000000,Cái,In ấn
+VP,VP001,Bút bi,43,5000,Cái,Ghi
+DC,DC001,Xe Tank,14,199999,Chiếc,16+,War
+VP,VP002,Vở,24,12000,Cái,Lưu trữ kiến thức
+DC,DC002,Trực thăng,32,299999,Chiếc,16+,War
+DC,DC003,Rubik 3x3,25,245000,Cái,6+,Giải đố
+DC,DC004,Rubik GanRS 365 Pro,10,599000,Cái,6+,Giải đố
+VP,VP003,Máy In,30,15000000,Cái,In ấn

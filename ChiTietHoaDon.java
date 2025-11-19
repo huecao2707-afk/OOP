@@ -67,6 +67,7 @@ public class ChiTietHoaDon {
         } while (true);
     }
 
+
     // Hàm xuất thông tin chi tiết (để dùng trong vòng lặp của HoaDon.xuat())
     public void xuatThongTinCT(int stt) {
         
@@ -81,7 +82,10 @@ public class ChiTietHoaDon {
         System.out.printf("| %-5d | %-10s | %-30s | %-10d | %-9d | %-15d |\n",
                 stt, this.masp, tensp, dongia, soluong, thanhtien);
     }
-    
+    public void xuat(){
+        System.out.printf("| %-10s | %-10s | %-10s | %-15s | %-15s |\n" ,mahd, masp, soluong, dongia, thanhtien);
+
+    }
     public String getMaHD() {
         return mahd;
     }

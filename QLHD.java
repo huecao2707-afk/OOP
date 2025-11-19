@@ -5,47 +5,8 @@ import java.util.Scanner;
 
 public class QLHD extends QuanLyBanHang {
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-// Trong file QLHD.java (Hàm LienKetDuLieuHoaDon)
-
-    // public void LienKetDuLieuHoaDon() {
-    //     System.out.println("--- Đang liên kết dữ liệu Hóa đơn ---");
-
-    //     // Dùng .length để lặp qua kích thước VẬT LÝ của mảng
-    //     // KHÔNG CẦN dshd.n NỮA, vì n là private
-    //     for (int i = 0; i < dshd.dshd.length; i++) { 
-            
-    //         HoaDon hd = dshd.dshd[i];
-            
-    //         // KIỂM TRA QUAN TRỌNG: Đảm bảo phần tử mảng KHÔNG phải là null
-    //         if (hd == null) {
-    //             // Khi gặp null, tức là đã hết các Hóa đơn thực tế được lưu.
-    //             // Chúng ta có thể thoát vòng lặp để tránh lặp thừa.
-    //             break; 
-    //         }
-
-	// 	// 1. LIÊN KẾT NHÂN VIÊN (tra theo mã NV dạng String đã lưu trong hóa đơn)
-	// 	    String manvcantim = hd.getMaNhanVien();
-    //         if (manvcantim != null && !manvcantim.trim().isEmpty()) {
-    //             NhanVien nvtimduoc = QuanLyBanHang.dsnv.timKiemTheoMa(manvcantim.trim()); 
-    //             if (nvtimduoc != null) {
-    //                 hd.setNhanVien(nvtimduoc);
-    //             }
-    //         }
-            
-	// 	// 2. LIÊN KẾT KHÁCH HÀNG (tra theo mã KH dạng String đã lưu trong hóa đơn)
-    // 		String makhcantim = hd.getMaKH();
-    //         if (makhcantim != null && !makhcantim.trim().isEmpty()) {
-    //             KhachHang khtimduoc = QuanLyBanHang.dskh.timKiemTheoMa(makhcantim.trim()); 
-    //             if (khtimduoc != null) {
-    //                 hd.setKhachHang(khtimduoc);
-    //             }
-    //         }
-    //     }
-    //     System.out.println("--- Liên kết Hóa đơn hoàn tất! ---");
-    // }    	
+    Scanner sc = new Scanner(System.in);
 	public void themHDVaChiTietHD() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("\n--- THÊM HÓA ĐƠN + CHI TIẾT HÓA ĐƠN ---");
         
         // 1) Nhập Mã Hóa Đơn (Không đổi)
@@ -184,15 +145,150 @@ public class QLHD extends QuanLyBanHang {
         hoadon.setTongTien(tongtien);
         QuanLyBanHang.dshd.themMotHoaDon(hoadon);
         
-        System.out.println("✅ Đã thêm hóa đơn và chi tiết hóa đơn thành công!");
         hoadon.xuatHoaDonDayDu();
+        System.out.println("Cảm ơn quý khách và hẹn gặp lại!");
+
+    }
+
+    public void xoaHoaDon(){
+        System.out.print("Nhập mã hóa đơn cần xóa: ");
+        String mahd = sc.nextLine();
+        dshd.xoaHoaDon(mahd);
+        dscthd.xoaChiTiet(mahd);
+    }
+
+    public void timKiemHoaDon(){
+        System.out.print("Nhập mã hóa đơn: ");
+        String ma = sc.nextLine();
+        HoaDon kq = QuanLyBanHang.dshd.timKiemTheoMa(ma); 
+    
+        if (kq == null) {
+            System.out.println("❌ Không tìm thấy hóa đơn có mã: " + ma);
+        }    
+    }
+
+    public void suaHoaDon() {
+    System.out.println("\n--- SỬA THÔNG TIN HÓA ĐƠN ---");
+    System.out.print("Nhập mã hóa đơn cần sửa: ");
+    String mahd = sc.nextLine().trim();
+
+    // 1. Tìm Hóa đơn
+    HoaDon hdCanSua = QuanLyBanHang.dshd.timKiemTheoMa(mahd);
+
+    if (hdCanSua == null) {
+        System.out.println("❌ Không tìm thấy hóa đơn có mã: " + mahd);
+        return;
+    }
+    
+    // Xuất thông tin cũ (Hàm timKiemTheoMa đã tự xuất)
+    System.out.println("\n✅ Đã tìm thấy hóa đơn. Vui lòng chọn thông tin cần sửa:");
+
+    // 2. Chọn thông tin cần sửa
+    System.out.println("1. Sửa Ngày Lập Hóa Đơn (Hiện tại: " + hdCanSua.getNgayLapHDString() + ")");
+    System.out.println("2. Sửa Mã Nhân Viên Lập (Hiện tại: " + hdCanSua.getMaNV() + ")");
+    System.out.println("3. Sửa Mã Khách Hàng (Hiện tại: " + hdCanSua.getMaKH() + ")");
+    System.out.println("0. Hủy");
+    System.out.print("Chọn: ");
+    
+    int choice = 0;
+    try {
+        choice = sc.nextInt();
+    } catch (java.util.InputMismatchException e) { 
+        // Bắt lỗi nếu người dùng nhập "abc"
+        System.out.println("❌ Lựa chọn không hợp lệ.");
+        sc.nextLine(); 
+        return; 
+    }
+    sc.nextLine(); // Tránh trôi lệnh
+
+    switch (choice) {
+        case 1:
+            // Sửa Ngày Lập HĐ
+            LocalDate ngayMoi = null;
+            while (true) {
+                System.out.print("Nhập Ngày lập HĐ MỚI (dd/mm/yyyy): ");
+                String ngaystr = sc.nextLine().trim();
+                try {
+                    ngayMoi = LocalDate.parse(ngaystr, DATE_FORMATTER);
+                    hdCanSua.setNgayLapHD(ngayMoi);
+                    break;
+                } catch (DateTimeParseException e) {
+                    System.out.println("❌ Lỗi: Ngày nhập không đúng định dạng. Vui lòng nhập lại.");
+                }
+            }
+            break;
+        case 2:
+            // Sửa Mã Nhân Viên
+            String manvMoi;
+            NhanVien nvMoi = null;
+            do {
+                System.out.print("Nhập Mã Nhân viên MỚI: ");
+                manvMoi = sc.nextLine().trim();
+                // Tận dụng QuanLyBanHang.dsnv để xác thực
+                nvMoi = QuanLyBanHang.dsnv.timKiemTheoMa(manvMoi);
+                if (nvMoi == null) {
+                    System.out.println("❌ Không tìm thấy nhân viên. Nhập lại.");
+                } else {
+                    hdCanSua.setMaNV(manvMoi);
+                    break;
+                }
+            } while (true);
+            break;
+        case 3:
+            // Sửa Mã Khách Hàng
+            String makhMoi;
+            KhachHang khMoi = null;
+            do {
+                System.out.print("Nhập Mã Khách hàng MỚI: ");
+                makhMoi = sc.nextLine().trim();
+                // Tận dụng QuanLyBanHang.dskh để xác thực
+                khMoi = QuanLyBanHang.dskh.timKiemTheoMa(makhMoi);
+                if (khMoi == null) {
+                    System.out.println("❌ Không tìm thấy khách hàng. Nhập lại.");
+                } else {
+                    hdCanSua.setMaKH(makhMoi);
+                    break;
+                }
+            } while (true);
+            break;
+        case 0:
+            System.out.println("Hủy thao tác sửa.");
+            return;
+        default:
+            System.out.println("Lựa chọn không hợp lệ.");
+            return;
+    }
+
+    // 3. Ghi lại toàn bộ file sau khi sửa
+    QuanLyBanHang.dshd.ghiLaiToanBoFileHoaDon();
+    System.out.println("\n✅ Cập nhật hóa đơn thành công. Chi tiết mới:");
+    hdCanSua.xuatHoaDonDayDu();
+}
+    public void menuConXuat(){
+        int choice = 0;
+        do{
+            System.out.println("\n1. Xuất danh sách hóa đơn ");
+            System.out.println("2. Xuất danh sách chi tiết hóa đơn ");
+            System.out.println("3. Thoát ");
+            System.out.print("Lựa chọn của bạn: ");
+            choice = sc.nextInt();
+            sc.nextLine();
+            switch (choice) {
+                case 1:
+                    dshd.xuat();
+                    break;
+                case 2:
+                    dscthd.xuat();
+                    break;
+            }
+        }
+        while (choice != 3);
     }
     public void menuChinh() {
-        Scanner sc = new Scanner(System.in);
         int choice = 0;
         do {
             System.out.println("\n--- MENU QUẢN LÝ HÓA ĐƠN ---");
-            System.out.println("1. Xuất danh sách hóa đơn ");
+            System.out.println("1. Xuất danh sách hóa đơn - chi tiết hóa đơn ");
             System.out.println("2. Thêm hóa đơn mới");
             System.out.println("3. Xóa hóa đơn");
             System.out.println("4. Sửa hóa đơn");
@@ -200,22 +296,22 @@ public class QLHD extends QuanLyBanHang {
             System.out.println("0. Quay lại Menu Chính");
             System.out.print("Lựa chọn của bạn: ");
             choice = sc.nextInt();
-
+            sc.nextLine();
             switch (choice) {
                 case 1:
-                    dshd.xuat();
+                    menuConXuat();
                     break;
                 case 2:
                     themHDVaChiTietHD();
-                break;
+                    break;
                 case 3:
-                    //dsvpp.xoaSanPham();
+                    xoaHoaDon();
                     break;
                 case 4:
-                    // dsvpp.suaSanPham();
+                    suaHoaDon();
                     break;
                 case 5:
-                    // dsvpp.timKiemSanPham();
+                    timKiemHoaDon();
                     break;
             }
         } while (choice != 0);

@@ -99,6 +99,10 @@ public class DSNV {
     }
 
     public void xuat() {
+        if (n == 0) { 
+            System.out.println("Danh sách nhân viên trống.");
+            return;
+        }
         String line = "+-----------------+---------------------------+-------------+";
         String format = "| %-15s | %-25s | %-10s |\n";
 
@@ -219,5 +223,7 @@ public class DSNV {
         }
         System.out.println("❌ Không tìm thấy nhân viên với mã: " + ma);
     }
-
+    public int getN() {
+        return n; 
+    }
 }
