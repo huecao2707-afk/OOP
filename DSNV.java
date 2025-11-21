@@ -27,23 +27,19 @@ public class DSNV {
         }
     }
 
-    // B. Thêm hàm docFileNhanVien()
     public void docFileNhanVien() {
-        n = 0; // Reset số lượng về 0
+        n = 0;
         try (BufferedReader br = new BufferedReader(new FileReader("NhanVien.txt"))) {
             String line;
 
-            while ((line = br.readLine()) != null) { // Đọc từng dòng
+            while ((line = br.readLine()) != null) {
                 String[] thongtin = line.split(",");
 
-                // Kiểm tra xem có đủ 4 trường thông tin hay không:
-                // manv, ho, ten, luongthang
                 if (thongtin.length < 4) {
                     System.out.println("Lỗi dữ liệu: Không đủ thông tin nhân viên. Bỏ qua: " + line);
                     continue;
                 }
 
-                // Chuyển đổi lương tháng từ String sang int
                 int luong;
                 try {
                     luong = Integer.parseInt(thongtin[3].trim());
@@ -53,15 +49,15 @@ public class DSNV {
                 }
 
                 NhanVien nv = new NhanVien(
-                        thongtin[0].trim(), // manv
-                        thongtin[1].trim(), // ho
-                        thongtin[2].trim(), // ten
-                        luong               // luongthang
+                        thongtin[0].trim(),
+                        thongtin[1].trim(),
+                        thongtin[2].trim(),
+                        luong
                 );
 
                 if (n < dsnv.length) {
-                    dsnv[n] = nv; // Thêm nhân viên vào mảng
-                    n++; // Tăng số lượng
+                    dsnv[n] = nv;
+                    n++;
                 } else {
                     System.out.println("Cảnh báo: Đã đầy mảng lưu trữ nhân viên. Dừng đọc file.");
                     break;
@@ -86,7 +82,7 @@ public class DSNV {
     }
 
     public void ghiLaiToanBoFileNhanVien() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("NhanVien.txt", false))) { // <-- false để ghi đè (overwrite)
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("NhanVien.txt", false))) {
             for (int i = 0; i < n; i++) {
                 NhanVien nv = dsnv[i];
                 String line = nv.getMaNV() + "," + nv.getHo() + "," + nv.getTen() + "," + nv.getLuongThang();
@@ -123,7 +119,7 @@ public class DSNV {
                 return dsnv[i];
             }
         }
-        return null; // Không tìm thấy
+        return null;
     }
 
     public NhanVien timKiemTheoMa() {
@@ -136,11 +132,10 @@ public class DSNV {
                 return dsnv[i];
             }
         }
-        return null; // Không tìm thấy
+        return null;
     }
 
     public void themNhanVien(){
-        // 1. Kiểm tra mảng còn chỗ không
         if (n >= dsnv.length) {
             System.out.println("❌ Mảng trong bộ nhớ đã đầy, không thể thêm!");
             return ;
@@ -165,10 +160,10 @@ public class DSNV {
     public boolean maDuyNhat(String manv) {
         for (int i = 0; i < n; i++) {
             if (dsnv[i].getMaNV().equalsIgnoreCase(manv)) {
-                return false; // Mã đã tồn tại
+                return false;
             }
         }
-        return true; // Mã duy nhất
+        return true;
     }
 
     public void xoaSinhVien(String ma) {
@@ -198,10 +193,10 @@ public class DSNV {
                 System.out.println("Chọn thông tin cần sửa");
                 System.out.println("1. Sửa Họ");
                 System.out.println("2. Sửa Tên");
-                System.out.println("2. Sửa Lương Tháng");
+                System.out.println("3. Sửa Lương Tháng");
                 System.out.print("Chọn: ");
                 int luachon = sc.nextInt();
-                sc.nextLine(); // tránh trôi dòng
+                sc.nextLine();
                 if (luachon == 1) {
                     System.out.print("Nhập họ mới: ");
                     String newHo = sc.nextLine();

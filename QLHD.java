@@ -9,7 +9,6 @@ public class QLHD extends QuanLyBanHang {
 	public void themHDVaChiTietHD() {
         System.out.println("\n--- THÊM HÓA ĐƠN + CHI TIẾT HÓA ĐƠN ---");
         
-        // 1) Nhập Mã Hóa Đơn (Không đổi)
         String mahd;
         do {
             System.out.print("Nhập Mã hóa đơn: ");
@@ -24,9 +23,8 @@ public class QLHD extends QuanLyBanHang {
             }
         } while (mahd.isEmpty());
         
-        // 2) Nhập Mã Khách Hàng (Vẫn cần 'kh' để xác thực)
         KhachHang kh = null;
-        String makh; // Biến lưu Mã KH (String)
+        String makh;
         do {
             System.out.print("Nhập Mã Khách hàng (VD: KH001): ");
             makh = sc.nextLine().trim();
@@ -37,9 +35,8 @@ public class QLHD extends QuanLyBanHang {
             }
         } while (kh == null);
         
-        // 3) Nhập Mã Nhân Viên (Vẫn cần 'nv' để xác thực)
         NhanVien nv = null;
-        String manv; // Biến lưu Mã NV (String)
+        String manv;
         do {
             System.out.print("Nhập Mã Nhân viên lập đơn (VD: NV001): ");
             manv = sc.nextLine().trim();
@@ -49,21 +46,18 @@ public class QLHD extends QuanLyBanHang {
             }
         } while (nv == null);
         
-        // 4) SỬA LỖI: Nhập Ngày lập hóa đơn (với kiểu LocalDate)
         LocalDate ngaylocaldate = null;
         while(true) {
             System.out.print("Nhập Ngày lập HĐ (VD: dd/mm/yyyy): ");
             String ngaystr = sc.nextLine().trim();
             try {
-                // Chuyển đổi String sang LocalDate
                 ngaylocaldate= LocalDate.parse(ngaystr, DATE_FORMATTER);
-                break; // Thoát lặp nếu thành công
+                break;
             } catch (DateTimeParseException e) {
                 System.out.println("❌ Lỗi: Ngày nhập không đúng định dạng. Vui lòng nhập lại.");
             }
         }
         
-        // Khởi tạo Hóa đơn
         HoaDon hoadon = new HoaDon();
         hoadon.setMaHD(mahd);
         hoadon.setMaNV(manv); 
@@ -72,7 +66,6 @@ public class QLHD extends QuanLyBanHang {
         
         int tongtien = 0;
         
-        // 5) Nhập các Chi tiết hóa đơn
         System.out.print("Nhập số lượng mặt hàng: ");
         int soct = 0;
         try {
@@ -82,7 +75,6 @@ public class QLHD extends QuanLyBanHang {
         for (int i = 0; i < soct; i++) {
             System.out.println("--- Mặt hàng #" + (i + 1) + " ---");
             
-            // 5.1) Chọn sản phẩm theo mã (Không đổi)
             VanPhongPham sp = null;
             do {
                 System.out.print("  > Nhập Mã sản phẩm: ");
@@ -93,26 +85,21 @@ public class QLHD extends QuanLyBanHang {
                 }
             } while (sp == null);
             
-            // 5.2) Kiểm tra số lượng tồn (Không đổi)
             int soluong;
             while (true) {
             System.out.printf("  > Tồn kho: %d | Đơn giá: %,d%n", sp.getSoLuong(), sp.getDonGia());
             System.out.print("  > Nhập Số lượng mua: ");
             
             try {
-                // 1. Dùng int bình thường
                 soluong = sc.nextInt(); 
             } catch (java.util.InputMismatchException e) {
-                // Bắt lỗi nếu người dùng nhập "abc"
                 System.out.println("  ❌ Số lượng không hợp lệ. Nhập lại.");
-                sc.nextLine(); // QUAN TRỌNG: Dọn dẹp input sai
+                sc.nextLine();
                 continue;
             }
             
-            // 2. Dọn dẹp phím Enter (ký tự '\n') còn sót lại
             sc.nextLine(); 
 
-            // (Các bước kiểm tra logic còn lại)
             if (soluong <= 0) {
                 System.out.println("  ❌ Số lượng phải > 0.");
                 continue;
@@ -122,11 +109,9 @@ public class QLHD extends QuanLyBanHang {
                 continue;
             }
             
-            // Nếu mọi thứ OK, thoát vòng lặp
             break;
         }
             
-            // 5.3) Tính thành tiền, khởi tạo CTHD
             int dongia = sp.getDonGia();
             int thanhtien = dongia * soluong;
             tongtien += thanhtien;
@@ -141,7 +126,6 @@ public class QLHD extends QuanLyBanHang {
             QuanLyBanHang.dscthd.themMotChiTiet(ct);
         }
         
-        // 6) Cập nhật tổng tiền và lưu hóa đơn (Không đổi)
         hoadon.setTongTien(tongtien);
         QuanLyBanHang.dshd.themMotHoaDon(hoadon);
         
@@ -172,7 +156,6 @@ public class QLHD extends QuanLyBanHang {
     System.out.print("Nhập mã hóa đơn cần sửa: ");
     String mahd = sc.nextLine().trim();
 
-    // 1. Tìm Hóa đơn
     HoaDon hdCanSua = QuanLyBanHang.dshd.timKiemTheoMa(mahd);
 
     if (hdCanSua == null) {
@@ -180,10 +163,8 @@ public class QLHD extends QuanLyBanHang {
         return;
     }
     
-    // Xuất thông tin cũ (Hàm timKiemTheoMa đã tự xuất)
     System.out.println("\n✅ Đã tìm thấy hóa đơn. Vui lòng chọn thông tin cần sửa:");
 
-    // 2. Chọn thông tin cần sửa
     System.out.println("1. Sửa Ngày Lập Hóa Đơn (Hiện tại: " + hdCanSua.getNgayLapHDString() + ")");
     System.out.println("2. Sửa Mã Nhân Viên Lập (Hiện tại: " + hdCanSua.getMaNV() + ")");
     System.out.println("3. Sửa Mã Khách Hàng (Hiện tại: " + hdCanSua.getMaKH() + ")");
@@ -194,16 +175,14 @@ public class QLHD extends QuanLyBanHang {
     try {
         choice = sc.nextInt();
     } catch (java.util.InputMismatchException e) { 
-        // Bắt lỗi nếu người dùng nhập "abc"
         System.out.println("❌ Lựa chọn không hợp lệ.");
         sc.nextLine(); 
         return; 
     }
-    sc.nextLine(); // Tránh trôi lệnh
+    sc.nextLine();
 
     switch (choice) {
         case 1:
-            // Sửa Ngày Lập HĐ
             LocalDate ngayMoi = null;
             while (true) {
                 System.out.print("Nhập Ngày lập HĐ MỚI (dd/mm/yyyy): ");
@@ -218,13 +197,11 @@ public class QLHD extends QuanLyBanHang {
             }
             break;
         case 2:
-            // Sửa Mã Nhân Viên
             String manvMoi;
             NhanVien nvMoi = null;
             do {
                 System.out.print("Nhập Mã Nhân viên MỚI: ");
                 manvMoi = sc.nextLine().trim();
-                // Tận dụng QuanLyBanHang.dsnv để xác thực
                 nvMoi = QuanLyBanHang.dsnv.timKiemTheoMa(manvMoi);
                 if (nvMoi == null) {
                     System.out.println("❌ Không tìm thấy nhân viên. Nhập lại.");
@@ -235,13 +212,11 @@ public class QLHD extends QuanLyBanHang {
             } while (true);
             break;
         case 3:
-            // Sửa Mã Khách Hàng
             String makhMoi;
             KhachHang khMoi = null;
             do {
                 System.out.print("Nhập Mã Khách hàng MỚI: ");
                 makhMoi = sc.nextLine().trim();
-                // Tận dụng QuanLyBanHang.dskh để xác thực
                 khMoi = QuanLyBanHang.dskh.timKiemTheoMa(makhMoi);
                 if (khMoi == null) {
                     System.out.println("❌ Không tìm thấy khách hàng. Nhập lại.");
@@ -259,7 +234,6 @@ public class QLHD extends QuanLyBanHang {
             return;
     }
 
-    // 3. Ghi lại toàn bộ file sau khi sửa
     QuanLyBanHang.dshd.ghiLaiToanBoFileHoaDon();
     System.out.println("\n✅ Cập nhật hóa đơn thành công. Chi tiết mới:");
     hdCanSua.xuatHoaDonDayDu();
@@ -269,7 +243,7 @@ public class QLHD extends QuanLyBanHang {
         do{
             System.out.println("\n1. Xuất danh sách hóa đơn ");
             System.out.println("2. Xuất danh sách chi tiết hóa đơn ");
-            System.out.println("3. Thoát ");
+            System.out.println("0. Thoát ");
             System.out.print("Lựa chọn của bạn: ");
             choice = sc.nextInt();
             sc.nextLine();
@@ -282,7 +256,7 @@ public class QLHD extends QuanLyBanHang {
                     break;
             }
         }
-        while (choice != 3);
+        while (choice != 0);
     }
     public void menuChinh() {
         int choice = 0;

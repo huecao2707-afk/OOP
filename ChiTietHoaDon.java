@@ -28,59 +28,42 @@ public class ChiTietHoaDon {
     public void nhap() { 
         Scanner sc = new Scanner(System.in);
         String maspcantim;
-        VanPhongPham vpptimduoc = null; // Biến tạm để tra cứu
+        VanPhongPham vpptimduoc = null;
 
         do {
             System.out.print("  > Nhập Mã sản phẩm cần mua: ");
             maspcantim = sc.nextLine();
-
-            // Vẫn tra cứu để lấy thông tin Tên, Giá, Tồn kho
             vpptimduoc = QuanLyBanHang.dsvpp.timMaSP(maspcantim); 
-
             if (vpptimduoc != null) {
-                
                 this.masp = maspcantim; 
-                
-                // (Các logic còn lại giữ nguyên)
                 System.out.println("  🎯 Đã tìm thấy: " + vpptimduoc.getTenSP() + ".");
                 this.dongia = vpptimduoc.getDonGia(); 
                 System.out.printf("  > Giá Bán: %,d | Tồn Kho: %d%n", this.dongia, vpptimduoc.getSoLuong());
-
                 int soluongcanmua;
                 do {
                     System.out.print("  > Nhập Số lượng mua: ");
                     soluongcanmua = sc.nextInt();
                     sc.nextLine();
-
                     if (soluongcanmua <= 0 || soluongcanmua > vpptimduoc.getSoLuong()) {
                         System.out.println("  ❌ Lỗi: Số lượng không hợp lệ hoặc vượt quá tồn kho (" + vpptimduoc.getSoLuong() + "). Nhập lại!");
                     }
                 } while (soluongcanmua <= 0 || soluongcanmua > vpptimduoc.getSoLuong());
-
                 this.soluong = soluongcanmua;
                 this.thanhtien = this.soluong * this.dongia;
                 break;
-
             } else {
                 System.out.println("❌ Lỗi: Không tìm thấy Sản phẩm có mã: " + maspcantim + ". Vui lòng nhập lại!");
             }
         } while (true);
     }
 
-
-    // Hàm xuất thông tin chi tiết (để dùng trong vòng lặp của HoaDon.xuat())
     public void xuatThongTinCT(int stt) {
-        
-        String tensp = "N/A"; // Mặc định
-        
-        // Tra cứu sản phẩm từ DSVPP
+        String tensp = "N/A";
         VanPhongPham vpp = QuanLyBanHang.dsvpp.timMaSP(this.masp);
         if (vpp != null) {
             tensp = vpp.getTenSP();
         }
-        
-        System.out.printf("| %-5d | %-10s | %-30s | %-10d | %-9d | %-15d |\n",
-                stt, this.masp, tensp, dongia, soluong, thanhtien);
+        System.out.printf("| %-5d | %-10s | %-30s | %-10d | %-9d | %-15d |\n", stt, this.masp, tensp, dongia, soluong, thanhtien);
     }
     public void xuat(){
         System.out.printf("| %-10s | %-10s | %-10s | %-15s | %-15s |\n" ,mahd, masp, soluong, dongia, thanhtien);
@@ -122,9 +105,7 @@ public class ChiTietHoaDon {
         return masp;
     }
     
-    public void setMaSP(String masp) { // <-- Setter này nhận String
+    public void setMaSP(String masp) {
         this.masp = masp;
     }
-
 }
-

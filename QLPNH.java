@@ -13,7 +13,6 @@ public class QLPNH extends QuanLyBanHang {
         PhieuNhapHang pnh = new PhieuNhapHang();
         System.out.println("\n--- THÊM PHIẾU NHẬP HÀNG + CHI TIẾT PHIẾU NHẬP HÀNG ---");
 
-        // 1) Nhập và kiểm tra MÃ PNH
         String mapnh;
         do {
             System.out.print("Nhập Mã Phiếu Nhận Hàng: ");
@@ -22,11 +21,10 @@ public class QLPNH extends QuanLyBanHang {
                 System.out.println("❌ Mã PNH không được trống.");
             } else if (!dspnh.maDuyNhat(mapnh)) {
                 System.out.println("❌ Mã PNH đã tồn tại. Nhập lại.");
-                mapnh = ""; // Reset để lặp lại
+                mapnh = "";
             }
         } while (mapnh.isEmpty());
 
-        // 2) Nhập và kiểm tra MÃ NCC (phải tồn tại)
         NhaCungCap ncc = null;
         do {
             System.out.print("Nhập Mã Nhà Cung Cấp: ");
@@ -41,7 +39,6 @@ public class QLPNH extends QuanLyBanHang {
             }
         } while (ncc == null);
 
-        // 3) Nhập và kiểm tra MÃ NHÂN VIÊN (phải tồn tại)
         NhanVien nv = null;
         do {
             System.out.print("Nhập Mã Nhân viên lập phiếu: ");
@@ -56,27 +53,23 @@ public class QLPNH extends QuanLyBanHang {
             }
         } while (nv == null);
 
-        // 4) Ngày nhận hàng (SỬA: Thêm vòng lặp và try-catch để parse LocalDate)
         LocalDate ngaynhanlocaldate = null;
         while (true) {
             System.out.print("Nhập Ngày Nhận Hàng (VD: dd/mm/yyyy): ");
             String ngaynhanStr = sc.nextLine().trim();
             try {
                 ngaynhanlocaldate = LocalDate.parse(ngaynhanStr, DATE_FORMATTER);
-                break; // Thoát lặp nếu ngày hợp lệ
+                break;
             } catch (DateTimeParseException e) {
                 System.out.println("❌ Lỗi: Ngày nhập không đúng định dạng. Vui lòng nhập lại.");
             }
         }
 
-        // 5) Thiết lập Phiếu Nhận Hàng (SỬA LỖI)
         pnh.setMaPNH(mapnh);
-        // pnh.setNhanVien(nv); // SỬA: Lỗi. Đã xóa.
-        pnh.setMaNV(nv.getMaNV()); // Chỉ gán Mã String
-        pnh.setMaNCC(ncc.getMaNCC()); // Chỉ gán Mã String
-        pnh.setNgayNhan(ngaynhanlocaldate); // SỬA: Gán đối tượng LocalDate
+        pnh.setMaNV(nv.getMaNV());
+        pnh.setMaNCC(ncc.getMaNCC());
+        pnh.setNgayNhan(ngaynhanlocaldate);
 
-        // 6) Nhập Chi Tiết và tính Tổng tiền
         System.out.print("Nhập số lượng mặt hàng khác nhau được nhập: ");
         int soct = 0;
         try {
@@ -92,33 +85,24 @@ public class QLPNH extends QuanLyBanHang {
         for (int i = 0; i < soct; i++) {
             System.out.println("--- Chi Tiết Sản Phẩm thứ " + (i + 1) + " ---");
             ChiTietPNH ctpnh = new ChiTietPNH();
-            ctpnh.setMaPNH(mapnh); // Gán Mã PNH cho chi tiết
+            ctpnh.setMaPNH(mapnh);
 
-            // Giả định hàm nhap() này cũng tự tạo Scanner riêng của nó
             ctpnh.nhap();
 
             tongTienPNH += ctpnh.getThanhTien();
 
-            // Cập nhật tồn kho: cộng số lượng đã nhập
-            // (Đảm bảo getMaSP() trả về String masp đã lưu)
             QuanLyBanHang.dsvpp.capNhatSLSP(ctpnh.getMaSP(), ctpnh.getSoLuong());
-
+            QuanLyBanHang.dsvpp.capNhatDGSP(ctpnh.getMaSP(), ctpnh.getDonGia());
             QuanLyBanHang.dsctpnh.themMotChiTiet(ctpnh);
         }
 
-        // 7) Cập nhật tổng tiền và lưu PNH
         pnh.setTongTien(tongTienPNH);
         QuanLyBanHang.dspnh.themMotPNH(pnh);
 
         System.out.println("✅ Đã tạo Phiếu Nhận Hàng thành công!");
-        pnh.xuatPhieuDayDu(); // Giả định hàm này xuất đầy đủ
-        // Không đóng sc (sc.close()) ở đây
+        pnh.xuatPhieuDayDu();
     }
 
-    /**
-     * Menu chính.
-     * Phương thức này tự tạo Scanner riêng.
-     */
     @Override
     public void menuChinh() {
         Scanner sc = new Scanner(System.in);
@@ -134,23 +118,23 @@ public class QLPNH extends QuanLyBanHang {
 
             try {
                 choice = sc.nextInt();
-                sc.nextLine(); // Tiêu thụ ký tự Enter
+                sc.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("❌ Lỗi: Vui lòng nhập số.");
-                sc.nextLine(); // clear buffer
-                choice = -1; // Đặt lại choice để lặp lại
+                sc.nextLine();
+                choice = -1;
                 continue;
             }
 
             switch (choice) {
                 case 1:
-                    themMotPhieuNhanHangMoi(); // Không truyền tham số
+                    themMotPhieuNhanHangMoi();
                     break;
                 case 2:
                     dspnh.xuat();
                     break;
                 case 3:
-                    timPNH(); // Không truyền tham số
+                    timPNH();
                     break;
                 case 0:
                     System.out.println("Quay lại Menu chính.");
@@ -170,7 +154,7 @@ public class QLPNH extends QuanLyBanHang {
 
         if (pnh != null) {
             System.out.println("--- Thông tin Phiếu Nhận Hàng ---");
-            pnh.xuatPhieuDayDu(); // Hàm này tự tra cứu dữ liệu liên quan
+            pnh.xuatPhieuDayDu();
         } else {
             System.out.println("❌ Không tìm thấy Phiếu Nhận Hàng có mã: " + mapnh);
         }
@@ -181,19 +165,16 @@ public class QLPNH extends QuanLyBanHang {
         System.out.print("Nhập mã Phiếu Nhận Hàng để xem chi tiết: ");
         String mapnh = sc.nextLine().trim();
 
-        // 1. Tìm PNH trước
         PhieuNhapHang pnh = dspnh.timPNHtheoMa(mapnh);
         if (pnh == null) {
             System.out.println("❌ Không tìm thấy Phiếu Nhận Hàng có mã: " + mapnh);
-            return; // Dừng lại nếu không thấy PNH
+            return;
         }
 
-        // 2. Nếu thấy PNH, tìm các chi tiết của nó
         ChiTietPNH[] ctpnh_list = QuanLyBanHang.dsctpnh.timCTPNHTheoMaPNH(mapnh);
 
-        // 3. In thông tin
         System.out.println("\n--- THÔNG TIN PHIẾU NHẬN HÀNG " + mapnh + " ---");
-        pnh.xuat(); // Hàm này tự tra cứu tên NV/NCC
+        pnh.xuat();
 
         if (ctpnh_list != null && ctpnh_list.length > 0) {
             System.out.println("--- DANH SÁCH SẢN PHẨM ---");
@@ -204,7 +185,7 @@ public class QLPNH extends QuanLyBanHang {
             int stt = 1;
             for (ChiTietPNH ctpnh : ctpnh_list) {
                 if (ctpnh == null) break;
-                ctpnh.xuatThongTinCT(stt); // Hàm này tự tra cứu tên SP
+                ctpnh.xuatThongTinCT(stt);
                 stt++;
             }
             System.out.println("-----------------------------------------------------------------------------------------");
@@ -212,6 +193,5 @@ public class QLPNH extends QuanLyBanHang {
         } else {
             System.out.println("ℹ️ Phiếu Nhận Hàng này không có chi tiết sản phẩm nào.");
         }
-        // Không đóng sc (sc.close())
     }
 }

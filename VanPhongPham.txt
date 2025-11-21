@@ -1,7 +1,20 @@
-VP,VP001,Bút bi,43,5000,Cái,Ghi
-DC,DC001,Xe Tank,14,199999,Chiếc,16+,War
-VP,VP002,Vở,24,12000,Cái,Lưu trữ kiến thức
-DC,DC002,Trực thăng,32,299999,Chiếc,16+,War
-DC,DC003,Rubik 3x3,25,245000,Cái,6+,Giải đố
+VP,VP001,Bút bi,50,5000,Cái,Ghi
+DC,DC001,Xe Tank,20,200000,Chiếc,16+,War
+VP,VP002,Vở,50,12000,Cái,Lưu trữ kiến thức
+DC,DC002,Trực thăng,30,300000,Chiếc,16+,War
+DC,DC003,Rubik 3x3,20,245000,Cái,6+,Giải đố
 DC,DC004,Rubik GanRS 365 Pro,10,599000,Cái,6+,Giải đố
-VP,VP003,Máy In,30,15000000,Cái,In ấn
+VP,VP003,Máy In,20,15000000,Cái,In ấn
+DC,DC005,ABC,10,69000,Chiếc,18+,ABC
+VP,VP004,Bút chì,80,3000,Cây,Vẽ
+VP,VP005,Giấy A4,500,75000,Ram,In ấn
+VP,VP006,Kéo văn phòng,45,15000,Cái,Cắt
+VP,VP007,Băng keo,120,8000,Cuộn,Dán
+VP,VP008,Sổ tay A5,60,45000,Cuốn,Ghi chép
+VP,VP009,Máy Tính Casio,15,350000,Cái,Tính toán
+DC,DC006,Lego Tàu chiến,25,890000,Bộ,9+,Lắp ráp
+DC,DC007,Mô hình ô tô,40,150000,Chiếc,12+,Trưng bày
+DC,DC008,Bộ xếp hình gỗ,70,99000,Bộ,3+,Kỹ năng
+DC,DC009,Đất nặn,150,49000,Hộp,3+,Sáng tạo
+DC,DC010,Thú bông Lớn,20,350000,Con,0+,Ôm
+DC,DC011,Bộ cờ Vua,15,120000,Bộ,8+,Trí tuệ

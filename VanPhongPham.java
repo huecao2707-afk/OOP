@@ -24,14 +24,13 @@ public abstract class VanPhongPham {
         this.soluong = x.soluong;
     }
 
-    // Cac ham getter
     public LoaiSanPham getLoaiSP() {
         return loaisp;
     }
     public String getMaSP() {
         return masp;
     }
-      public String getTenSP() {
+    public String getTenSP() {
         return tensp;
     }
     public int getDonGia() {
@@ -43,7 +42,6 @@ public abstract class VanPhongPham {
     public int getSoLuong() {
         return soluong;
     }
-    // Cac ham setter
     public void setLoaiSP(LoaiSanPham loaisp) {
         this.loaisp = loaisp;
     }
@@ -67,28 +65,15 @@ public abstract class VanPhongPham {
         Scanner sc = new Scanner(System.in);
         System.out.print("Tên SP: ");
         tensp = sc.nextLine();
-        System.out.print("Số lượng: ");
-        soluong = sc.nextInt();
-        sc.nextLine();// tránh trôi
-        System.out.print("Đơn Giá: ");
-        dongia = sc.nextInt();
-        sc.nextLine(); // Tránh trôi lệnh
         System.out.print("Đơn vị tính: ");
         donvitinh = sc.nextLine();
+        soluong = 0;
+        dongia = 0;
     }
 
-    // Sửa lại hàm xuat() của lớp cha (VanPhongPham)
-    // Nó sẽ được các lớp con gọi bằng super.xuat()
     public void xuat() {
         String maloai = loaisp.getMaLoai();
         String format = "| %-8s | %-10s | %-20s | %-10d | %-13d | %-13s ";
-        System.out.printf(format, 
-            maloai, 
-            masp, 
-            tensp, 
-            soluong, 
-            dongia, 
-            donvitinh
-        );
+        System.out.printf(format, maloai, masp, tensp, soluong, dongia, donvitinh);
     }
 }

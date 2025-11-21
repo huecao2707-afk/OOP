@@ -5,12 +5,11 @@ import java.util.Scanner;
 
 public class PhieuNhapHang {
     private String mapnh;
-    private String manv; // Lưu mã NV String
-    private String mancc; // Lưu mã NCC String
-    private LocalDate ngaynhan; // Lưu đối tượng LocalDate
+    private String manv;
+    private String mancc;
+    private LocalDate ngaynhan;
     private int tongtien;
 
-    // THÊM MỚI: Thêm "quy tắc dịch" ngày tháng
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public PhieuNhapHang(){
@@ -41,7 +40,7 @@ public class PhieuNhapHang {
             String ngaystr = sc.nextLine();
             try{
                 this.ngaynhan = LocalDate.parse(ngaystr, DATE_FORMATTER);
-                break; // Thoát lặp nếu ngày hợp lệ
+                break;
             }
             catch(DateTimeParseException e){
                 System.out.println("Lỗi: Ngày nhập không đúng định dạng. Vui lòng nhập lại.");
@@ -58,12 +57,9 @@ public class PhieuNhapHang {
         System.out.println("====================================== PHIẾU NHẬP HÀNG ===========================================");
         System.out.println("==================================================================================================");
         
-        // SỬA LỖI: Dùng getter định dạng ngày
-        System.out.printf("| Mã Phiếu: %-63s Ngày Nhận: %s | \n", mapnh, getNgayNhanString());
+        System.out.printf("| Mã Phiếu: %-62s Ngày Nhận: %s | \n", mapnh, getNgayNhanString());
         System.out.println("--------------------------------------------------------------------------------------------------");
 
-        // SỬA LỖI: Xóa logic 'nv'/'ncc' cũ. 
-        // Thêm logic tra cứu mới để lấy Tên NV và Tên NCC
         String tennv = "N/A";
         String tenncc = "N/A";
         
@@ -80,21 +76,18 @@ public class PhieuNhapHang {
         System.out.printf("| %-5s | %-10s | %-30s | %-10s | %-9s | %-15s |\n","STT", "Mã SP", "Tên Sản Phẩm", "Đơn Giá", "Số Lượng", "Thành Tiền");
         System.out.println("--------------------------------------------------------------------------------------------------");
 
-        // (Giữ nguyên logic tra cứu CTPNH)
         ChiTietPNH[] ctpnhcuaphieu = QuanLyBanHang.dsctpnh.timCTPNHTheoMaPNH(this.mapnh);
         int soluongctpnh = (ctpnhcuaphieu != null) ? ctpnhcuaphieu.length : 0;
 
         for (int i = 0; i < soluongctpnh; i++) {
             ctpnhcuaphieu[i].xuatThongTinCT(i + 1);
         }
+        String tongtienda = String.format("%,d VNĐ", tongtien);
         System.out.println("--------------------------------------------------------------------------------------------------");
-        System.out.printf("| TỔNG CỘNG: %71s %,d VNĐ |\n", "", tongtien);
+        System.out.printf("| %-74s %19s |\n", "TỔNG CỘNG:", tongtienda);
         System.out.println("==================================================================================================");
     }
 
-    // =========================================================
-    // GETTER / SETTER ĐÃ SỬA LỖI
-    // =========================================================
     public String getMaPNH() { return mapnh; }
     public void setMaPNH(String mapnh) { this.mapnh = mapnh; }
     public String getMaNV() { return manv; }
@@ -102,11 +95,9 @@ public class PhieuNhapHang {
     public String getMaNCC() { return mancc; }
     public void setMaNCC(String mancc) { this.mancc = mancc; }
     
-    // SỬA LỖI: Thêm 2 getter/setter cho LocalDate
     public LocalDate getNgayNhan() { return ngaynhan; }
     public void setNgayNhan(LocalDate ngaynhan) { this.ngaynhan = ngaynhan; }
 
-    // SỬA LỖI: Thêm getter trả về String đã định dạng (để Ghi file/Xuất)
     public String getNgayNhanString() {
         if (ngaynhan != null) {
             return ngaynhan.format(DATE_FORMATTER);

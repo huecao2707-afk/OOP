@@ -64,5 +64,4 @@ public class NhanVien {
     public void xuat(){
         System.out.printf("| %-15s | %-25s | %-11s |\n",manv,ho + " " + ten,luongthang);
     }
-
 }

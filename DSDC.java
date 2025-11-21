@@ -1,6 +1,6 @@
 public class DSDC {
-    private int n; //so luong phieu nhan hang
-    private DoChoi dsdc [] = new DoChoi[1];// mang ds phieu nhan hang
+    private int n;
+    private DoChoi dsdc [] = new DoChoi[1];
     public DSDC(){}
     public DSDC(int n, PhieuNhapHang[] dspnh){
         this.n = n;

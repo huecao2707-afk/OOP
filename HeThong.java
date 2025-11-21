@@ -14,10 +14,11 @@ public class HeThong {
             System.out.println("4. Quản lý nhà cung cấp");
             System.out.println("5. Quản lý hóa đơn- Chi Tiết Hóa Đơn");
             System.out.println("6. Quản lý phiếu nhận hàng - Chi Tiết Phiếu Nhận Hàng");
-            System.out.println("7. Thoát");
+            System.out.println("7. Thống kê");
+            System.out.println("8. Thoát");
             System.out.print("Chọn chức năng: ");
             choice = sc.nextInt();
-            sc.nextLine(); // tránh trôi dòn
+            sc.nextLine();
             switch (choice) { 
                 case 1:
                     qlbh = new QLSP();
@@ -44,13 +45,17 @@ public class HeThong {
                     qlbh.menuChinh();
                     break;
                 case 7:
+                    qlbh = new QLTK();
+                    qlbh.menuChinh();
+                    break;
+                case 8:
                     System.out.println("Tạm biệt!");
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ.");
             }
         }
-        while (choice != 7);
+        while (choice != 8);
     }
     public static void main(String[] args) {
         HeThong ht = new HeThong();

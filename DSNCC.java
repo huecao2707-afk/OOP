@@ -56,7 +56,7 @@ public class DSNCC {
                     return dsncc[i];
                 }
             }
-            return null; // Không tìm thấy
+            return null;
         }
         public NhaCungCap timKiemTheoMa(){
             Scanner sc = new Scanner(System.in);
@@ -69,9 +69,8 @@ public class DSNCC {
                     return dsncc[i];
                 }
             }
-            return null; // Không tìm thấy
+            return null;
         }
-        //them co tham so
         public void themNhaCungCap(NhaCungCap ncc){
             if (!maDuyNhat(ncc.getMaNCC())) {
                 System.out.println("❌ Lỗi: Mã NCC '" + ncc.getMaNCC() + "' đã tồn tại. Không thể thêm.");
@@ -81,7 +80,6 @@ public class DSNCC {
         n++;
         ghiFileNhaCungCap(ncc);
     } 
-    //ghi file
     public void ghiFileNhaCungCap(NhaCungCap ncc){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("NhaCungCap.txt", true))) {
             String line = ncc.getMaNCC() + "," + ncc.getTenNCC() + "," + ncc.getSDT() + "," + ncc.getNamThanhLap() + "," + ncc.getDiaChi();
@@ -95,7 +93,7 @@ public class DSNCC {
     }
 
     public void ghiLaiToanBoFileNhaCungCap() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("NhaCungCap.txt", false))) { // <-- false để ghi đè (overwrite)
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("NhaCungCap.txt", false))) {
             for (int i = 0; i < n; i++) {
                 NhaCungCap ncc = dsncc[i];
                 String line = ncc.getMaNCC() + "," + ncc.getTenNCC() + "," + ncc.getSDT() + "," + ncc.getNamThanhLap() + "," + ncc.getDiaChi();
@@ -107,7 +105,6 @@ public class DSNCC {
         }
     }
 
-    //doc file
     public void docFileNhaCungCap(){
         n=0;
         try(BufferedReader br = new BufferedReader(new FileReader("NhaCungCap.txt"))) {
@@ -116,36 +113,35 @@ public class DSNCC {
                 String[] parts = line.split(",");
                 if (parts.length < 5) {
                     System.out.println("Lỗi dữ liệu: Không đủ thông tin nhà cung cấp. Bỏ qua: " + line);
-                    continue; // Bỏ qua dòng này
+                    continue;
                 }
                 NhaCungCap ncc = new NhaCungCap(
-                        parts[0].trim(), // mancc
-                        parts[1].trim(), // ten ncc
-                        parts[2].trim(), // sdt
-                        parts[3].trim(), // namthanhlap
-                        parts[4].trim()  // diachi
+                        parts[0].trim(),
+                        parts[1].trim(),
+                        parts[2].trim(),
+                        parts[3].trim(),
+                        parts[4].trim()
                 );
 
-                dsncc[n] = ncc; // Thêm khách hàng vào mảng
-                n++; // Tăng số lượng
+                dsncc[n] = ncc;
+                n++;
 
                 if (n >= dsncc.length) {
                     System.out.println("Cảnh báo: Đã đầy mảng lưu trữ khách hàng.");
-                    break; // Dừng nếu mảng đầy
+                    break;
                 }
             }
         } catch (IOException e) {
             System.out.println("❌ Lỗi khi đọc file: " + e.getMessage());
         }
     }
-    //kiểm tra mã duy nhất
     public boolean maDuyNhat(String mancc) {
         for (int i = 0; i < n; i++) {
             if (dsncc[i].getMaNCC().equalsIgnoreCase(mancc)) {
-                return false; // Mã đã tồn tại
+                return false;
             }
         }
-        return true; // Mã duy nhất
+        return true;
     }
 
     public void them() {
@@ -154,7 +150,6 @@ public class DSNCC {
         NhaCungCap ncc = new NhaCungCap();
         ncc.nhap();
 
-        // Tăng mảng
         NhaCungCap[] temp = new NhaCungCap[n + 1];
         for (int i = 0; i < n; i++) {
             temp[i] = dsncc[i];
@@ -208,7 +203,6 @@ public class DSNCC {
             return;
         }
 
-        // Tạo mảng mới bỏ phần tử bị xóa
         NhaCungCap[] temp = new NhaCungCap[n - 1];
         int j = 0;
         for (int i = 0; i < n; i++) {

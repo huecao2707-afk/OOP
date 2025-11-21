@@ -77,7 +77,5 @@ public class KhachHang {
     }
     public void xuat(){
         System.out.printf("| %-15s | %-25s | %-15s | %-24s | \n",makh,(ho + " " + ten),sodt, diachi);
-
     }
 }
-

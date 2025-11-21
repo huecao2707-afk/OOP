@@ -4,33 +4,28 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays; // Cần import để sử dụng Arrays.copyOf
+import java.util.Arrays;
 
 public class DSCTHD { 
-int n; // <-- ĐÃ SỬA
-    public ChiTietHoaDon[] dscthd; // Mảng chứa TẤT CẢ Chi tiết Hóa đơn của hệ thống
+int n;
+    public ChiTietHoaDon[] dscthd;
 
     public DSCTHD(){
-        n = 0; // <-- ĐÃ SỬA
-        dscthd = new ChiTietHoaDon[0]; // Khởi tạo mảng rỗng
+        n = 0;
+        dscthd = new ChiTietHoaDon[0];
     }
-    public DSCTHD(int n, ChiTietHoaDon[] dscthd){ // <-- ĐÃ SỬA
-        this.n = n; // <-- ĐÃ SỬA
+    public DSCTHD(int n, ChiTietHoaDon[] dscthd){
+        this.n = n;
         this.dscthd = dscthd;
     }
     public DSCTHD(DSCTHD other){
-        this.n = other.n; // <-- ĐÃ SỬA
-        this.dscthd = new ChiTietHoaDon[n]; // <-- ĐÃ SỬA
-        for (int i = 0; i < n; i++){ // <-- ĐÃ SỬA
+        this.n = other.n;
+        this.dscthd = new ChiTietHoaDon[n];
+        for (int i = 0; i < n; i++){
             this.dscthd[i] = new ChiTietHoaDon(other.dscthd[i]);
         }
     }
-        // =========================================================
-        // 1. CÁC HÀM ĐỌC/GHI FILE
-        // =========================================================
     
-    
-    // Sửa trong class DSCTHD.java
     public void ghiFileMotChiTiet(ChiTietHoaDon cthd) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("ChiTietHoaDon.txt", true))) {
             String line = cthd.getMaHD() + "," + cthd.getMaSP() + "," + cthd.getSoLuong() + "," + cthd.getDonGia() + "," + cthd.getThanhTien(); 
@@ -44,7 +39,7 @@ int n; // <-- ĐÃ SỬA
     }
     public void ghiLaiToanBoFileCTHD() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("ChiTietHoaDon.txt", false))) {
-            for (int i = 0; i < n; i++) { // <-- ĐÃ SỬA
+            for (int i = 0; i < n; i++) {
                 ChiTietHoaDon cthd = dscthd[i];
                 if (cthd == null) continue; 
 
@@ -59,7 +54,7 @@ int n; // <-- ĐÃ SỬA
     }
 
     public void docFileCTHD() {
-        n = 0; // <-- ĐÃ SỬA
+        n = 0;
         try (BufferedReader br = new BufferedReader(new FileReader("ChiTietHoaDon.txt"))) {
             String line;
             while ((line = br.readLine()) != null) { 
@@ -78,8 +73,8 @@ int n; // <-- ĐÃ SỬA
                     System.out.println("Lỗi dữ liệu: Số lượng không hợp lệ. Bỏ qua: " + line);
                     continue;
                 }    
-                if (n >= dscthd.length) { // <-- ĐÃ SỬA
-                    dscthd = Arrays.copyOf(dscthd, n + 1); // <-- ĐÃ SỬA
+                if (n >= dscthd.length) {
+                    dscthd = Arrays.copyOf(dscthd, n + 1);
                 }
                 ChiTietHoaDon cthd = new ChiTietHoaDon();
                 cthd.setMaHD(thongtin[0].trim());
@@ -87,16 +82,13 @@ int n; // <-- ĐÃ SỬA
                 cthd.setSoLuong(soluong);
                 cthd.setDonGia(dongia);
                 cthd.setThanhTien(thanhtien);
-                dscthd[n] = cthd; // <-- ĐÃ SỬA
-                n++; // <-- ĐÃ SỬA
+                dscthd[n] = cthd;
+                n++;
             }
         } catch (IOException e) {
             System.out.println("❌ Lỗi đọc file ChiTietHoaDon.txt: " + e.getMessage());
         }
     }   
-        // =========================================================
-        // 2. CÁC HÀM THAO TÁC DỮ LIỆU CHÍNH
-        // =========================================================
     
         public void themMotChiTiet(ChiTietHoaDon cthd) {
             if (cthd == null) return;
@@ -106,7 +98,6 @@ int n; // <-- ĐÃ SỬA
             this.dscthd[this.n] = new ChiTietHoaDon(cthd); 
             this.n++;
             
-            // Ghi thêm vào file
             ghiFileMotChiTiet(cthd);
         }
         
@@ -114,7 +105,7 @@ int n; // <-- ĐÃ SỬA
             if (mahd == null || mahd.trim().isEmpty()) return null;
             
             int count = 0;
-            for (int i = 0; i < n; i++) { // <-- ĐÃ SỬA
+            for (int i = 0; i < n; i++) {
                 if (dscthd[i] != null && dscthd[i].getMaHD().equalsIgnoreCase(mahd)) {
                     count++;
                 }
@@ -124,7 +115,7 @@ int n; // <-- ĐÃ SỬA
     
             ChiTietHoaDon[] ketqua = new ChiTietHoaDon[count];
             int j = 0;
-            for (int i = 0; i < n; i++) { // <-- ĐÃ SỬA
+            for (int i = 0; i < n; i++) {
                 if (dscthd[i].getMaHD().equalsIgnoreCase(mahd)) {
                     ketqua[j++] = dscthd[i];
                 }
@@ -133,7 +124,7 @@ int n; // <-- ĐÃ SỬA
         }
     
         public void xuat() {
-            if (n == 0) { // <-- ĐÃ SỬA
+            if (n == 0) {
                 System.out.println("Danh sách chi tiết hóa đơn trống.");
                 return;
             }
@@ -150,15 +141,10 @@ int n; // <-- ĐÃ SỬA
             System.out.println(line);
         }
     
-        // =========================================================
-        // 3. HÀM XÓA CTHD (THEO MÃ HĐ VÀ MÃ SP)
-        // =========================================================
         public void xoaChiTiet(String mahd) {
             if (mahd == null || mahd.trim().isEmpty()) return;
         
-            // Duyệt từ đầu đến cuối danh sách
             for (int i = 0; i < n; i++) {
-                // KIỂM TRA: Nếu Mã HD trùng khớp
                 if (dscthd[i] != null && dscthd[i].getMaHD().equalsIgnoreCase(mahd)) {
                     for (int j = i; j < n - 1; j++) {
                         dscthd[j] = dscthd[j + 1];

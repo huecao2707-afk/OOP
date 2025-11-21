@@ -48,7 +48,7 @@ public class NhaCungCap {
     }
     
     public void setSDT(String sdt){
-         this.sdt = sdt;
+        this.sdt = sdt;
     }
     
     public String getNamThanhLap(){

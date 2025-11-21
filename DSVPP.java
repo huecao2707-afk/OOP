@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class DSVPP {
-    private int n;// so luong san pham
+    private int n;
     private VanPhongPham dsvpp[];
-
+    Scanner sc = new Scanner(System.in);
     public DSVPP(){
         dsvpp = new VanPhongPham[300];
         n = 0;
@@ -25,15 +25,17 @@ public class DSVPP {
             this.dsvpp[i]= other.dsvpp[i];
         }
     }
-    
+    public int getN() {
+        return n;
+    }
     public void docFileSanPham() {
-        n = 0; // Reset số lượng về 0
+        n = 0;
         try (BufferedReader br = new BufferedReader(new FileReader("VanPhongPham.txt"))) {
             String line;
 
-            while ((line = br.readLine()) != null) { // Đọc từng dòng
+            while ((line = br.readLine()) != null) {
                 String[] thongtin = line.split(",");
-                String loai = thongtin[0].trim(); // Lấy mã loại (VP hoặc DC)
+                String loai = thongtin[0].trim();
                 VanPhongPham vpp = null;
 
                 LoaiSanPham lsp = new LoaiSanPham();
@@ -100,13 +102,36 @@ public class DSVPP {
         }
         System.out.println(line); 
     }
+    public void xuat(String ma) {
+        if (ma == null) { 
+            System.out.println("Không tìm thấy sản phầm cần tìm.");
+            return;
+        }
+
+        System.out.println("\n--- SẢN PHẨM ---");
+        
+        String format = "| %-8s | %-10s | %-20s | %-10s | %-13s | %-13s | %-20s | %-10s | %-10s |\n";
+        String line = "+----------+------------+----------------------+------------+---------------+---------------+----------------------+------------+------------+";
+
+        System.out.println(line);
+        System.out.printf(format, 
+                "Loại SP", "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Đơn Vị Tính", "Phân Loại Chức Năng", "Độ Tuổi", "Thể Loại");
+        System.out.println(line);
+
+        for (int i = 0; i < n; i++) {
+            if (dsvpp[i] != null && dsvpp[i].getMaSP().equalsIgnoreCase(ma)) {
+                dsvpp[i].xuat();
+            }
+        }
+        System.out.println(line); 
+    }
+
     public void themSanPham() {
         if (n >= dsvpp.length) {
             System.out.println("❌ Mảng trong bộ nhớ đã đầy, không thể thêm!");
             return;
         }
 
-        Scanner sc = new Scanner(System.in);
         System.out.println("\n--- THÊM SẢN PHẨM MỚI ---");
         System.out.println("1. Nhập Sản Phẩm Đồ Chơi");
         System.out.println("2. Nhập Sản Phẩm Văn Phòng");
@@ -116,20 +141,20 @@ public class DSVPP {
         while (!sc.hasNextInt()) {
             System.out.println("❌ Lỗi: Vui lòng nhập số (1 hoặc 2).");
             System.out.print("Lựa chọn loại sản phẩm: ");
-            sc.next(); // Loại bỏ input sai
+            sc.next();
         }
         luachon = sc.nextInt();
-        sc.nextLine(); // Tránh trôi lệnh
+        sc.nextLine();
 
-        VanPhongPham spmoi; // Đối tượng sản phẩm mới
-        LoaiSanPham loai = new LoaiSanPham(); // 1. Tạo đối tượng LoaiSanPham ("Thẻ")
+        VanPhongPham spmoi;
+        LoaiSanPham loai = new LoaiSanPham();
 
         if (luachon == 1) {
             spmoi = new DoChoi();
-            loai.setMaLoai("DC"); // 2. Gán Mã Loại ("DC") vào "Thẻ"
+            loai.setMaLoai("DC");
         } else if (luachon == 2) {
             spmoi = new VanPhong();
-            loai.setMaLoai("VP"); // 2. Gán Mã Loại ("VP") vào "Thẻ"
+            loai.setMaLoai("VP");
         } else {
             System.out.println("❌ Lựa chọn không hợp lệ.");
             return;
@@ -164,25 +189,20 @@ public class DSVPP {
         ghiFile(sp);
     }   
     public void suaSanPham() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("\n--- SỬA THÔNG TIN SẢN PHẨM ---");
         System.out.print("Nhập Mã SP cần sửa: ");
         String masp = sc.nextLine();
 
-        // 1. Tìm sản phẩm trong mảng
         VanPhongPham spcansua = timMaSP(masp);
 
-        // 2. Kiểm tra nếu không tìm thấy
         if (spcansua == null) {
             System.out.println("❌ Không tìm thấy sản phẩm có mã: " + masp);
             return;
         }
 
-        // 3. Nếu tìm thấy -> Hiển thị menu sửa
         System.out.println("✅ Đã tìm thấy! Đang sửa sản phẩm: " + spcansua.getTenSP() + " (Mã: " + spcansua.getMaSP() + ")");
         boolean daLuu = false;
 
-        // Vòng lặp cho phép sửa nhiều thông tin
         while (!daLuu) {
             System.out.println("\nChọn thông tin cần sửa:");
             System.out.println("1. Sửa Tên sản phẩm");
@@ -190,7 +210,6 @@ public class DSVPP {
             System.out.println("3. Sửa Đơn giá");
             System.out.println("4. Sửa Đơn vị tính");
 
-            // Menu động: Tùy chọn sẽ khác nhau dựa trên loại sản phẩm
             if (spcansua instanceof VanPhong) {
                 System.out.println("5. Sửa Phân loại chức năng");
             } else if (spcansua instanceof DoChoi) {
@@ -202,14 +221,13 @@ public class DSVPP {
 
             int luachon;
             
-            // Kiểm tra nhập số
             if (sc.hasNextInt()) {
                 luachon = sc.nextInt();
-                sc.nextLine(); // Tiêu thụ ký tự newline
+                sc.nextLine();
             } else {
                 System.out.println("❌ Lỗi: Vui lòng nhập một số.");
-                sc.next(); // Loại bỏ input sai
-                continue; // Quay lại đầu vòng lặp
+                sc.next();
+                continue;
             }
             switch (luachon) {
                 case 1:
@@ -260,7 +278,7 @@ public class DSVPP {
                     }
                     break;
                 case 0:
-                    daLuu = true; // Đặt cờ để thoát vòng lặp
+                    daLuu = true;
                     break;
                 default:
                     System.out.println("❌ Lựa chọn không hợp lệ. Vui lòng chọn lại.");
@@ -285,7 +303,7 @@ public class DSVPP {
                 line += "," + ((DoChoi) spmoi).getLuaTuoi() + "," + ((DoChoi) spmoi).getTheLoai();
             } else {
                 System.out.println("⚠️ Lỗi: Loại đối tượng không xác định.");
-                return; // Không ghi
+                return;
             }
             bw.write(line);
             bw.newLine();
@@ -299,25 +317,38 @@ public class DSVPP {
     public VanPhongPham timMaSP(String masp) {
        for (int i = 0; i < n; i++) {
             if (dsvpp[i].getMaSP().equalsIgnoreCase(masp)) {
-                return dsvpp[i]; // Trả về đối tượng sản phẩm nếu tìm thấy
+                return dsvpp[i];
             }
         }
-        return null; // Trả về null nếu không tìm thấy
+        return null;
 
     }
+
+    public String timMaSP() {
+        System.out.print("Nhập mã sp cần tìm: ");
+        String masp = sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            if (dsvpp[i].getMaSP().equalsIgnoreCase(masp)) {
+                return masp;
+            }
+        }
+        return null;
+
+    }
+
     public boolean maDuyNhat(String masp) {
         for (int i = 0; i < n; i++) {
             if (dsvpp[i].getMaSP().equals(masp)) {
-                return false; // Mã đã tồn tại
+                return false;
             }
         }
-        return true; // Mã duy nhất
+        return true;
     }
     public void capNhatSLSP(String masp, int soluong) {
         for (int i = 0; i < n; i++) {
             if (dsvpp[i].getMaSP().equals(masp)) {
                 int sanphamhientai = dsvpp[i].getSoLuong();
-                int spmoi = sanphamhientai + soluong; // soluong có thể âm (bán hàng) hoặc dương (nhập hàng)
+                int spmoi = sanphamhientai + soluong;
                 if (spmoi < 0) {
                     System.out.println("❌ Không đủ tồn kho để trừ. Hiện tại: " + sanphamhientai + ", yêu cầu trừ: " + (-soluong));
                     return;
@@ -330,18 +361,41 @@ public class DSVPP {
         }
         System.out.println("❌ Không tìm thấy sản phẩm có mã: " + masp);
     }
+    public void capNhatDGSP(String masp, int dongia) {
+        for (int i = 0; i < n; i++) {
+            if (dsvpp[i].getMaSP().equals(masp)) {
+                int dongiahientai = dsvpp[i].getDonGia();
+                dsvpp[i].setDonGia(dongia);
+                ghiLaiToanBoFileSanPham();
+                System.out.println("Đã cập nhật đơn giá sản phẩm " + dsvpp[i].getMaSP() + " từ " + dongiahientai + " -> " + dongia);
+                return;
+            }
+        }
+        System.out.println("❌ Không tìm thấy sản phẩm có mã: " + masp);
+    }
+    public void capNhatDonViTinh(String masp, String donvitinh) {
+        for (int i = 0; i < n; i++) {
+            if (dsvpp[i].getMaSP().equals(masp)) {
+                String donvitinhhientai = dsvpp[i].getDonViTinh();
+                dsvpp[i].setDonViTinh(donvitinh);
+                ghiLaiToanBoFileSanPham();
+                System.out.println("Đã cập nhật SL sản phẩm " + dsvpp[i].getMaSP() + " từ " + donvitinhhientai + " -> " + donvitinh);
+                return;
+            }
+        }
+        System.out.println("❌ Không tìm thấy sản phẩm có mã: " + masp);
+    }
+
+
+
+
     private void ghiLaiToanBoFileSanPham() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("VanPhongPham.txt"))) {
             for (int i = 0; i < n; i++) {
                 if (dsvpp[i] == null) continue;
                 VanPhongPham sp = dsvpp[i];
                 String loai = (sp.getLoaiSP() != null) ? sp.getLoaiSP().getMaLoai() : "";
-                String line = loai + "," +
-                              sp.getMaSP() + "," +
-                              sp.getTenSP() + "," +
-                              sp.getSoLuong() + "," +
-                              sp.getDonGia() + "," +
-                              sp.getDonViTinh();
+                String line = loai + "," + sp.getMaSP() + "," + sp.getTenSP() + "," + sp.getSoLuong() + "," + sp.getDonGia() + "," +sp.getDonViTinh();
                 if (sp instanceof VanPhong) {
                     line += "," + ((VanPhong) sp).getPhanLoaiChucNang();
                 } else if (sp instanceof DoChoi) {
@@ -354,6 +408,87 @@ public class DSVPP {
             System.out.println("❌ Lỗi khi ghi lại file sản phẩm: " + e.getMessage());
         }
     }
+
+public void xoaSanPham() {
+    System.out.println("\n--- XÓA SẢN PHẨM ---");
+    if (n == 0) {
+        System.out.println("Danh sách sản phẩm rỗng. Không có gì để xóa.");
+        return;
+    }
     
+    System.out.print("Nhập Mã SP cần xóa: ");
+    String maspCanXoa = sc.nextLine();
+
+    int viTriXoa = -1;
     
+    for (int i = 0; i < n; i++) {
+        if (dsvpp[i].getMaSP().equalsIgnoreCase(maspCanXoa)) {
+            viTriXoa = i;
+            break; 
+        }
+    }
+
+    if (viTriXoa == -1) {
+        System.out.println("❌ Không tìm thấy sản phẩm có mã: " + maspCanXoa);
+        return;
+    }
+    
+    System.out.println("✅ Đã tìm thấy sản phẩm: " + dsvpp[viTriXoa].getTenSP());
+    System.out.print("Bạn có chắc chắn muốn xóa sản phẩm này? (Y/N): ");
+    String confirm = sc.nextLine();
+
+    if (confirm.equalsIgnoreCase("Y")) {
+        
+        for (int i = viTriXoa; i < n - 1; i++) {
+            dsvpp[i] = dsvpp[i + 1];
+        }
+        
+        dsvpp[n - 1] = null; 
+        
+        n--; 
+        
+        ghiLaiToanBoFileSanPham(); 
+        
+        System.out.println("✅ Đã xóa thành công sản phẩm có mã: " + maspCanXoa);
+    } else {
+        System.out.println("Hủy bỏ thao tác xóa.");
+    }
+}
+    public int tinhTongTonKho(){
+        int tongtonkho = 0;
+        for(int i = 0; i < n; i++){
+            tongtonkho += dsvpp[i].getSoLuong();
+        }
+        return tongtonkho;
+    }
+    
+    public int demSanPhamSapHetHang(int warning){
+        int saphethang = 0;
+        for(int i = 0; i < n; i++){
+            if(dsvpp[i].getSoLuong() < warning){
+                saphethang++;
+            }
+        }
+        return saphethang;
+    }
+
+    public int demSanPhamHetHang(){
+        int hethang = 0;
+        for(int i = 0; i < n; i++){
+            if(dsvpp[i].getSoLuong() == 0){
+                hethang++;
+            }
+        }
+        return hethang;
+    }
+
+    public int tongSoLuongSanPham(){
+        int tongsanpham = 0;
+        for(int i = 0; i < n; i++){
+            if(dsvpp[i] != null){
+                tongsanpham++;
+            }
+        }
+        return tongsanpham;
+    }
 }

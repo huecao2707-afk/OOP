@@ -9,7 +9,7 @@ public class DSKH {
         private int n;
         public KhachHang[] dskh;
         public DSKH(){
-            dskh = new KhachHang[300]; // 300 san pham t
+            dskh = new KhachHang[300];
             n = 0;
         }
         public DSKH(int n, KhachHang []dskh){
@@ -47,7 +47,7 @@ public class DSKH {
     }
 
     public void ghiLaiToanBoFileKhachHang() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("KhachHang.txt", false))) { // <-- false để ghi đè (overwrite)
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("KhachHang.txt", false))) {
             for (int i = 0; i < n; i++) {
                 KhachHang kh = dskh[i];
                 String line = kh.getMaKH() + "," + kh.getHo() + "," + kh.getTen() + "," + kh.getSoDT() + "," + kh.getDiaChi();
@@ -60,40 +60,32 @@ public class DSKH {
     }
 
     public void docFileKhachHang() {
-        n = 0; // Reset số lượng về 0
+        n = 0;
         try (BufferedReader br = new BufferedReader(new FileReader("KhachHang.txt"))) {
             String line;
 
-            while ((line = br.readLine()) != null) { // Đọc từng dòng
+            while ((line = br.readLine()) != null) {
                 String[] thongtin = line.split(",");
 
-                // Kiểm tra xem có đủ 5 trường thông tin hay không:
-                // makh, ho, ten, diachi, sodt
                 if (thongtin.length < 5) {
                     System.out.println("Lỗi dữ liệu: Không đủ thông tin khách hàng. Bỏ qua: " + line);
-                    continue; // Bỏ qua dòng này
+                    continue;
                 }
 
-                // 1. Mã KH (thongtin[0])
-                // 2. Họ (thongtin[1])
-                // 3. Tên (thongtin[2])
-                // 4. Địa chỉ (thongtin[3])
-                // 5. Số ĐT (thongtin[4])
-
                 KhachHang kh = new KhachHang(
-                        thongtin[0].trim(), // makh
-                        thongtin[1].trim(), // ho
-                        thongtin[2].trim(), // ten
-                        thongtin[3].trim(), // diachi
-                        thongtin[4].trim()  // sodt
+                        thongtin[0].trim(),
+                        thongtin[1].trim(),
+                        thongtin[2].trim(),
+                        thongtin[3].trim(),
+                        thongtin[4].trim()
                 );
 
-                dskh[n] = kh; // Thêm khách hàng vào mảng
-                n++; // Tăng số lượng
+                dskh[n] = kh;
+                n++;
 
                 if (n >= dskh.length) {
                     System.out.println("Cảnh báo: Đã đầy mảng lưu trữ khách hàng.");
-                    break; // Dừng nếu mảng đầy
+                    break;
                 }
             }
         } catch (IOException e) {
@@ -101,7 +93,6 @@ public class DSKH {
         }
     }
 
-    // Hàm in ra danh sách khách hàng để kiểm tra
     public void xuatDanhSachKhachHang() {
         if (n == 0) {
             System.out.println("Danh sách khách hàng trống.");
@@ -119,11 +110,8 @@ public class DSKH {
         }
         System.out.println(line);
     }
-    // Trong file DSKH.java (Thêm vào class DSKH)
     public KhachHang timKiemTheoMa(String makh) {
-        // Giả sử dskh là mảng chứa các đối tượng KhachHang
         for (int i = 0; i < dskh.length; i++) {
-            // Phải kiểm tra null nếu mảng có thể có phần tử null
             if (dskh[i] != null && dskh[i].getMaKH().equalsIgnoreCase(makh)) {
                 return dskh[i];
             }
@@ -134,9 +122,8 @@ public class DSKH {
     public KhachHang timKiemTheoMa() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập mã của khách hàng cần tìm: ");
-        String ma = sc.nextLine();      // Giả sử dskh là mảng chứa các đối tượng KhachHang
+        String ma = sc.nextLine();
         for (int i = 0; i < dskh.length; i++) {
-            // Phải kiểm tra null nếu mảng có thể có phần tử null
             if (dskh[i] != null && dskh[i].getMaKH().equalsIgnoreCase(ma)) {
                 System.out.printf("%s, %s, %s, %s", dskh[i].getMaKH(), dskh[i].getHo() + " " + dskh[i].getTen(), dskh[i].getSoDT() , dskh[i].getDiaChi());
                 return dskh[i];
@@ -148,14 +135,13 @@ public class DSKH {
     public boolean maDuyNhat(String makh) {
         for (int i = 0; i < n; i++) {
             if (dskh[i].getMaKH().equalsIgnoreCase(makh)) {
-                return false; // Mã đã tồn tại
+                return false;
             }
         }
-        return true; // Mã duy nhất
+        return true;
     }
 
     public void themKhachHang(){
-        // 1. Kiểm tra mảng còn chỗ không
         if (n >= dskh.length) {
             System.out.println("❌ Mảng trong bộ nhớ đã đầy, không thể thêm!");
             return ;
@@ -211,11 +197,11 @@ public class DSKH {
                 System.out.println("Chọn thông tin cần sửa");
                 System.out.println("1. Sửa Họ");
                 System.out.println("2. Sửa Tên");
-                System.out.println("2. Sửa Địa Chỉ");
-                System.out.println("3. Sửa Số Điện Thoại");
+                System.out.println("3. Sửa Địa Chỉ");
+                System.out.println("4. Sửa Số Điện Thoại");
                 System.out.print("Chọn: ");
                 int luachon = sc.nextInt();
-                sc.nextLine(); // tránh trôi dòng
+                sc.nextLine();
                 if (luachon == 1) {
                     System.out.print("Nhập họ mới: ");
                     String newHo = sc.nextLine();
@@ -229,7 +215,7 @@ public class DSKH {
                     String newdiachi = sc.nextLine();
                     dskh[i].setDiaChi(newdiachi);
 
-                } else if (luachon == 3) {
+                } else if (luachon == 4) {
                     System.out.print("Nhập lương mới: ");
                     String newsdt = sc.nextLine();
                     dskh[i].setSoDT(newsdt);

@@ -1,16 +1,12 @@
 import java.util.Scanner;
 
 public class QLNV extends QuanLyBanHang{
-    // Trong QLNV.java (Thêm phương thức mới này)
     public void thongKeHieuSuatBanHang() {
         System.out.println("\n--- THỐNG KÊ HIỆU SUẤT BÁN HÀNG CỦA NHÂN VIÊN ---");
         
         int soluongdonhang, tongtiendonhang, max, min;
         double avg;
         
-        /*
-        duyệt qua toàn bộ mảng nhân viên với từng nhân viên mik duyệt trong mảng đơn hàng để lấy tổng tiền và số lượng đơn tính max min avg
-        */
         int nNV = QuanLyBanHang.dsnv.getN();
         int nHD = QuanLyBanHang.dshd.getN();
         String line = "+------------+---------------------------+-----------------+-----------------+-----------------+-----------------+-----------------+";
@@ -29,24 +25,20 @@ public class QLNV extends QuanLyBanHang{
             int minTienDon = Integer.MAX_VALUE;
             int maxTienDon = Integer.MIN_VALUE;
 
-        // VÒNG LẶP CON: Duyệt qua toàn bộ Hóa Đơn (Dùng nHD)
         for (int j = 0; j < nHD; j++) {
             HoaDon hd = QuanLyBanHang.dshd.dshd[j];
             if (hd == null) continue; 
-            // So sánh Mã NV của Hóa đơn với Mã NV hiện tại
             if (hd.getMaNV().equalsIgnoreCase(nv.getMaNV())) {
                 
                 int tienDon = hd.getTongTien();
                 tongTien += tienDon;
                 soDon++;
                 
-                // Tìm Min/Max của các đơn hàng này
                 if (tienDon < minTienDon) minTienDon = tienDon;
                 if (tienDon > maxTienDon) maxTienDon = tienDon;
             }
         }
         
-        // Xuất kết quả nếu Nhân viên có đơn hàng
         if (soDon > 0) {
             nvCoBanHang++;
             String tenNV = nv.getHo() + " " + nv.getTen();

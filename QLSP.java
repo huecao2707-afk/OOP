@@ -23,13 +23,13 @@ class QLSP extends QuanLyBanHang{
                     dsvpp.themSanPham();
                     break;
                 case 3:
-                    //dsvpp.xoaSanPham();
+                    dsvpp.xoaSanPham();
                     break;
                 case 4:
-                    // dsvpp.suaSanPham();
+                    dsvpp.suaSanPham();
                     break;
                 case 5:
-                    // dsvpp.timKiemSanPham();
+                    dsvpp.xuat(dsvpp.timMaSP());
                     break;
             }
         } while (choice != 0);

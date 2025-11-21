@@ -40,15 +40,10 @@ public class DoChoi extends VanPhongPham{
         System.out.print("Lứa tuổi: ");
         luatuoi = sc.nextLine();
     }
-   
     @Override
     public void xuat() {
         super.xuat();
         String format = "| %-20s | %-10s | %-10s |\n";
-        System.out.printf(format,
-        "", // Cột 7
-            luatuoi, // Cột 8
-            theloai  // Cột 9
-        );
+        System.out.printf(format,"",luatuoi,theloai);
     }
 }

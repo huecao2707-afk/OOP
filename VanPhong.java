@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 public class VanPhong extends VanPhongPham{
     private String phanloaichucnang;
@@ -24,17 +23,10 @@ public class VanPhong extends VanPhongPham{
         Scanner sc = new Scanner(System.in);
         phanloaichucnang = sc.nextLine();
     }
-    // Sửa lại hàm xuat() của lớp VanPhong
     @Override
     public void xuat() {
         super.xuat(); 
-        String format = "| %-20s | %-10s | %-10s |\n"; // Có \n
-
-        // 3. In 3 cột cuối
-        System.out.printf(format,
-            phanloaichucnang, // Cột 7
-            "",               // Cột 8
-            ""                // Cột 9
-        );
+        String format = "| %-20s | %-10s | %-10s |\n";
+        System.out.printf(format,phanloaichucnang,"","");
     }
 }

@@ -1,4 +1,3 @@
-
 public abstract class QuanLyBanHang {
     static DSVPP dsvpp;
     static DSKH dskh ;
@@ -8,11 +7,8 @@ public abstract class QuanLyBanHang {
     static DSCTPNH dsctpnh;
     static DSHD dshd;
     static DSCTHD dscthd ;
-   
+
     static {
-        // System.out.println("Đang tải dữ liệu từ các file...");
-        
-        // Khởi tạo các đối tượng danh sách
         dsvpp = new DSVPP();
         dskh = new DSKH();
         dsncc = new DSNCC();
@@ -29,11 +25,9 @@ public abstract class QuanLyBanHang {
         dshd.docFileHoaDon();
         dscthd.docFileCTHD();
         dsctpnh.docFileCTPNH();
-
     }
 
     public QuanLyBanHang(){
-
     }
     public QuanLyBanHang(DSVPP dsvpp, DSKH dskh, DSNCC dsncc, DSNV dsnv, DSPNH dspnh, DSCTPNH dsctpnh, DSHD dshd, DSCTHD dscthd){
         this.dsvpp = dsvpp;
@@ -56,6 +50,5 @@ public abstract class QuanLyBanHang {
         this.dscthd = other.dscthd;
     }
     
-    // public void
     public abstract void menuChinh();   
 }
